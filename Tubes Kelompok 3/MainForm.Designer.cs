@@ -1,6 +1,6 @@
 ﻿namespace Tubes_Kelompok_3
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,13 +28,32 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.containerPanel = new System.Windows.Forms.Panel();
+            this.SuspendLayout();
+            // 
+            // containerPanel
+            // 
+            this.containerPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.containerPanel.Location = new System.Drawing.Point(0, 0);
+            this.containerPanel.Name = "containerPanel";
+            this.containerPanel.Size = new System.Drawing.Size(800, 450);
+            this.containerPanel.TabIndex = 0;
+            // 
+            // MainForm
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.containerPanel);
+            this.Name = "MainForm";
             this.Text = "Form1";
+            this.ResumeLayout(false);
+
         }
 
         #endregion
+
+        private System.Windows.Forms.Panel containerPanel;
     }
 }
 
