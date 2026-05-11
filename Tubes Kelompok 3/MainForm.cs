@@ -21,13 +21,31 @@ namespace Tubes_Kelompok_3
         }
         public void SwitchView(UserControl newView)
         {
-            containerPanel.Controls.Clear(); // Membersihkan tampilan sebelumnya
-            newView.Dock = DockStyle.Fill;   // Menyesuaikan ukuran windows menjadi full
-            containerPanel.Controls.Add(newView); // Menampilkan layar yang baru
+            // PRECONDITION: View baru harus ada (tidak boleh null)
+            if (newView == null){
+                throw new ArgumentNullException(nameof(newView), "Kontrak Dilanggar: MainForm memerlukan UserControl valid untuk ditampilkan.");
+            }
+
+            foreach (Control control in containerPanel.Controls)
+            {
+                control.Dispose();
+            }
+            containerPanel.Controls.Clear();
+
+            newView.Dock = DockStyle.Fill;
+            containerPanel.Controls.Add(newView);
+
+            // POSTCONDITION: Container harus memiliki tepat 1 control
+            System.Diagnostics.Debug.Assert(containerPanel.Controls.Count == 1, "Kontrak Pasca-kondisi: Container gagal memuat view baru.");
         }
 
         private void HandlePerubahanAlur(AlurGame alurBaru)
         {
+            if (this.InvokeRequired){
+                this.Invoke(new Action<AlurGame>(HandlePerubahanAlur), alurBaru);
+                return;
+            }
+
             switch (alurBaru)
             {
                 case AlurGame.MAIN_MENU:
@@ -50,6 +68,9 @@ namespace Tubes_Kelompok_3
                     System.Diagnostics.Debug.WriteLine("Alur Saat Ini : MODE MENCOCOKAN KATA");
                     SwitchView(new ModeMencocokanKataControl());
                     break;
+                default:
+                    System.Diagnostics.Debug.WriteLine($"[ERROR] Transisi state tidak dikenal: {alurBaru}");
+                    throw new ArgumentOutOfRangeException(nameof(alurBaru), alurBaru, "Transisi state di luar definisi AlurGame.");
             }
         }
     }

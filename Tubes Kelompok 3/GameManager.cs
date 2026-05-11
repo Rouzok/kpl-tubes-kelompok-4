@@ -12,25 +12,24 @@ namespace Tubes_Kelompok_3
     {
         public static event Action<AlurGame> OnAlurChanged;
         private static AlurGame _alurSaatIni = AlurGame.NULL;
+
         public static AlurGame AlurSaatIni
         {
             get { return _alurSaatIni; }
             set
             {
+                // PRECONDITION: Alur baru tidak boleh NULL
+                if (value == AlurGame.NULL)
+                {
+                    throw new ArgumentException("Kontrak Dilanggar: AlurGame tidak boleh diatur ke NULL setelah inisialisasi.");
+                }
+
                 if (_alurSaatIni != value)
                 {
                     _alurSaatIni = value;
-
                     OnAlurChanged?.Invoke(_alurSaatIni);
                 }
             }
         }
-
     }
-    //public class GameMode
-    //{
-    //    private string nama;
-    //    private int level;
-    //    private
-    //}
 }
