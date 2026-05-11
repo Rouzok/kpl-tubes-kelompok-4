@@ -21,5 +21,20 @@ namespace Tubes_Kelompok_3
         {
             GameManager.AlurSaatIni = AlurGame.MENU_PILIH_MODE;
         }
+
+        private void btnLevel1_Click(object sender, EventArgs e)
+        {
+            GameManager.AlurSaatIni = AlurGame.MODE_MENCOCOKKANKATA_LEVEL1;
+        }
+
+        private void btnLevel2_Click(object sender, EventArgs e)
+        {
+            GameManager.AlurSaatIni = AlurGame.MODE_MENCOCOKKANKATA_LEVEL2;
+        }
+
+        private void btnLevel3_Click(object sender, EventArgs e)
+        {
+            GameManager.AlurSaatIni = AlurGame.MODE_MENCOCOKKANKATA_LEVEL3;
+        }
     }
 }

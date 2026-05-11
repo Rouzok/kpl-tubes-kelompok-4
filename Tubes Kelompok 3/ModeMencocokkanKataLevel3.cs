@@ -10,17 +10,16 @@ using System.Windows.Forms;
 
 namespace Tubes_Kelompok_3
 {
-    public partial class ModeGambarControl : UserControl
+    public partial class ModeMencocokkanKataLevel3 : UserControl
     {
-        public ModeGambarControl()
+        public ModeMencocokkanKataLevel3()
         {
             InitializeComponent();
         }
-
         private void btnPilihMenuPilihMode_Click(object sender, EventArgs e)
         {
             GameManager.AlurSaatIni = AlurGame.MENU_PILIH_MODE;
-            
+
         }
         private void btnLevel1_Click(object sender, EventArgs e)
         {
@@ -34,7 +33,22 @@ namespace Tubes_Kelompok_3
 
         private void btnLevel3_Click(object sender, EventArgs e)
         {
-            GameManager.AlurSaatIni = AlurGame.MODE_GAMBAR_LEVEL3;
+           
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ProgressGame.ScoreMencocokanKataLevel3 = 15;
+
+            // Update progress
+            ProgressGame.ProgressMencocokanKata =
+                ProgressMencocokanKata.SELESAI;
+
+            MessageBox.Show("Mode mencocokan kata selesai!");
+
+            // Kembali ke menu utama
+            GameManager.AlurSaatIni =
+                AlurGame.MAIN_MENU;
         }
     }
 }

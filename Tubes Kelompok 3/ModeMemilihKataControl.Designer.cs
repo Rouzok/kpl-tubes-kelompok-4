@@ -6,6 +6,10 @@
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
+        private System.Windows.Forms.Button btnLevel1;
+        private System.Windows.Forms.Button btnLevel2;
+        private System.Windows.Forms.Button btnLevel3;
+        private System.Windows.Forms.Label lblTitle;
 
         /// <summary> 
         /// Clean up any resources being used.
@@ -22,54 +26,67 @@
 
         #region Component Designer generated code
 
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
-            this.btnMenuPilihMode = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
+            this.btnLevel1 = new System.Windows.Forms.Button();
+            this.btnLevel2 = new System.Windows.Forms.Button();
+            this.btnLevel3 = new System.Windows.Forms.Button();
+            this.lblTitle = new System.Windows.Forms.Label();
             this.SuspendLayout();
+
             // 
-            // btnMenuPilihMode
+            // lblTitle
             // 
-            this.btnMenuPilihMode.Location = new System.Drawing.Point(60, 111);
-            this.btnMenuPilihMode.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.btnMenuPilihMode.Name = "btnMenuPilihMode";
-            this.btnMenuPilihMode.Size = new System.Drawing.Size(119, 28);
-            this.btnMenuPilihMode.TabIndex = 0;
-            this.btnMenuPilihMode.Text = "Main Menu";
-            this.btnMenuPilihMode.UseVisualStyleBackColor = true;
-            this.btnMenuPilihMode.Click += new System.EventHandler(this.btnMenuPilihMode_Click);
+            this.lblTitle.AutoSize = true;
+            this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
+            this.lblTitle.Location = new System.Drawing.Point(50, 20);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(220, 25);
+            this.lblTitle.Text = "Pilih Level Memilih Kata";
+
             // 
-            // label1
+            // btnLevel1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(57, 34);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(112, 16);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Quiz Memilih Kata";
+            this.btnLevel1.Location = new System.Drawing.Point(100, 80);
+            this.btnLevel1.Name = "btnLevel1";
+            this.btnLevel1.Size = new System.Drawing.Size(120, 35);
+            this.btnLevel1.Text = "Level 1";
+            this.btnLevel1.UseVisualStyleBackColor = true;
+            this.btnLevel1.Click += new System.EventHandler(this.btnLevel1_Click);
+
             // 
-            // ModeMemilihKata
+            // btnLevel2
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.btnMenuPilihMode);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.Name = "ModeMemilihKata";
-            this.Size = new System.Drawing.Size(200, 185);
+            this.btnLevel2.Location = new System.Drawing.Point(100, 130);
+            this.btnLevel2.Name = "btnLevel2";
+            this.btnLevel2.Size = new System.Drawing.Size(120, 35);
+            this.btnLevel2.Text = "Level 2";
+            this.btnLevel2.UseVisualStyleBackColor = true;
+            this.btnLevel2.Click += new System.EventHandler(this.btnLevel2_Click);
+
+            // 
+            // btnLevel3
+            // 
+            this.btnLevel3.Location = new System.Drawing.Point(100, 180);
+            this.btnLevel3.Name = "btnLevel3";
+            this.btnLevel3.Size = new System.Drawing.Size(120, 35);
+            this.btnLevel3.Text = "Level 3";
+            this.btnLevel3.UseVisualStyleBackColor = true;
+            this.btnLevel3.Click += new System.EventHandler(this.btnLevel3_Click);
+
+            // 
+            // ModeMemilihKataControl
+            // 
+            this.Controls.Add(this.lblTitle);
+            this.Controls.Add(this.btnLevel1);
+            this.Controls.Add(this.btnLevel2);
+            this.Controls.Add(this.btnLevel3);
+            this.Name = "ModeMemilihKataControl";
+            this.Size = new System.Drawing.Size(314, 284);
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         #endregion
-
-        private System.Windows.Forms.Button btnMenuPilihMode;
-        private System.Windows.Forms.Label label1;
     }
 }
