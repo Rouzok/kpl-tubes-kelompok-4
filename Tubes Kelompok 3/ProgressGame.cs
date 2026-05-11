@@ -86,5 +86,11 @@ namespace Tubes_Kelompok_3
                    ScoreMencocokanKataLevel2 +
                    ScoreMencocokanKataLevel3;
         }
+
+        // DEFENSIVE PROGRAMMING VALIDASI SCORE
+        public static bool IsValidScore(int score)
+        {
+            return score >= 0 && score <= 100;
+        }
     }
 }

@@ -15,6 +15,12 @@ namespace Tubes_Kelompok_3
         public ModeMencocokanKataControl()
         {
             InitializeComponent();
+            if (ProgressGame.ProgressMencocokanKata ==
+                ProgressMencocokanKata.LOCKED)
+            {
+                ProgressGame.ProgressMencocokanKata =
+                ProgressMencocokanKata.LEVEL1;
+            }
         }
 
         private void btnMenuPilihMode_Click(object sender, EventArgs e)
