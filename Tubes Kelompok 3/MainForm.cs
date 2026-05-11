@@ -17,7 +17,7 @@ namespace Tubes_Kelompok_3
             InitializeComponent();
             GameManager.OnAlurChanged += HandlePerubahanAlur;
 
-            GameManager.AlurSaatIni = AlurGame.MAIN_MENU;
+            GameManager.AlurSaatIni = AlurGame.HalamanLogin;
         }
         public void SwitchView(UserControl newView)
         {
@@ -30,6 +30,14 @@ namespace Tubes_Kelompok_3
         {
             switch (alurBaru)
             {
+                case AlurGame.HalamanLogin:
+                    System.Diagnostics.Debug.WriteLine("Alur Saat Ini : HALAMAN LOGIN");
+                    SwitchView(new HalamanLoginControl());
+                    break;
+                case AlurGame.HalamanRegistrasi:
+                    System.Diagnostics.Debug.WriteLine("Alur Saat Ini : HALAMAN REGISTRASI");
+                    SwitchView(new HalamanRegistrasiControl());
+                    break;
                 case AlurGame.MAIN_MENU:
                     System.Diagnostics.Debug.WriteLine("Alur Saat Ini : MAIN MENU");
                     SwitchView(new MainMenuControl());

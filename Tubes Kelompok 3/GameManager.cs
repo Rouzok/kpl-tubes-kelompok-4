@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace Tubes_Kelompok_3
 {
-    public enum AlurGame { NULL, MAIN_MENU, MENU_PILIH_MODE, MODE_MEMILIH_KATA, MODE_GAMBAR, MODE_MENCOCOKAN_KATA}
+    public enum AlurGame { NULL, HalamanLogin, HalamanRegistrasi, MAIN_MENU, MENU_PILIH_MODE, MODE_MEMILIH_KATA, MODE_GAMBAR, MODE_MENCOCOKAN_KATA}
     public static class GameManager
     {
         public static event Action<AlurGame> OnAlurChanged;

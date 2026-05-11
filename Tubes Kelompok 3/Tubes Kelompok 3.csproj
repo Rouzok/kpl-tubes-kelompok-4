@@ -49,6 +49,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GameManager.cs" />
+    <Compile Include="HalamanLoginControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="HalamanLoginControl.Designer.cs">
+      <DependentUpon>HalamanLoginControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HalamanRegistrasiControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="HalamanRegistrasiControl.Designer.cs">
+      <DependentUpon>HalamanRegistrasiControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -87,6 +99,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="HalamanLoginControl.resx">
+      <DependentUpon>HalamanLoginControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HalamanRegistrasiControl.resx">
+      <DependentUpon>HalamanRegistrasiControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
