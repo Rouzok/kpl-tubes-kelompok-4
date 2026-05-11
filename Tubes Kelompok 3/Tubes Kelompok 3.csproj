@@ -145,5 +145,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AuthLibrary\AuthLibrary.csproj">
+      <Project>{e7f04458-3864-4695-be74-901bb29f20ec}</Project>
+      <Name>AuthLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

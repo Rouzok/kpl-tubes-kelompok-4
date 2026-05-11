@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using AuthLibrary; //Library
 
 namespace Tubes_Kelompok_3
 {
@@ -71,31 +72,42 @@ namespace Tubes_Kelompok_3
                 string passwordRegistrasi = tb_password_registrasi.Text;
 
                 //Defensive Programming 
-                if (string.IsNullOrWhiteSpace(namaDepan))
+                if (ValidasiInput.IsEmpty(namaDepan)) //Library
                 {
                     MessageBox.Show("Nama depan tidak boleh kosong!");
                     return;
                 }
+                if (!ValidasiInput.IsNameValid(namaDepan)) //Library
+                {
+                    MessageBox.Show("Nama depan hanya boleh huruf!");
+                    return;
+                }
 
-                if (string.IsNullOrWhiteSpace(namaBelakang))
+                if (ValidasiInput.IsEmpty(namaBelakang)) //Library
                 {
                     MessageBox.Show("Nama belakang tidak boleh kosong!");
                     return;
                 }
 
-                if (string.IsNullOrWhiteSpace(usernameRegistrasi))
+                if (ValidasiInput.IsEmpty(usernameRegistrasi)) //Library
                 {
                     MessageBox.Show("Username tidak boleh kosong!");
                     return;
                 }
 
-                if (string.IsNullOrWhiteSpace(passwordRegistrasi))
+                if (!ValidasiInput.IsUsernameValid(usernameRegistrasi)) //Library
+                {
+                    MessageBox.Show("Username minimal 5 karakter!");
+                    return;
+                }
+
+                if (ValidasiInput.IsEmpty(passwordRegistrasi)) //Library
                 {
                     MessageBox.Show("Password tidak boleh kosong!");
                     return;
                 }
 
-                if (passwordRegistrasi.Length < 6)
+                if (!ValidasiInput.IsPasswordValid(passwordRegistrasi)) //Library
                 {
                     MessageBox.Show("Password minimal 6 karakter!");
                     return;

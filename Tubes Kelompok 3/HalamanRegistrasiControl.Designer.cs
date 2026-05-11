@@ -28,24 +28,28 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
+            this.lbl_register = new System.Windows.Forms.Label();
             this.tb_nama_depan = new System.Windows.Forms.TextBox();
             this.tb_nama_belakang = new System.Windows.Forms.TextBox();
             this.tb_username_registrasi = new System.Windows.Forms.TextBox();
             this.tb_password_registrasi = new System.Windows.Forms.TextBox();
             this.btn_register = new System.Windows.Forms.Button();
+            this.lbl_nama_depan = new System.Windows.Forms.Label();
+            this.lbl_nama_belakang = new System.Windows.Forms.Label();
+            this.lbl_username_registrasi = new System.Windows.Forms.Label();
+            this.lbl_password_registrasi = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // label1
+            // lbl_register
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Times New Roman", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(97, 56);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(136, 37);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Register";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
+            this.lbl_register.AutoSize = true;
+            this.lbl_register.Font = new System.Drawing.Font("Times New Roman", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_register.Location = new System.Drawing.Point(58, 54);
+            this.lbl_register.Name = "lbl_register";
+            this.lbl_register.Size = new System.Drawing.Size(219, 37);
+            this.lbl_register.TabIndex = 0;
+            this.lbl_register.Text = "REGISTRASI";
+            this.lbl_register.Click += new System.EventHandler(this.label1_Click);
             // 
             // tb_nama_depan
             // 
@@ -54,27 +58,24 @@
             this.tb_nama_depan.Name = "tb_nama_depan";
             this.tb_nama_depan.Size = new System.Drawing.Size(260, 28);
             this.tb_nama_depan.TabIndex = 1;
-            this.tb_nama_depan.Text = "Masukkan nama depan Anda";
             this.tb_nama_depan.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // tb_nama_belakang
             // 
             this.tb_nama_belakang.Font = new System.Drawing.Font("Times New Roman", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tb_nama_belakang.Location = new System.Drawing.Point(38, 210);
+            this.tb_nama_belakang.Location = new System.Drawing.Point(38, 216);
             this.tb_nama_belakang.Name = "tb_nama_belakang";
             this.tb_nama_belakang.Size = new System.Drawing.Size(260, 28);
             this.tb_nama_belakang.TabIndex = 2;
-            this.tb_nama_belakang.Text = "Masukkan nama belakang Anda";
             this.tb_nama_belakang.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // tb_username_registrasi
             // 
             this.tb_username_registrasi.Font = new System.Drawing.Font("Times New Roman", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tb_username_registrasi.Location = new System.Drawing.Point(38, 264);
+            this.tb_username_registrasi.Location = new System.Drawing.Point(38, 267);
             this.tb_username_registrasi.Name = "tb_username_registrasi";
             this.tb_username_registrasi.Size = new System.Drawing.Size(260, 28);
             this.tb_username_registrasi.TabIndex = 3;
-            this.tb_username_registrasi.Text = "Masukkan username Anda";
             this.tb_username_registrasi.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
             // 
             // tb_password_registrasi
@@ -84,30 +85,73 @@
             this.tb_password_registrasi.Name = "tb_password_registrasi";
             this.tb_password_registrasi.Size = new System.Drawing.Size(260, 28);
             this.tb_password_registrasi.TabIndex = 4;
-            this.tb_password_registrasi.Text = "Masukkan password Anda";
             // 
             // btn_register
             // 
             this.btn_register.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_register.Location = new System.Drawing.Point(104, 385);
+            this.btn_register.Location = new System.Drawing.Point(90, 384);
             this.btn_register.Name = "btn_register";
-            this.btn_register.Size = new System.Drawing.Size(130, 39);
+            this.btn_register.Size = new System.Drawing.Size(153, 51);
             this.btn_register.TabIndex = 5;
-            this.btn_register.Text = "REGISTER";
+            this.btn_register.Text = "REGISTRASI";
             this.btn_register.UseVisualStyleBackColor = true;
             this.btn_register.Click += new System.EventHandler(this.btn_registrasi_Click);
             // 
-            // HalamanRegister
+            // lbl_nama_depan
+            // 
+            this.lbl_nama_depan.AutoSize = true;
+            this.lbl_nama_depan.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_nama_depan.Location = new System.Drawing.Point(35, 141);
+            this.lbl_nama_depan.Name = "lbl_nama_depan";
+            this.lbl_nama_depan.Size = new System.Drawing.Size(87, 17);
+            this.lbl_nama_depan.TabIndex = 6;
+            this.lbl_nama_depan.Text = "Nama Depan";
+            // 
+            // lbl_nama_belakang
+            // 
+            this.lbl_nama_belakang.AutoSize = true;
+            this.lbl_nama_belakang.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_nama_belakang.Location = new System.Drawing.Point(38, 196);
+            this.lbl_nama_belakang.Name = "lbl_nama_belakang";
+            this.lbl_nama_belakang.Size = new System.Drawing.Size(103, 17);
+            this.lbl_nama_belakang.TabIndex = 7;
+            this.lbl_nama_belakang.Text = "Nama Belakang";
+            // 
+            // lbl_username_registrasi
+            // 
+            this.lbl_username_registrasi.AutoSize = true;
+            this.lbl_username_registrasi.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_username_registrasi.Location = new System.Drawing.Point(38, 247);
+            this.lbl_username_registrasi.Name = "lbl_username_registrasi";
+            this.lbl_username_registrasi.Size = new System.Drawing.Size(69, 17);
+            this.lbl_username_registrasi.TabIndex = 8;
+            this.lbl_username_registrasi.Text = "Username";
+            // 
+            // lbl_password_registrasi
+            // 
+            this.lbl_password_registrasi.AutoSize = true;
+            this.lbl_password_registrasi.Font = new System.Drawing.Font("Times New Roman", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_password_registrasi.Location = new System.Drawing.Point(38, 300);
+            this.lbl_password_registrasi.Name = "lbl_password_registrasi";
+            this.lbl_password_registrasi.Size = new System.Drawing.Size(66, 17);
+            this.lbl_password_registrasi.TabIndex = 9;
+            this.lbl_password_registrasi.Text = "Password";
+            // 
+            // HalamanRegistrasiControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.lbl_password_registrasi);
+            this.Controls.Add(this.lbl_username_registrasi);
+            this.Controls.Add(this.lbl_nama_belakang);
+            this.Controls.Add(this.lbl_nama_depan);
             this.Controls.Add(this.btn_register);
             this.Controls.Add(this.tb_password_registrasi);
             this.Controls.Add(this.tb_username_registrasi);
             this.Controls.Add(this.tb_nama_belakang);
             this.Controls.Add(this.tb_nama_depan);
-            this.Controls.Add(this.label1);
-            this.Name = "HalamanRegister";
+            this.Controls.Add(this.lbl_register);
+            this.Name = "HalamanRegistrasiControl";
             this.Size = new System.Drawing.Size(333, 492);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -116,11 +160,15 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lbl_register;
         private System.Windows.Forms.TextBox tb_nama_depan;
         private System.Windows.Forms.TextBox tb_nama_belakang;
         private System.Windows.Forms.TextBox tb_username_registrasi;
         private System.Windows.Forms.TextBox tb_password_registrasi;
         private System.Windows.Forms.Button btn_register;
+        private System.Windows.Forms.Label lbl_nama_depan;
+        private System.Windows.Forms.Label lbl_nama_belakang;
+        private System.Windows.Forms.Label lbl_username_registrasi;
+        private System.Windows.Forms.Label lbl_password_registrasi;
     }
 }

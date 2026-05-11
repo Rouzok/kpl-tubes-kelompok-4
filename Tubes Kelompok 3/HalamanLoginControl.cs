@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static Tubes_Kelompok_3.HalamanRegistrasiControl;
+using AuthLibrary; //Library
 
 namespace Tubes_Kelompok_3
 {
@@ -37,19 +38,25 @@ namespace Tubes_Kelompok_3
                 string passwordLogin = tb_password_login.Text;
 
                 //Defensive Programming 
-                if (string.IsNullOrWhiteSpace(usernameLogin))
+                if (ValidasiInput.IsEmpty(usernameLogin)) //Library
                 {
                     MessageBox.Show("Username tidak boleh kosong!");
                     return;
                 }
 
-                if (string.IsNullOrWhiteSpace(passwordLogin))
+                if (!ValidasiInput.IsUsernameValid(usernameLogin)) //Library
+                {
+                    MessageBox.Show("Username minimal 5 karakter!");
+                    return;
+                }
+
+                if (ValidasiInput.IsEmpty(passwordLogin)) //Library
                 {
                     MessageBox.Show("Password tidak boleh kosong!");
                     return;
                 }
 
-                if (passwordLogin.Length < 6)
+                if (!ValidasiInput.IsPasswordValid(passwordLogin)) //Library
                 {
                     MessageBox.Show("Password minimal 6 karakter!");
                     return;
@@ -103,6 +110,11 @@ namespace Tubes_Kelompok_3
         }
 
         private void HalamanLoginControl_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
         {
 
         }
