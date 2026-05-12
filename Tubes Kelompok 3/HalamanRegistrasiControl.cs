@@ -103,6 +103,12 @@ namespace Tubes_Kelompok_3
                     return;
                 }
 
+                if (!ValidasiInput.IsNameValid(namaBelakang)) //Library
+                {
+                    MessageBox.Show("Nama belakang hanya boleh huruf!");
+                    return;
+                }
+
                 if (ValidasiInput.IsEmpty(usernameRegistrasi)) //Library
                 {
                     MessageBox.Show("Username tidak boleh kosong!");
