@@ -41,6 +41,7 @@ namespace Tubes_Kelompok_3
 
         private void HandlePerubahanAlur(AlurGame alurBaru)
         {
+            // sinkronisasi operasi lintas-utas (cross-thread operation safety)
             if (this.InvokeRequired){
                 this.Invoke(new Action<AlurGame>(HandlePerubahanAlur), alurBaru);
                 return;

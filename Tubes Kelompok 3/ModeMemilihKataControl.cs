@@ -66,7 +66,7 @@ namespace Tubes_Kelompok_3
         }
 
         // Memuat Antarmuka Berdasarkan Data Tabel
-        private void TampilkanSoal(int indeks)
+        public void TampilkanSoal(int indeks)
         {
             // PRECONDITION: Indeks harus dalam jangkauan tabelSoal
             if (tabelSoal == null || indeks < 0 || indeks >= tabelSoal.Count){
@@ -112,7 +112,7 @@ namespace Tubes_Kelompok_3
         }
 
         // Logika tombol dan Pencatatan Skor
-        private void BtnSubmit_Click(object sender, EventArgs e)
+        public void BtnSubmit_Click(object sender, EventArgs e)
         {
             // Prekondisi untuk eksekusi penilaian
             if (tabelSoal == null || indeksSoalAktif < 0 || indeksSoalAktif >= tabelSoal.Count){

@@ -1,3 +1,4 @@
 <Solution>
   <Project Path="Tubes Kelompok 3/Tubes Kelompok 3.csproj" Id="e2fdb764-bbfe-4d70-a00d-b73aa6b2d3a6" />
+  <Project Path="UnitTests/UnitTests.csproj" Id="b9d04c64-a6c0-4326-92a1-9f19df2bc0d7" />
 </Solution>
