@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 using AuthLibrary; //Library
+using System.Diagnostics; //DBC
 
 namespace Tubes_Kelompok_3
 {
@@ -71,6 +72,19 @@ namespace Tubes_Kelompok_3
                 string usernameRegistrasi = tb_username_registrasi.Text;
                 string passwordRegistrasi = tb_password_registrasi.Text;
 
+                //DBC (Precondition)
+                Debug.Assert(namaDepan != null,
+                    "Nama depan tidak boleh null");
+
+                Debug.Assert(namaBelakang != null,
+                    "Nama belakang tidak boleh null");
+
+                Debug.Assert(usernameRegistrasi != null,
+                    "Username tidak boleh null");
+
+                Debug.Assert(passwordRegistrasi != null,
+                    "Password tidak boleh null");
+
                 //Defensive Programming 
                 if (ValidasiInput.IsEmpty(namaDepan)) //Library
                 {
@@ -125,6 +139,11 @@ namespace Tubes_Kelompok_3
                 //Menyimpan User Baru ke Generic List
                 daftarUser.Add(userBaru);
 
+                //DBC (Postcondition)
+                Debug.Assert(
+                    daftarUser.Contains(userBaru),
+                    "User harus berhasil ditambahkan ke daftar user"
+                );
 
                 MessageBox.Show(
                     "Registrasi berhasil!\n" +

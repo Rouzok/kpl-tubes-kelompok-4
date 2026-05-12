@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics; //DBC
 using static Tubes_Kelompok_3.HalamanRegistrasiControl;
 using AuthLibrary; //Library
 
@@ -36,6 +37,13 @@ namespace Tubes_Kelompok_3
                 //Mengambil Inputan 
                 string usernameLogin = tb_username_login.Text;
                 string passwordLogin = tb_password_login.Text;
+
+                //DBC (Precondition)
+                Debug.Assert(usernameLogin != null,
+                    "Username tidak boleh null");
+
+                Debug.Assert(passwordLogin != null,
+                    "Password tidak boleh null");
 
                 //Defensive Programming 
                 if (ValidasiInput.IsEmpty(usernameLogin)) //Library
@@ -69,6 +77,12 @@ namespace Tubes_Kelompok_3
                             user.Username == usernameLogin &&
                             user.Password == passwordLogin
                     );
+
+                //DBC (Postcondition)
+                Debug.Assert(
+                    HalamanRegistrasiControl.daftarUser != null,
+                    "Daftar user tidak boleh null"
+                );
 
                 //User Ditemukan
                 if (userDitemukan != null)
