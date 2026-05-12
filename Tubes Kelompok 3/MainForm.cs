@@ -56,7 +56,7 @@ namespace Tubes_Kelompok_3
                     break;
                 case AlurGame.MODE_GAMBAR_LEVEL2:
                     System.Diagnostics.Debug.WriteLine("");
-                    SwitchView(new ModeGambarlevel2());
+                    SwitchView(new ModeGambarLevel2());
                     break;
                 case AlurGame.MODE_GAMBAR_LEVEL3:
                     System.Diagnostics.Debug.WriteLine("");

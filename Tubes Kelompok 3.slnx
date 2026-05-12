@@ -1,4 +1,5 @@
 <Solution>
   <Project Path="Tubes Kelompok 3/Tubes Kelompok 3.csproj" Id="e2fdb764-bbfe-4d70-a00d-b73aa6b2d3a6" />
   <Project Path="Tubes_Kelompok_3.Library/Tubes_Kelompok_3.Library.csproj" Id="ce1bbb1e-96d2-46ec-8334-3b643fbf04b9" />
+  <Project Path="Tubes_Kelompok_3_Test/Tubes_Kelompok_3_Test.csproj" Id="8abf6796-20e1-42f7-b538-64e8df497e06" />
 </Solution>

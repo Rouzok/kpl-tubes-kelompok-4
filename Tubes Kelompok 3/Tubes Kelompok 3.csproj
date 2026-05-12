@@ -73,11 +73,11 @@
     <Compile Include="ModeGambarLevel1.Designer.cs">
       <DependentUpon>ModeGambarLevel1.cs</DependentUpon>
     </Compile>
-    <Compile Include="ModeGambarlevel2.cs">
+    <Compile Include="ModeGambarLevel2.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ModeGambarlevel2.Designer.cs">
-      <DependentUpon>ModeGambarlevel2.cs</DependentUpon>
+    <Compile Include="ModeGambarLevel2.Designer.cs">
+      <DependentUpon>ModeGambarLevel2.cs</DependentUpon>
     </Compile>
     <Compile Include="ModeGambarLevel3.cs">
       <SubType>UserControl</SubType>
@@ -160,8 +160,8 @@
     <EmbeddedResource Include="ModeGambarLevel1.resx">
       <DependentUpon>ModeGambarLevel1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ModeGambarlevel2.resx">
-      <DependentUpon>ModeGambarlevel2.cs</DependentUpon>
+    <EmbeddedResource Include="ModeGambarLevel2.resx">
+      <DependentUpon>ModeGambarLevel2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ModeGambarLevel3.resx">
       <DependentUpon>ModeGambarLevel3.cs</DependentUpon>
