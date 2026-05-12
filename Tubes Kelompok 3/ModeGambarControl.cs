@@ -40,44 +40,6 @@ namespace Tubes_Kelompok_3
 
             this.Load += ModeGambarControl_Load;
         
-        //questions.Add(new QuestionItem<string>(
-        //    "What is the synonym of Happy?",
-        //    "Joyful",
-
-        //    Properties.Resources.happy,
-        //    Properties.Resources.sad,
-        //    Properties.Resources.angry,
-
-        //    "Joyful",
-        //    "Sad",
-        //    "Angry"
-        //));
-
-        //    questions.Add(new QuestionItem<string>(
-        //        "What is the opposite of Big?",
-        //        "Small",
-
-        //        Properties.Resources.small,
-        //        Properties.Resources.big,
-        //        Properties.Resources.fast,
-
-        //        "Small",
-        //        "Big",
-        //        "Fast"
-        //    ));
-
-        //    questions.Add(new QuestionItem<string>(
-        //        "What is the synonym of Smart?",
-        //        "Clever",
-
-        //        Properties.Resources.clever,
-        //        Properties.Resources.lazy,
-        //        Properties.Resources.weak,
-
-        //        "Clever",
-        //        "Lazy",
-        //        "Weak"
-        //    ));
 
         }
 
