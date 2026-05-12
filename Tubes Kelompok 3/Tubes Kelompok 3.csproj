@@ -133,6 +133,12 @@
     <Compile Include="ModeMencocokkanKataLevel3.Designer.cs">
       <DependentUpon>ModeMencocokkanKataLevel3.cs</DependentUpon>
     </Compile>
+    <Compile Include="PasswordForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PasswordForm.Designer.cs">
+      <DependentUpon>PasswordForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="PilihModeControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -184,6 +190,9 @@
     <EmbeddedResource Include="ModeMencocokkanKataLevel3.resx">
       <DependentUpon>ModeMencocokkanKataLevel3.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PasswordForm.resx">
+      <DependentUpon>PasswordForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PilihModeControl.resx">
       <DependentUpon>PilihModeControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -208,6 +217,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Tubes_Kelompok_3.Library\Tubes_Kelompok_3.Library.csproj">
+      <Project>{ce1bbb1e-96d2-46ec-8334-3b643fbf04b9}</Project>
+      <Name>Tubes_Kelompok_3.Library</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

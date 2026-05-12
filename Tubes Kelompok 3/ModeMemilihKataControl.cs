@@ -15,35 +15,38 @@ namespace Tubes_Kelompok_3
         public ModeMemilihKataControl()
         {
             InitializeComponent();
-            //TampilkanLevel();
         }
 
-        private void btnMenuPilihMode_Click(object sender, EventArgs e)
+        private void btnMenuPilihMode_Click(
+            object sender,
+            EventArgs e)
         {
-            GameManager.AlurSaatIni = AlurGame.MENU_PILIH_MODE;
+            GameManager.AlurSaatIni =
+                AlurGame.MENU_PILIH_MODE;
         }
 
-        private void label3_Click(object sender, EventArgs e)
+        private void btnLevel1_Click(
+            object sender,
+            EventArgs e)
         {
-            GameManager.AlurSaatIni = AlurGame.MENU_PILIH_MODE;
-
+            GameManager.AlurSaatIni =
+                AlurGame.MODE_MEMILIHKATA_LEVEL1;
         }
 
-        private void btnLevel1_Click(object sender, EventArgs e)
+        private void btnLevel2_Click(
+            object sender,
+            EventArgs e)
         {
-            GameManager.AlurSaatIni = AlurGame.MODE_MEMILIHKATA_LEVEL1;
+            GameManager.AlurSaatIni =
+                AlurGame.MODE_MEMILIHKATA_LEVEL2;
         }
 
-        private void btnLevel2_Click(object sender, EventArgs e)
+        private void btnLevel3_Click(
+            object sender,
+            EventArgs e)
         {
-            GameManager.AlurSaatIni = AlurGame.MODE_MEMILIHKATA_LEVEL2;
-        }
-
-        private void btnLevel3_Click(object sender, EventArgs e)
-        {
-            GameManager.AlurSaatIni = AlurGame.MODE_MEMILIHKATA_LEVEL3;
+            GameManager.AlurSaatIni =
+                AlurGame.MODE_MEMILIHKATA_LEVEL3;
         }
     }
-
-
 }

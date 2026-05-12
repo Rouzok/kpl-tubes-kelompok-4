@@ -17,24 +17,36 @@ namespace Tubes_Kelompok_3
             InitializeComponent();
         }
 
-        private void btnPilihMenuPilihMode_Click(object sender, EventArgs e)
+        private void btnPilihMenuPilihMode_Click(
+            object sender,
+            EventArgs e)
         {
-            GameManager.AlurSaatIni = AlurGame.MENU_PILIH_MODE;
-
-        }
-        private void btnLevel1_Click(object sender, EventArgs e)
-        {
-            GameManager.AlurSaatIni = AlurGame.MODE_GAMBAR_LEVEL1;
+            GameManager.AlurSaatIni =
+                AlurGame.MENU_PILIH_MODE;
         }
 
-        private void btnLevel2_Click(object sender, EventArgs e)
+        private void btnLevel1_Click(
+            object sender,
+            EventArgs e)
         {
-            GameManager.AlurSaatIni = AlurGame.MODE_GAMBAR_LEVEL2;
+            GameManager.AlurSaatIni =
+                AlurGame.MODE_GAMBAR_LEVEL1;
         }
 
-        private void btnLevel3_Click(object sender, EventArgs e)
+        private void btnLevel2_Click(
+            object sender,
+            EventArgs e)
         {
-            GameManager.AlurSaatIni = AlurGame.MODE_GAMBAR_LEVEL3;
+            GameManager.AlurSaatIni =
+                AlurGame.MODE_GAMBAR_LEVEL2;
+        }
+
+        private void btnLevel3_Click(
+            object sender,
+            EventArgs e)
+        {
+            GameManager.AlurSaatIni =
+                AlurGame.MODE_GAMBAR_LEVEL3;
         }
     }
 }
