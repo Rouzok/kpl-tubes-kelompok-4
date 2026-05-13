@@ -9,13 +9,6 @@ namespace Tubes_Kelompok_3.Library
             string password)
         {
             // PRECONDITION
-
-            if (string.IsNullOrWhiteSpace(mode))
-            {
-                throw new Exception(
-                    "Mode tidak boleh kosong");
-            }
-
             if (string.IsNullOrWhiteSpace(password))
             {
                 throw new Exception(
