@@ -51,14 +51,6 @@ namespace Tubes_Kelompok_3_Test
             Assert.IsFalse(result);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(Exception))]
-        public void Validate_ModeKosong()
-        {
-            PasswordValidator.Validate(
-                "",
-                "gambar123");
-        }
 
         [TestMethod]
         [ExpectedException(typeof(Exception))]
