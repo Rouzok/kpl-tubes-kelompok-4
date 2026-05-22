@@ -18,7 +18,8 @@ namespace AuthLibraryTest
         [Fact]
         public void TestPasswordValid()
         {
-            bool hasil = ValidasiInput.IsPasswordValid("123456");
+            bool hasil = ValidasiInput.IsPasswordValid(
+                "Admin123".ToCharArray());
 
             Assert.True(hasil);
         }
@@ -27,7 +28,8 @@ namespace AuthLibraryTest
         [Fact]
         public void TestUsernameValid()
         {
-            bool hasil = ValidasiInput.IsUsernameValid("debby123");
+            bool hasil = ValidasiInput.IsUsernameValid(
+                "debby123");
 
             Assert.True(hasil);
         }
@@ -36,7 +38,8 @@ namespace AuthLibraryTest
         [Fact]
         public void TestNameValid()
         {
-            bool hasil = ValidasiInput.IsNameValid("Debby");
+            bool hasil = ValidasiInput.IsNameValid(
+                "Debby".ToCharArray());
 
             Assert.True(hasil);
         }

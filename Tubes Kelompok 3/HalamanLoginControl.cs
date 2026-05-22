@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics; //DBC
 using static Tubes_Kelompok_3.HalamanRegistrasiControl;
@@ -15,6 +9,16 @@ namespace Tubes_Kelompok_3
 {
     public partial class HalamanLoginControl : UserControl
     {
+        //Automata State
+        enum LoginState
+        {
+            InputKosong,
+            UsernameTidakValid,
+            PasswordTidakValid,
+            LoginBerhasil,
+            LoginGagal
+        }
+
         public HalamanLoginControl()
         {
             InitializeComponent();
@@ -45,37 +49,53 @@ namespace Tubes_Kelompok_3
                 Debug.Assert(passwordLogin != null,
                     "Password tidak boleh null");
 
-                //Defensive Programming 
-                if (ValidasiInput.IsEmpty(usernameLogin)) //Library
+                //Automata State
+                LoginState state;
+
+                //Library Validation
+                if (ValidasiInput.IsEmpty(usernameLogin) ||
+                    ValidasiInput.IsEmpty(passwordLogin))
                 {
-                    MessageBox.Show("Username tidak boleh kosong!");
+                    state = LoginState.InputKosong;
+
+                    MessageBox.Show(
+                        "Username dan Password tidak boleh kosong!"
+                    );
+
                     return;
                 }
 
-                if (!ValidasiInput.IsUsernameValid(usernameLogin)) //Library
+                //Validasi Username
+                if (!ValidasiInput.IsUsernameValid(usernameLogin))
                 {
-                    MessageBox.Show("Username minimal 5 karakter!");
+                    state = LoginState.UsernameTidakValid;
+
+                    MessageBox.Show(
+                        "Username minimal 5 karakter dan hanya boleh huruf atau angka!"
+                    );
+
                     return;
                 }
 
-                if (ValidasiInput.IsEmpty(passwordLogin)) //Library
+                //Password menggunakan char[]
+                if (!ValidasiInput.IsPasswordValid(
+                    passwordLogin.ToCharArray()))
                 {
-                    MessageBox.Show("Password tidak boleh kosong!");
+                    state = LoginState.PasswordTidakValid;
+
+                    MessageBox.Show(
+                        "Password minimal 6 karakter, mengandung huruf besar dan angka!"
+                    );
+
                     return;
                 }
 
-                if (!ValidasiInput.IsPasswordValid(passwordLogin)) //Library
-                {
-                    MessageBox.Show("Password minimal 6 karakter!");
-                    return;
-                }
-
-                //Mencari User di Generic List
-                User<string> userDitemukan =
+                //Mencari User di List
+                User userDitemukan =
                     HalamanRegistrasiControl.daftarUser.FirstOrDefault(
                         user =>
                             user.Username == usernameLogin &&
-                            user.Password == passwordLogin
+                            new string(user.Password) == passwordLogin
                     );
 
                 //DBC (Postcondition)
@@ -84,9 +104,11 @@ namespace Tubes_Kelompok_3
                     "Daftar user tidak boleh null"
                 );
 
-                //User Ditemukan
+                //State Login
                 if (userDitemukan != null)
                 {
+                    state = LoginState.LoginBerhasil;
+
                     MessageBox.Show(
                         "Login berhasil!\nHalo " +
                         userDitemukan.NamaDepan + " " +
@@ -95,12 +117,18 @@ namespace Tubes_Kelompok_3
                 }
                 else
                 {
-                    MessageBox.Show("Username atau Password salah!");
+                    state = LoginState.LoginGagal;
+
+                    MessageBox.Show(
+                        "Username atau Password salah!"
+                    );
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Terjadi error : " + ex.Message);
+                MessageBox.Show(
+                    "Terjadi error : " + ex.Message
+                );
             }
         }
 

@@ -1,13 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 using AuthLibrary; //Library
 using System.Diagnostics; //DBC
 
@@ -15,17 +9,27 @@ namespace Tubes_Kelompok_3
 {
     public partial class HalamanRegistrasiControl : UserControl
     {
+        //Automata / State-Based
+        public enum RegisterState
+        {
+            RegistrasiBerhasil,
+            RegistrasiGagal
+        }
 
-        //Generic Class
-        public class User<T>
+        //Class User
+        public class User
         {
             public string NamaDepan { get; set; }
             public string NamaBelakang { get; set; }
 
-            public T Username { get; set; }
-            public T Password { get; set; }
+            public string Username { get; set; }
+            public char[] Password { get; set; }
 
-            public User(string namaDepan, string namaBelakang, T username, T password)
+            public User(
+                string namaDepan,
+                string namaBelakang,
+                string username,
+                char[] password)
             {
                 NamaDepan = namaDepan;
                 NamaBelakang = namaBelakang;
@@ -34,8 +38,8 @@ namespace Tubes_Kelompok_3
             }
         }
 
-        //Generic List
-        public static List<User<string>> daftarUser = new List<User<string>>();
+        //List User
+        public static List<User> daftarUser = new List<User>();
 
         public HalamanRegistrasiControl()
         {
@@ -85,96 +89,126 @@ namespace Tubes_Kelompok_3
                 Debug.Assert(passwordRegistrasi != null,
                     "Password tidak boleh null");
 
-                //Defensive Programming 
-                if (ValidasiInput.IsEmpty(namaDepan)) //Library
-                {
-                    MessageBox.Show("Nama depan tidak boleh kosong!");
-                    return;
-                }
-                if (!ValidasiInput.IsNameValid(namaDepan)) //Library
-                {
-                    MessageBox.Show("Nama depan hanya boleh huruf!");
-                    return;
-                }
+                //Defensive Programming dan Library
 
-                if (ValidasiInput.IsEmpty(namaBelakang)) //Library
+                //Validasi Nama Depan
+                if (ValidasiInput.IsEmpty(namaDepan))
                 {
-                    MessageBox.Show("Nama belakang tidak boleh kosong!");
+                    MessageBox.Show(
+                        "Nama depan tidak boleh kosong!");
                     return;
                 }
 
-                if (!ValidasiInput.IsNameValid(namaBelakang)) //Library
+                if (!ValidasiInput.IsNameValid(
+                    namaDepan.ToCharArray()))
                 {
-                    MessageBox.Show("Nama belakang hanya boleh huruf!");
+                    MessageBox.Show(
+                        "Nama depan hanya boleh huruf!");
                     return;
                 }
 
-                if (ValidasiInput.IsEmpty(usernameRegistrasi)) //Library
+                //Validasi Nama Belakang
+                if (ValidasiInput.IsEmpty(namaBelakang))
                 {
-                    MessageBox.Show("Username tidak boleh kosong!");
+                    MessageBox.Show(
+                        "Nama belakang tidak boleh kosong!");
                     return;
                 }
 
-                if (!ValidasiInput.IsUsernameValid(usernameRegistrasi)) //Library
+                if (!ValidasiInput.IsNameValid(
+                    namaBelakang.ToCharArray()))
                 {
-                    MessageBox.Show("Username minimal 5 karakter!");
+                    MessageBox.Show(
+                        "Nama belakang hanya boleh huruf!");
                     return;
                 }
 
-                if (ValidasiInput.IsEmpty(passwordRegistrasi)) //Library
+                //Validasi Username
+                if (ValidasiInput.IsEmpty(usernameRegistrasi))
                 {
-                    MessageBox.Show("Password tidak boleh kosong!");
+                    MessageBox.Show(
+                        "Username tidak boleh kosong!");
                     return;
                 }
 
-                if (!ValidasiInput.IsPasswordValid(passwordRegistrasi)) //Library
+                if (!ValidasiInput.IsUsernameValid(
+                    usernameRegistrasi))
                 {
-                    MessageBox.Show("Password minimal 6 karakter!");
+                    MessageBox.Show(
+                        "Username minimal 5 karakter dan hanya boleh huruf atau angka!");
                     return;
                 }
 
+                //Validasi Password
+                if (ValidasiInput.IsEmpty(passwordRegistrasi))
+                {
+                    MessageBox.Show(
+                        "Password tidak boleh kosong!");
+                    return;
+                }
 
-                //Membuat User Baru (Generic Type)
-                User<string> userBaru = new User<string>(
+                //Password menggunakan char[]
+                if (!ValidasiInput.IsPasswordValid(
+                    passwordRegistrasi.ToCharArray()))
+                {
+                    MessageBox.Show(
+                        "Password minimal 6 karakter, mengandung huruf besar dan angka!");
+                    return;
+                }
+
+                //Membuat User Baru
+                User userBaru = new User(
                     namaDepan,
                     namaBelakang,
                     usernameRegistrasi,
-                    passwordRegistrasi
+                    passwordRegistrasi.ToCharArray()
                 );
 
-                //Menyimpan User Baru ke Generic List
+                //Menyimpan User ke List
                 daftarUser.Add(userBaru);
 
                 //DBC (Postcondition)
                 Debug.Assert(
                     daftarUser.Contains(userBaru),
-                    "User harus berhasil ditambahkan ke daftar user"
-                );
+                    "User harus berhasil ditambahkan");
+
+                //Automata 
+                RegisterState state =
+                    RegisterState.RegistrasiBerhasil;
 
                 MessageBox.Show(
                     "Registrasi berhasil!\n" +
-                    "Halo " + namaDepan + " " + namaBelakang
+                    "Halo " +
+                    namaDepan + " " +
+                    namaBelakang
                 );
 
-
+                //Reset TextBox
                 tb_nama_depan.Text = "";
                 tb_nama_belakang.Text = "";
                 tb_username_registrasi.Text = "";
                 tb_password_registrasi.Text = "";
 
-                //Berpindah ke HalamanLoginControl
-                HalamanLoginControl loginPage = new HalamanLoginControl();
+                //Berpindah ke Halaman Login
+                HalamanLoginControl loginPage =
+                    new HalamanLoginControl();
 
                 this.Parent.Controls.Add(loginPage);
 
                 loginPage.Dock = DockStyle.Fill;
+
                 loginPage.BringToFront();
 
                 this.Hide();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Terjadi error : " + ex.Message);
+                //Automata
+                RegisterState state =
+                    RegisterState.RegistrasiGagal;
+
+                MessageBox.Show(
+                    "Terjadi error : " + ex.Message);
             }
         }
     }
