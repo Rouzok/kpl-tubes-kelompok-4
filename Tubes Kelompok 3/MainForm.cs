@@ -12,11 +12,23 @@ namespace Tubes_Kelompok_3
 {
     public partial class MainForm : Form
     {
+        // Struktur table-driven memetakan kunci AlurGame ke fungsi instansi
+        private readonly Dictionary<AlurGame, Func<UserControl>> _tabelTransisiView;
+
         public MainForm()
         {
             InitializeComponent();
-            GameManager.OnAlurChanged += HandlePerubahanAlur;
+            // Inisialisasi tabel pemetaan status ke delegasi pembuatan kontrol
+            _tabelTransisiView = new Dictionary<AlurGame, Func<UserControl>>
+            {
+                { AlurGame.MAIN_MENU, () => new MainMenuControl() },
+                { AlurGame.MENU_PILIH_MODE, () => new PilihModeControl() },
+                { AlurGame.MODE_MEMILIH_KATA, () => new ModeMemilihKataControl() },
+                { AlurGame.MODE_GAMBAR, () => new ModeGambarControl() },
+                { AlurGame.MODE_MENCOCOKAN_KATA, () => new ModeMencocokanKataControl() }
+            };
 
+            GameManager.OnAlurChanged += HandlePerubahanAlur;
             GameManager.AlurSaatIni = AlurGame.MAIN_MENU;
         }
         public void SwitchView(UserControl newView)
@@ -47,31 +59,15 @@ namespace Tubes_Kelompok_3
                 return;
             }
 
-            switch (alurBaru)
-            {
-                case AlurGame.MAIN_MENU:
-                    System.Diagnostics.Debug.WriteLine("Alur Saat Ini : MAIN MENU");
-                    SwitchView(new MainMenuControl());
-                    break;
-                case AlurGame.MENU_PILIH_MODE:
-                    System.Diagnostics.Debug.WriteLine("Alur Saat Ini : MENU PILIH MODE");
-                    SwitchView(new PilihModeControl());
-                    break;
-                case AlurGame.MODE_MEMILIH_KATA:
-                    System.Diagnostics.Debug.WriteLine("Alur Saat Ini : MODE MEMILIH KATA");
-                    SwitchView(new ModeMemilihKataControl());
-                    break;
-                case AlurGame.MODE_GAMBAR:
-                    System.Diagnostics.Debug.WriteLine("Alur Saat Ini : MODE GAMBAR");
-                    SwitchView(new ModeGambarControl());
-                    break;
-                case AlurGame.MODE_MENCOCOKAN_KATA:
-                    System.Diagnostics.Debug.WriteLine("Alur Saat Ini : MODE MENCOCOKAN KATA");
-                    SwitchView(new ModeMencocokanKataControl());
-                    break;
-                default:
-                    System.Diagnostics.Debug.WriteLine($"[ERROR] Transisi state tidak dikenal: {alurBaru}");
-                    throw new ArgumentOutOfRangeException(nameof(alurBaru), alurBaru, "Transisi state di luar definisi AlurGame.");
+            // Eksekusi Table-Driven tanpa percabangan
+            if (_tabelTransisiView.TryGetValue(alurBaru, out Func<UserControl> instansiasiView)){
+                System.Diagnostics.Debug.WriteLine($"Alur Saat Ini : {alurBaru}");
+
+                SwitchView(instansiasiView());
+            }else{
+                // Defensive programming untuk menangani nilai enum yang tidak terdaftar
+                System.Diagnostics.Debug.WriteLine($"[ERROR] Transisi state tidak diregistrasi di tabel: {alurBaru}");
+                throw new ArgumentOutOfRangeException(nameof(alurBaru), alurBaru, "Transisi state di luar definisi tabel transisi.");
             }
         }
     }
