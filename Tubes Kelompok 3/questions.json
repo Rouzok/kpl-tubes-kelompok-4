@@ -1,31 +1,31 @@
 [
     {
         "ImageName": "gambar_apel",
-        "Answers": [ 9 ],
-        "Type": "int"
+        "Answers": [ 9 ]
+      
     },
 
     {
         "ImageName": "gambar_semangka",
-        "Answers": [ "7", "seven" ],
-        "Type": "string"
+        "Answers": [ "7", "seven" ]
+        
     },
 
     {
         "ImageName": "gambar_jeruk",
-        "Answers": [ 9 ],
-        "Type": "int"
+        "Answers": [ 9 ]
+      
     },
 
     {
         "ImageName": "gambar_strawberry",
-        "Answers": [ "9", "nine" ],
-        "Type": "string"
+        "Answers": [ "9", "nine" ]
+     
     },
 
     {
         "ImageName": "gambar_anggur",
-        "Answers": [ "11", "eleven" ],
-        "Type": "string"
+        "Answers": [ "11", "eleven" ]
+        
     }
 ]

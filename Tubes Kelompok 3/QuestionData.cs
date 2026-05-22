@@ -8,10 +8,10 @@ namespace Tubes_Kelompok_3
 {
     internal class QuestionData
     {
+
         public string ImageName { get; set; }
 
-        public List<string> Answers { get; set; }
-
-        public string Type { get; set; }
+        // BISA MENYIMPAN INT DAN STRING
+        public List<object> Answers { get; set; }
     }
 }

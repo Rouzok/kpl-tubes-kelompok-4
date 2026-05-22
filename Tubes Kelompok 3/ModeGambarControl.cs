@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace Tubes_Kelompok_3
@@ -11,10 +10,11 @@ namespace Tubes_Kelompok_3
     public partial class ModeGambarControl : UserControl
     {
         // MENYIMPAN SEMUA SOAL
-        private List<object> questions = new List<object>();
+        private List<QuestionItem<object>> questions =
+            new List<QuestionItem<object>>();
 
-        // MENYIMPAN SOAL YANG SEDANG TAMPIL
-        private object currentQuestion;
+        // SOAL SAAT INI
+        private QuestionItem<object> currentQuestion;
 
         // SCORE
         private int score = 0;
@@ -29,48 +29,34 @@ namespace Tubes_Kelompok_3
         }
 
         // LOAD AWAL
-        private void ModeGambarControl_Load(object sender, EventArgs e)
+        private void ModeGambarControl_Load(
+            object sender,
+            EventArgs e)
         {
             LoadQuestionsFromJson();
 
             LoadQuestion();
         }
 
-        // LOAD SOAL DARI JSON
+        // LOAD JSON
         private void LoadQuestionsFromJson()
         {
-            string json = File.ReadAllText("questions.json");
+            string json =
+                File.ReadAllText("questions.json");
 
             List<QuestionData> data =
-                JsonConvert.DeserializeObject<List<QuestionData>>(json);
+                JsonConvert.DeserializeObject
+                <List<QuestionData>>(json);
 
             foreach (var item in data)
             {
-                // GENERIC INT
-                if (item.Type == "int")
-                {
-                    questions.Add(
-                        new QuestionItem<int>(
-                            GetImage(item.ImageName),
+                questions.Add(
+                    new QuestionItem<object>(
+                        GetImage(item.ImageName),
 
-                            item.Answers
-                                .Select(x => Convert.ToInt32(x))
-                                .ToList()
-                        )
-                    );
-                }
-
-                // GENERIC STRING
-                else if (item.Type == "string")
-                {
-                    questions.Add(
-                        new QuestionItem<string>(
-                            GetImage(item.ImageName),
-
-                            item.Answers
-                        )
-                    );
-                }
+                        item.Answers
+                    )
+                );
             }
         }
 
@@ -89,77 +75,27 @@ namespace Tubes_Kelompok_3
 
             currentQuestion = questions[index];
 
-            // JIKA STRING
-            if (currentQuestion is QuestionItem<string> qString)
-            {
-                pbQuestion.Image = qString.SoalGambar;
-            }
-
-            // JIKA INT
-            else if (currentQuestion is QuestionItem<int> qInt)
-            {
-                pbQuestion.Image = qInt.SoalGambar;
-            }
+            pbQuestion.Image =
+                currentQuestion.SoalGambar;
         }
 
-        // BUTTON CHECK
-        private void btnCheck_Click(object sender, EventArgs e)
+        // CHECK JAWABAN
+        private void btnCheck_Click(
+            object sender,
+            EventArgs e)
         {
-            string userInput = txtAnswer.Text.Trim();
+            string userInput =
+                txtAnswer.Text.Trim().ToLower();
 
             bool correct = false;
 
-            // CEK STRING
-            if (currentQuestion is QuestionItem<string> qString)
+            foreach (var answer
+                in currentQuestion.JawabanBenar)
             {
-                correct = qString.JawabanBenar.Any(
-                    x => x.Equals(
-                        userInput,
-                        StringComparison.OrdinalIgnoreCase
-                    )
-                );
-            }
-
-            // CEK INT
-            else if (currentQuestion is QuestionItem<int> qInt)
-            {
-                // INPUT ANGKA
-                if (int.TryParse(userInput, out int angka))
+                if (answer.ToString().ToLower()
+                    == userInput)
                 {
-                    correct = qInt.JawabanBenar.Contains(angka);
-                }
-
-                // INPUT HURUF
-                else
-                {
-                    // KONVERSI ANGKA KE HURUF
-                    Dictionary<int, string> angkaKeHuruf =
-                        new Dictionary<int, string>()
-                    {
-                        { 1, "satu" },
-                        { 2, "dua" },
-                        { 3, "tiga" },
-                        { 4, "empat" },
-                        { 5, "lima" },
-                        { 6, "enam" },
-                        { 7, "tujuh" },
-                        { 8, "delapan" },
-                        { 9, "sembilan" },
-                        { 10, "sepuluh" }
-                    };
-
-                    foreach (int jawaban in qInt.JawabanBenar)
-                    {
-                        if (angkaKeHuruf.ContainsKey(jawaban))
-                        {
-                            if (angkaKeHuruf[jawaban]
-                                .Equals(userInput,
-                                StringComparison.OrdinalIgnoreCase))
-                            {
-                                correct = true;
-                            }
-                        }
-                    }
+                    correct = true;
                 }
             }
 
@@ -177,7 +113,8 @@ namespace Tubes_Kelompok_3
                 MessageBox.Show("Wrong!");
             }
 
-            lblScore.Text = "Score : " + score;
+            lblScore.Text =
+                "Score : " + score;
 
             txtAnswer.Clear();
 
@@ -185,19 +122,12 @@ namespace Tubes_Kelompok_3
         }
 
         // BUTTON KEMBALI
-        private void btnPilihMenuPilihMode_Click(object sender, EventArgs e)
+        private void btnPilihMenuPilihMode_Click(
+            object sender,
+            EventArgs e)
         {
-            GameManager.AlurSaatIni = AlurGame.MENU_PILIH_MODE;
-        }
-
-        private void lblQuestion_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblAnswer_Click(object sender, EventArgs e)
-        {
-
+            GameManager.AlurSaatIni =
+                AlurGame.MENU_PILIH_MODE;
         }
     }
 
