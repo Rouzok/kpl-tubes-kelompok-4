@@ -1,7 +1,7 @@
 [
     {
         "ImageName": "gambar_apel",
-        "Answers": [ 9 ]
+        "Answers": [ "9", "nine" ]
       
     },
 
@@ -13,7 +13,7 @@
 
     {
         "ImageName": "gambar_jeruk",
-        "Answers": [ 9 ]
+        "Answers": [ "9", "nine" ]
       
     },
 

@@ -13,7 +13,7 @@ namespace Tubes_Kelompok_3
         private List<QuestionItem<object>> questions =
             new List<QuestionItem<object>>();
 
-        // SOAL SAAT INI
+        // SOAL YANG SEDANG TAMPIL
         private QuestionItem<object> currentQuestion;
 
         // SCORE
@@ -38,7 +38,7 @@ namespace Tubes_Kelompok_3
             LoadQuestion();
         }
 
-        // LOAD JSON
+        // LOAD SOAL DARI JSON
         private void LoadQuestionsFromJson()
         {
             string json =
@@ -128,6 +128,21 @@ namespace Tubes_Kelompok_3
         {
             GameManager.AlurSaatIni =
                 AlurGame.MENU_PILIH_MODE;
+        }
+
+        // EVENT LABEL
+        private void lblQuestion_Click(
+            object sender,
+            EventArgs e)
+        {
+
+        }
+
+        private void lblAnswer_Click(
+            object sender,
+            EventArgs e)
+        {
+
         }
     }
 
