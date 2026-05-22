@@ -6,6 +6,8 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+using System.Text.Json;   
 using System.Windows.Forms;
 
 namespace Tubes_Kelompok_3
@@ -26,7 +28,10 @@ namespace Tubes_Kelompok_3
         {
             InitializeComponent();
             InisialisasiDataSoal();
-            TampilkanSoal(indeksSoalAktif);
+            if (tabelSoal != null && tabelSoal.Count > 0)
+            {
+                TampilkanSoal(indeksSoalAktif);
+            }
 
             // Mendaftarkan event handler untuk tombol submit
             btnSubmit.Click += BtnSubmit_Click;
@@ -35,34 +40,24 @@ namespace Tubes_Kelompok_3
         // Inisialisasi Data Soal
         private void InisialisasiDataSoal()
         {
-            tabelSoal = new List<DataSoal>
-            {
-                new DataSoal
-                {
-                    JudulSoal = "Select the real English words in this list",
-                    OpsiKata = new Dictionary<string, bool>
-                    {
-                        { "thelf", false },
-                        { "wainch", false },
-                        { "going", true },
-                        { "anslip", false },
-                        { "anspe", false },
-                        { "see", true },
-                        { "an", true },
-                        { "good", true },
-                        { "caffie", false },
-                        { "sier", false },
-                        { "elm", true },
-                        { "nineteen", true },
-                        { "water", true },
-                        { "brother", true },
-                        { "easy", true },
-                        { "give", true },
-                        { "new", true },
-                        { "daiy", false }
-                    }
+            string lokasiBerkas = "DataSoal.json";
+
+            if (File.Exists(lokasiBerkas)){
+                try{
+                    string jsonString = File.ReadAllText(lokasiBerkas);
+
+                    // Deserialisasi teks JSON menjadi List objek C#
+                    tabelSoal = JsonSerializer.Deserialize<List<DataSoal>>(jsonString);
+                }catch (JsonException ex){
+                    System.Diagnostics.Debug.WriteLine($"[ERROR] Kegagalan parsing JSON: {ex.Message}");
+                    MessageBox.Show("Terjadi kesalahan pada format data JSON.", "Kesalahan Data", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    tabelSoal = new List<DataSoal>();
                 }
-            };
+            }else{
+                System.Diagnostics.Debug.WriteLine($"[ERROR] Berkas {lokasiBerkas} tidak ditemukan pada direktori eksekusi.");
+                MessageBox.Show($"Berkas sumber data '{lokasiBerkas}' tidak ditemukan.", "Kesalahan Sistem", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                tabelSoal = new List<DataSoal>();
+            }
         }
 
         // Memuat Antarmuka Berdasarkan Data Tabel
