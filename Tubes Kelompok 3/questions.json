@@ -1,0 +1,31 @@
+[
+    {
+        "ImageName": "gambar_apel",
+        "Answers": [ 9 ],
+        "Type": "int"
+    },
+
+    {
+        "ImageName": "gambar_semangka",
+        "Answers": [ "7", "seven" ],
+        "Type": "string"
+    },
+
+    {
+        "ImageName": "gambar_jeruk",
+        "Answers": [ 9 ],
+        "Type": "int"
+    },
+
+    {
+        "ImageName": "gambar_strawberry",
+        "Answers": [ "9", "nine" ],
+        "Type": "string"
+    },
+
+    {
+        "ImageName": "gambar_anggur",
+        "Answers": [ "11", "eleven" ],
+        "Type": "string"
+    }
+]

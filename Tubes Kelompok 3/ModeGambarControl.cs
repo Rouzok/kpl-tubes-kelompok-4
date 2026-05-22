@@ -1,181 +1,220 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Tubes_Kelompok_3
 {
-
     public partial class ModeGambarControl : UserControl
     {
-        private List<QuestionItem<string>> questions =
-        new List<QuestionItem<string>>();
+        // MENYIMPAN SEMUA SOAL
+        private List<object> questions = new List<object>();
 
-        private string selectedAnswer = "";
+        // MENYIMPAN SOAL YANG SEDANG TAMPIL
+        private object currentQuestion;
 
+        // SCORE
         private int score = 0;
 
         Random rnd = new Random();
 
-
-
-        private void Picture_Click(object sender, EventArgs e)
-        {
-            PictureBox pb = sender as PictureBox;
-
-            selectedAnswer = pb.Tag.ToString();
-        }
-
-
-
         public ModeGambarControl()
         {
-
             InitializeComponent();
 
             this.Load += ModeGambarControl_Load;
-        
-
         }
 
+        // LOAD AWAL
         private void ModeGambarControl_Load(object sender, EventArgs e)
         {
-            questions.Add(new QuestionItem<string>(
-                "What is the synonym of Happy?",
-                "Joyful",
-
-                Properties.Resources.happy,
-                Properties.Resources.sad,
-                Properties.Resources.angry,
-
-                "Joyful",
-                "Sad",
-                "Angry"
-            ));
-
-            questions.Add(new QuestionItem<string>(
-                "What is the opposite of Big?",
-                "Small",
-
-                Properties.Resources.small,
-                Properties.Resources.big,
-                Properties.Resources.fast,
-
-                "Small",
-                "Big",
-                "Fast"
-            ));
-
-            pb1.Click += Picture_Click;
-            pb2.Click += Picture_Click;
-            pb3.Click += Picture_Click;
+            LoadQuestionsFromJson();
 
             LoadQuestion();
         }
 
-       
+        // LOAD SOAL DARI JSON
+        private void LoadQuestionsFromJson()
+        {
+            string json = File.ReadAllText("questions.json");
+
+            List<QuestionData> data =
+                JsonConvert.DeserializeObject<List<QuestionData>>(json);
+
+            foreach (var item in data)
+            {
+                // GENERIC INT
+                if (item.Type == "int")
+                {
+                    questions.Add(
+                        new QuestionItem<int>(
+                            GetImage(item.ImageName),
+
+                            item.Answers
+                                .Select(x => Convert.ToInt32(x))
+                                .ToList()
+                        )
+                    );
+                }
+
+                // GENERIC STRING
+                else if (item.Type == "string")
+                {
+                    questions.Add(
+                        new QuestionItem<string>(
+                            GetImage(item.ImageName),
+
+                            item.Answers
+                        )
+                    );
+                }
+            }
+        }
+
+        // AMBIL GAMBAR DARI RESOURCES
+        private Image GetImage(string imageName)
+        {
+            return (Image)Properties.Resources
+                .ResourceManager
+                .GetObject(imageName);
+        }
+
+        // LOAD SOAL RANDOM
         private void LoadQuestion()
         {
             int index = rnd.Next(questions.Count);
 
-            var q = questions[index];
+            currentQuestion = questions[index];
 
-            lblQuestion.Text = q.Pertanyaan;
-
-            btnCheck.Tag = q.JawabanBenar;
-
-            List<(Image gambar, string jawaban)> pilihan =
-                new List<(Image, string)>()
+            // JIKA STRING
+            if (currentQuestion is QuestionItem<string> qString)
             {
-        (q.Gambar1, q.Pilihan1),
-        (q.Gambar2, q.Pilihan2),
-        (q.Gambar3, q.Pilihan3)
-            };
+                pbQuestion.Image = qString.SoalGambar;
+            }
 
-            pilihan = pilihan.OrderBy(x => rnd.Next()).ToList();
-
-            pb1.Image = pilihan[0].gambar;
-            pb1.Tag = pilihan[0].jawaban;
-
-            pb2.Image = pilihan[1].gambar;
-            pb2.Tag = pilihan[1].jawaban;
-
-            pb3.Image = pilihan[2].gambar;
-            pb3.Tag = pilihan[2].jawaban;
+            // JIKA INT
+            else if (currentQuestion is QuestionItem<int> qInt)
+            {
+                pbQuestion.Image = qInt.SoalGambar;
+            }
         }
 
-
-       
-        private void btnPilihMenuPilihMode_Click(object sender, EventArgs e)
-        {
-            GameManager.AlurSaatIni = AlurGame.MENU_PILIH_MODE;
-        }
-
+        // BUTTON CHECK
         private void btnCheck_Click(object sender, EventArgs e)
         {
-            string jawabanBenar = btnCheck.Tag.ToString();
+            string userInput = txtAnswer.Text.Trim();
 
-            if (selectedAnswer == jawabanBenar) {
+            bool correct = false;
+
+            // CEK STRING
+            if (currentQuestion is QuestionItem<string> qString)
+            {
+                correct = qString.JawabanBenar.Any(
+                    x => x.Equals(
+                        userInput,
+                        StringComparison.OrdinalIgnoreCase
+                    )
+                );
+            }
+
+            // CEK INT
+            else if (currentQuestion is QuestionItem<int> qInt)
+            {
+                // INPUT ANGKA
+                if (int.TryParse(userInput, out int angka))
+                {
+                    correct = qInt.JawabanBenar.Contains(angka);
+                }
+
+                // INPUT HURUF
+                else
+                {
+                    // KONVERSI ANGKA KE HURUF
+                    Dictionary<int, string> angkaKeHuruf =
+                        new Dictionary<int, string>()
+                    {
+                        { 1, "satu" },
+                        { 2, "dua" },
+                        { 3, "tiga" },
+                        { 4, "empat" },
+                        { 5, "lima" },
+                        { 6, "enam" },
+                        { 7, "tujuh" },
+                        { 8, "delapan" },
+                        { 9, "sembilan" },
+                        { 10, "sepuluh" }
+                    };
+
+                    foreach (int jawaban in qInt.JawabanBenar)
+                    {
+                        if (angkaKeHuruf.ContainsKey(jawaban))
+                        {
+                            if (angkaKeHuruf[jawaban]
+                                .Equals(userInput,
+                                StringComparison.OrdinalIgnoreCase))
+                            {
+                                correct = true;
+                            }
+                        }
+                    }
+                }
+            }
+
+            // HASIL
+            if (correct)
+            {
                 score++;
 
                 MessageBox.Show("Correct!");
             }
-            else {
+            else
+            {
+                score--;
+
                 MessageBox.Show("Wrong!");
             }
 
             lblScore.Text = "Score : " + score;
 
+            txtAnswer.Clear();
+
             LoadQuestion();
-            }
         }
-    
-    
-    // GENERIC CLASS
-        public class QuestionItem<T>
+
+        // BUTTON KEMBALI
+        private void btnPilihMenuPilihMode_Click(object sender, EventArgs e)
         {
-        public string Pertanyaan { get; set; }
+            GameManager.AlurSaatIni = AlurGame.MENU_PILIH_MODE;
+        }
 
-        public T JawabanBenar { get; set; }
+        private void lblQuestion_Click(object sender, EventArgs e)
+        {
 
-        // gambar pilihan
-        public Image Gambar1 { get; set; }
-        public Image Gambar2 { get; set; }
-        public Image Gambar3 { get; set; }
+        }
 
-        // jawaban tiap gambar
-        public string Pilihan1 { get; set; }
-        public string Pilihan2 { get; set; }
-        public string Pilihan3 { get; set; }
+        private void lblAnswer_Click(object sender, EventArgs e)
+        {
+
+        }
+    }
+
+    // GENERIC CLASS
+    public class QuestionItem<T>
+    {
+        public Image SoalGambar { get; set; }
+
+        public List<T> JawabanBenar { get; set; }
 
         public QuestionItem(
-            string pertanyaan,
-            T jawabanBenar,
-            Image gambar1,
-            Image gambar2,
-            Image gambar3,
-            string pilihan1,
-            string pilihan2,
-            string pilihan3 )
+            Image soalGambar,
+            List<T> jawabanBenar)
         {
-            Pertanyaan = pertanyaan;
+            SoalGambar = soalGambar;
+
             JawabanBenar = jawabanBenar;
-
-            Gambar1 = gambar1;
-            Gambar2 = gambar2;
-            Gambar3 = gambar3;
-
-            Pilihan1 = pilihan1;
-            Pilihan2 = pilihan2;
-            Pilihan3 = pilihan3;
-
         }
-
-        
     }
 }

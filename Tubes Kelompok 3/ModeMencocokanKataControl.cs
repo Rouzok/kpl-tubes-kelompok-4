@@ -70,7 +70,7 @@ namespace Tubes_Kelompok_3
 
         void LoadQuestion()
         {
-            // tampilkan soal (tidak perlu currentIndex)
+           
             for (int i = 0; i < btnInggrisList.Count; i++)
             {
                 btnInggrisList[i].Text = questions[i];
@@ -86,14 +86,12 @@ namespace Tubes_Kelompok_3
                 btnIndoList[i].Text = shuffledAnswers[i];
                 btnIndoList[i].Enabled = true;
             }
-
-            //lblScore.Text = $"Score: {score}";
         }
 
         private void BtnInggris_Click(object sender, EventArgs e)
         {
-            Button btn = sender as Button;
-            selectedQuestion = btn.Text;
+            Button btn = sender as Button; 
+            selectedQuestion = btn.Text; //menyimpan kata 
         }
 
         private void BtnIndo_Click(object sender, EventArgs e)
@@ -127,14 +125,6 @@ namespace Tubes_Kelompok_3
             //lblScore.Text = $"Score: {score}";
             selectedQuestion = "";
             lblScore.Text = $"Score: {score}";
-
-            //// cek apakah semua tombol Inggris sudah disable
-            //bool gameSelesai = btnInggrisList.All(btn => btn.Enabled == false);
-
-            //if (gameSelesai)
-            //{
-            //    MessageBox.Show($"Game selesai!\nSkor: {score}/{wordTable.Count}");
-            //}
 
             // cek apakah game selesai
             if (score == wordTable.Count)

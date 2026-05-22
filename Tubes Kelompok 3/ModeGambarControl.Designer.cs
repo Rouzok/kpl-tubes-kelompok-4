@@ -31,27 +31,26 @@
             this.lblQuestion = new System.Windows.Forms.Label();
             this.lblScore = new System.Windows.Forms.Label();
             this.btnCheck = new System.Windows.Forms.Button();
-            this.pb1 = new System.Windows.Forms.PictureBox();
-            this.pb2 = new System.Windows.Forms.PictureBox();
-            this.pb3 = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pb1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pb2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pb3)).BeginInit();
+            this.pbQuestion = new System.Windows.Forms.PictureBox();
+            this.txtAnswer = new System.Windows.Forms.TextBox();
+            this.lblAnswer = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.pbQuestion)).BeginInit();
             this.SuspendLayout();
             // 
             // lblQuestion
             // 
             this.lblQuestion.AutoSize = true;
-            this.lblQuestion.Location = new System.Drawing.Point(80, 95);
+            this.lblQuestion.Location = new System.Drawing.Point(45, 95);
             this.lblQuestion.Name = "lblQuestion";
             this.lblQuestion.Size = new System.Drawing.Size(73, 20);
             this.lblQuestion.TabIndex = 2;
             this.lblQuestion.Text = "Question";
+            this.lblQuestion.Click += new System.EventHandler(this.lblQuestion_Click);
             // 
             // lblScore
             // 
             this.lblScore.AutoSize = true;
-            this.lblScore.Location = new System.Drawing.Point(526, 107);
+            this.lblScore.Location = new System.Drawing.Point(586, 95);
             this.lblScore.Name = "lblScore";
             this.lblScore.Size = new System.Drawing.Size(72, 20);
             this.lblScore.TabIndex = 3;
@@ -67,52 +66,47 @@
             this.btnCheck.UseVisualStyleBackColor = true;
             this.btnCheck.Click += new System.EventHandler(this.btnCheck_Click);
             // 
-            // pb1
+            // pbQuestion
             // 
-            this.pb1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pb1.Location = new System.Drawing.Point(38, 196);
-            this.pb1.Name = "pb1";
-            this.pb1.Size = new System.Drawing.Size(191, 128);
-            this.pb1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pb1.TabIndex = 9;
-            this.pb1.TabStop = false;
+            this.pbQuestion.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pbQuestion.Location = new System.Drawing.Point(49, 134);
+            this.pbQuestion.Name = "pbQuestion";
+            this.pbQuestion.Size = new System.Drawing.Size(310, 154);
+            this.pbQuestion.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbQuestion.TabIndex = 9;
+            this.pbQuestion.TabStop = false;
             // 
-            // pb2
+            // txtAnswer
             // 
-            this.pb2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pb2.Location = new System.Drawing.Point(288, 196);
-            this.pb2.Name = "pb2";
-            this.pb2.Size = new System.Drawing.Size(205, 128);
-            this.pb2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pb2.TabIndex = 10;
-            this.pb2.TabStop = false;
+            this.txtAnswer.Location = new System.Drawing.Point(430, 187);
+            this.txtAnswer.Name = "txtAnswer";
+            this.txtAnswer.Size = new System.Drawing.Size(174, 26);
+            this.txtAnswer.TabIndex = 10;
             // 
-            // pb3
+            // lblAnswer
             // 
-            this.pb3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pb3.Location = new System.Drawing.Point(530, 196);
-            this.pb3.Name = "pb3";
-            this.pb3.Size = new System.Drawing.Size(205, 128);
-            this.pb3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pb3.TabIndex = 11;
-            this.pb3.TabStop = false;
+            this.lblAnswer.AutoSize = true;
+            this.lblAnswer.Location = new System.Drawing.Point(399, 95);
+            this.lblAnswer.Name = "lblAnswer";
+            this.lblAnswer.Size = new System.Drawing.Size(62, 20);
+            this.lblAnswer.TabIndex = 11;
+            this.lblAnswer.Text = "Answer";
+            this.lblAnswer.Click += new System.EventHandler(this.lblAnswer_Click);
             // 
             // ModeGambarControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.pb3);
-            this.Controls.Add(this.pb2);
-            this.Controls.Add(this.pb1);
+            this.Controls.Add(this.lblAnswer);
+            this.Controls.Add(this.txtAnswer);
+            this.Controls.Add(this.pbQuestion);
             this.Controls.Add(this.btnCheck);
             this.Controls.Add(this.lblScore);
             this.Controls.Add(this.lblQuestion);
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "ModeGambarControl";
             this.Size = new System.Drawing.Size(770, 503);
-            ((System.ComponentModel.ISupportInitialize)(this.pb1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pb2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pb3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbQuestion)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -123,8 +117,8 @@
         private System.Windows.Forms.Label lblQuestion;
         private System.Windows.Forms.Label lblScore;
         private System.Windows.Forms.Button btnCheck;
-        private System.Windows.Forms.PictureBox pb1;
-        private System.Windows.Forms.PictureBox pb2;
-        private System.Windows.Forms.PictureBox pb3;
+        private System.Windows.Forms.PictureBox pbQuestion;
+        private System.Windows.Forms.TextBox txtAnswer;
+        private System.Windows.Forms.Label lblAnswer;
     }
 }

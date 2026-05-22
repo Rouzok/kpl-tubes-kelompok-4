@@ -63,9 +63,9 @@ namespace Tubes_Kelompok_3.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap angry {
+        internal static System.Drawing.Bitmap gambar_anggur {
             get {
-                object obj = ResourceManager.GetObject("angry", resourceCulture);
+                object obj = ResourceManager.GetObject("gambar_anggur", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -73,9 +73,9 @@ namespace Tubes_Kelompok_3.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap big {
+        internal static System.Drawing.Bitmap gambar_apel {
             get {
-                object obj = ResourceManager.GetObject("big", resourceCulture);
+                object obj = ResourceManager.GetObject("gambar_apel", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -83,9 +83,9 @@ namespace Tubes_Kelompok_3.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap clever {
+        internal static System.Drawing.Bitmap gambar_jeruk {
             get {
-                object obj = ResourceManager.GetObject("clever", resourceCulture);
+                object obj = ResourceManager.GetObject("gambar_jeruk", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -93,9 +93,9 @@ namespace Tubes_Kelompok_3.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap fast {
+        internal static System.Drawing.Bitmap gambar_semangka {
             get {
-                object obj = ResourceManager.GetObject("fast", resourceCulture);
+                object obj = ResourceManager.GetObject("gambar_semangka", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -103,49 +103,9 @@ namespace Tubes_Kelompok_3.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap happy {
+        internal static System.Drawing.Bitmap gambar_strawberry {
             get {
-                object obj = ResourceManager.GetObject("happy", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap lazy {
-            get {
-                object obj = ResourceManager.GetObject("lazy", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap sad {
-            get {
-                object obj = ResourceManager.GetObject("sad", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap small {
-            get {
-                object obj = ResourceManager.GetObject("small", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap weak {
-            get {
-                object obj = ResourceManager.GetObject("weak", resourceCulture);
+                object obj = ResourceManager.GetObject("gambar_strawberry", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
