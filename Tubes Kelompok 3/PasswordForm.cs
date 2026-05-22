@@ -6,9 +6,11 @@ namespace Tubes_Kelompok_3
 {
     public partial class PasswordForm : Form
     {
-        private string mode;
+        private GameMode mode;
 
-        public PasswordForm(string mode)
+        public bool IsLoginSuccess = false;
+
+        public PasswordForm(GameMode mode)
         {
             InitializeComponent();
 
@@ -34,6 +36,7 @@ namespace Tubes_Kelompok_3
 
                 if (valid)
                 {
+                    IsLoginSuccess = true;
                     MessageBox.Show(
                         "Password benar!");
 
@@ -41,7 +44,7 @@ namespace Tubes_Kelompok_3
 
                     // MODE GAMBAR
 
-                    if (mode == "GAMBAR")
+                    if (mode == GameMode.GAMBAR)
                     {
                         GameManager.AlurSaatIni =
                             AlurGame.MODE_GAMBAR_LEVEL1;
@@ -49,7 +52,7 @@ namespace Tubes_Kelompok_3
 
                     // MODE MEMILIH KATA
 
-                    else if (mode == "KATA")
+                    else if (mode == GameMode.KATA)
                     {
                         GameManager.AlurSaatIni =
                             AlurGame.MODE_MEMILIHKATA_LEVEL1;
@@ -57,7 +60,7 @@ namespace Tubes_Kelompok_3
 
                     // MODE MENCOCOKAN KATA
 
-                    else if (mode == "COCOK")
+                    else if (mode == GameMode.COCOK)
                     {
                         GameManager.AlurSaatIni =
                             AlurGame.MODE_MENCOCOKKANKATA_LEVEL1;

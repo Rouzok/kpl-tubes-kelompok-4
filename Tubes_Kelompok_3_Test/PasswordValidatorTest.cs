@@ -12,7 +12,7 @@ namespace Tubes_Kelompok_3_Test
         {
             bool result =
                 PasswordValidator.Validate(
-                    "GAMBAR",
+                    GameMode.GAMBAR,
                     "gambar123");
 
             Assert.IsTrue(result);
@@ -23,7 +23,7 @@ namespace Tubes_Kelompok_3_Test
         {
             bool result =
                 PasswordValidator.Validate(
-                    "KATA",
+                    GameMode.KATA,
                     "kata123");
 
             Assert.IsTrue(result);
@@ -34,7 +34,7 @@ namespace Tubes_Kelompok_3_Test
         {
             bool result =
                 PasswordValidator.Validate(
-                    "COCOK",
+                    GameMode.COCOK,
                     "cocok123");
 
             Assert.IsTrue(result);
@@ -45,19 +45,18 @@ namespace Tubes_Kelompok_3_Test
         {
             bool result =
                 PasswordValidator.Validate(
-                    "GAMBAR",
+                    GameMode.GAMBAR,
                     "salah123");
 
             Assert.IsFalse(result);
         }
-
 
         [TestMethod]
         [ExpectedException(typeof(Exception))]
         public void Validate_PasswordKosong()
         {
             PasswordValidator.Validate(
-                "GAMBAR",
+                GameMode.GAMBAR,
                 "");
         }
 
@@ -66,7 +65,7 @@ namespace Tubes_Kelompok_3_Test
         public void Validate_PasswordKurang4()
         {
             PasswordValidator.Validate(
-                "GAMBAR",
+                GameMode.GAMBAR,
                 "123");
         }
     }

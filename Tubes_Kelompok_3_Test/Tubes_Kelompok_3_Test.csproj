@@ -52,7 +52,6 @@
     <Compile Include="GameManagerTest.cs" />
     <Compile Include="PasswordValidatorTest.cs" />
     <Compile Include="ProgressGameTest.cs" />
-    <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

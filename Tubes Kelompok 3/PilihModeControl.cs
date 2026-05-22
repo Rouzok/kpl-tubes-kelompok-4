@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using Tubes_Kelompok_3.Library;
 
 namespace Tubes_Kelompok_3
 {
@@ -22,12 +16,15 @@ namespace Tubes_Kelompok_3
             EventArgs e)
         {
             PasswordForm form =
-                new PasswordForm("COCOK");
+                new PasswordForm(GameMode.COCOK);
 
             form.ShowDialog();
 
-            GameManager.AlurSaatIni =
-                AlurGame.MODE_MENCOCOKAN_KATA;
+            if (form.IsLoginSuccess)
+            {
+                GameManager.AlurSaatIni =
+                    AlurGame.MODE_MENCOCOKAN_KATA;
+            }
         }
 
         private void btnModeMemilihKata_Click(
@@ -35,12 +32,15 @@ namespace Tubes_Kelompok_3
             EventArgs e)
         {
             PasswordForm form =
-                new PasswordForm("KATA");
+                new PasswordForm(GameMode.KATA);
 
             form.ShowDialog();
 
-            GameManager.AlurSaatIni =
-                AlurGame.MODE_MEMILIH_KATA;
+            if (form.IsLoginSuccess)
+            {
+                GameManager.AlurSaatIni =
+                    AlurGame.MODE_MEMILIH_KATA;
+            }
         }
 
         private void btnModeGambar_Click(
@@ -48,12 +48,15 @@ namespace Tubes_Kelompok_3
             EventArgs e)
         {
             PasswordForm form =
-                new PasswordForm("GAMBAR");
+                new PasswordForm(GameMode.GAMBAR);
 
             form.ShowDialog();
 
-            GameManager.AlurSaatIni =
-                AlurGame.MODE_GAMBAR;
+            if (form.IsLoginSuccess)
+            {
+                GameManager.AlurSaatIni =
+                    AlurGame.MODE_GAMBAR;
+            }
         }
     }
 }
