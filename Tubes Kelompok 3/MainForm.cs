@@ -1,24 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using Tubes_Kelompok_3.Interface;
 
 namespace Tubes_Kelompok_3
 {
-    public partial class MainForm : Form
+    // Mengimplementasikan antarmuka IObserver
+    public partial class MainForm : Form, IGameObserver<AlurGame>
     {
-        // Struktur table-driven memetakan kunci AlurGame ke fungsi instansi
+        // Struktur data Table-Driven
         private readonly Dictionary<AlurGame, Func<UserControl>> _tabelTransisiView;
 
         public MainForm()
         {
             InitializeComponent();
-            // Inisialisasi tabel pemetaan status ke delegasi pembuatan kontrol
+
             _tabelTransisiView = new Dictionary<AlurGame, Func<UserControl>>
             {
                 { AlurGame.MAIN_MENU, () => new MainMenuControl() },
@@ -28,14 +24,18 @@ namespace Tubes_Kelompok_3
                 { AlurGame.MODE_MENCOCOKAN_KATA, () => new ModeMencocokanKataControl() }
             };
 
-            GameManager.OnAlurChanged += HandlePerubahanAlur;
+            // Mendaftarkan MainForm sebagai Observer ke dalam Subject (GameManager)
+            GameManager.Attach(this);
+
             GameManager.AlurSaatIni = AlurGame.MAIN_MENU;
         }
+
         public void SwitchView(UserControl newView)
         {
-            // PRECONDITION: View baru harus ada (tidak boleh null)
-            if (newView == null){
-                throw new ArgumentNullException(nameof(newView), "Kontrak Dilanggar: MainForm memerlukan UserControl valid untuk ditampilkan.");
+            // PRECONDITION (DbC): View baru harus ada
+            if (newView == null)
+            {
+                throw new ArgumentNullException(nameof(newView), "Kontrak Dilanggar: MainForm memerlukan UserControl valid.");
             }
 
             foreach (Control control in containerPanel.Controls)
@@ -47,25 +47,29 @@ namespace Tubes_Kelompok_3
             newView.Dock = DockStyle.Fill;
             containerPanel.Controls.Add(newView);
 
-            // POSTCONDITION: Container harus memiliki tepat 1 control
-            System.Diagnostics.Debug.Assert(containerPanel.Controls.Count == 1, "Kontrak Pasca-kondisi: Container gagal memuat view baru.");
+            // POSTCONDITION (DbC): Container harus memiliki tepat 1 control
+            System.Diagnostics.Debug.Assert(containerPanel.Controls.Count == 1, "Kontrak Pasca-kondisi: Container gagal memuat view.");
         }
 
-        private void HandlePerubahanAlur(AlurGame alurBaru)
+        // Implementasi kontrak dari IObserver<AlurGame>
+        public void UpdateData(AlurGame alurBaru)
         {
-            // sinkronisasi operasi lintas-utas (cross-thread operation safety)
-            if (this.InvokeRequired){
-                this.Invoke(new Action<AlurGame>(HandlePerubahanAlur), alurBaru);
+            // Defensive Programming: Sinkronisasi operasi lintas-utas
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new Action<AlurGame>(UpdateData), alurBaru);
                 return;
             }
 
-            // Eksekusi Table-Driven tanpa percabangan
-            if (_tabelTransisiView.TryGetValue(alurBaru, out Func<UserControl> instansiasiView)){
-                System.Diagnostics.Debug.WriteLine($"Alur Saat Ini : {alurBaru}");
-
+            // Eksekusi Table-Driven tanpa percabangan switch-case
+            if (_tabelTransisiView.TryGetValue(alurBaru, out Func<UserControl> instansiasiView))
+            {
+                System.Diagnostics.Debug.WriteLine($"[Observer Notification] Transisi ke : {alurBaru}");
                 SwitchView(instansiasiView());
-            }else{
-                // Defensive programming untuk menangani nilai enum yang tidak terdaftar
+            }
+            else
+            {
+                // Fallback / Defensive programming
                 System.Diagnostics.Debug.WriteLine($"[ERROR] Transisi state tidak diregistrasi di tabel: {alurBaru}");
                 throw new ArgumentOutOfRangeException(nameof(alurBaru), alurBaru, "Transisi state di luar definisi tabel transisi.");
             }

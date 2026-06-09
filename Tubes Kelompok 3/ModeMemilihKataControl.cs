@@ -28,6 +28,7 @@ namespace Tubes_Kelompok_3
         {
             InitializeComponent();
             InisialisasiDataSoal();
+
             if (tabelSoal != null && tabelSoal.Count > 0)
             {
                 TampilkanSoal(indeksSoalAktif);

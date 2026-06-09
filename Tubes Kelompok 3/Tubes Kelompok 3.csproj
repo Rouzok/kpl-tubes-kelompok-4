@@ -108,6 +108,8 @@
   <ItemGroup>
     <Compile Include="GameManager.cs" />
     <Compile Include="Helper\DatabaseHelper.cs" />
+    <Compile Include="Interface\IObserver.cs" />
+    <Compile Include="Interface\ISubject.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
