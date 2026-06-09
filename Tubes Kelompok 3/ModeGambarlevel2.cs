@@ -10,17 +10,13 @@ namespace Tubes_Kelompok_3
             InitializeComponent();
         }
 
-        private void button1_Click(
-            object sender,
-            EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
-            ProgressGame.ScoreModeGambarLevel2 = 10;
-
-            ProgressGame.ProgressGambar =
-                ProgressModeGambar.LEVEL3;
-
-            GameManager.AlurSaatIni =
-                AlurGame.MODE_GAMBAR_LEVEL3;
+            ProgressGame.Instance.SetProgressModeGambar(
+                10,
+                2,
+                ProgressModeGambar.LEVEL3,
+                AlurGame.MODE_GAMBAR_LEVEL3);
         }
     }
 }

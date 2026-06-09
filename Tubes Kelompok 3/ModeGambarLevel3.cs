@@ -24,14 +24,13 @@ namespace Tubes_Kelompok_3
 
         private void button1_Click(object sender, EventArgs e)
         {
-            ProgressGame.ScoreModeGambarLevel3 = 15;
-            ProgressGame.ProgressGambar =
-            ProgressModeGambar.SELESAI;
+            ProgressGame.Instance.SetProgressModeGambar(
+                15,
+                3,
+                ProgressModeGambar.SELESAI,
+                AlurGame.MAIN_MENU);
 
             MessageBox.Show("Mode gambar selesai!");
-
-            GameManager.AlurSaatIni =
-              AlurGame.MAIN_MENU;
         }
     }
 }

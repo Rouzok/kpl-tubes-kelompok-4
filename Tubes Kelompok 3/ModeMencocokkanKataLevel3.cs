@@ -38,17 +38,13 @@ namespace Tubes_Kelompok_3
 
         private void button1_Click(object sender, EventArgs e)
         {
-            ProgressGame.ScoreMencocokanKataLevel3 = 15;
-
-            // Update progress
-            ProgressGame.ProgressMencocokanKata =
-                ProgressMencocokanKata.SELESAI;
+            ProgressGame.Instance.SetProgressMencocokanKata(
+                15,
+                3,
+                ProgressMencocokanKata.SELESAI,
+                AlurGame.MAIN_MENU);
 
             MessageBox.Show("Mode mencocokan kata selesai!");
-
-            // Kembali ke menu utama
-            GameManager.AlurSaatIni =
-                AlurGame.MAIN_MENU;
         }
     }
 }

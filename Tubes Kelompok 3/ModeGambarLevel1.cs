@@ -19,15 +19,12 @@ namespace Tubes_Kelompok_3
 
         private void button1_Click(object sender, EventArgs e)
         {
-            ProgressGame.ScoreModeGambarLevel1 = 8;
-            // Update progress
-            ProgressGame.ProgressGambar =
-                ProgressModeGambar.LEVEL2;
-
-            // Pindah state UI
-            GameManager.AlurSaatIni =
-                AlurGame.MODE_GAMBAR_LEVEL2;
+            ProgressGame.Instance.SetProgressModeGambar(
+                8,
+                1,
+                ProgressModeGambar.LEVEL2,
+                AlurGame.MODE_GAMBAR_LEVEL2);
         }
-        
+
     }
 }

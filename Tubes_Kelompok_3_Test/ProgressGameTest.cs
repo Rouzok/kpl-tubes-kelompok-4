@@ -9,12 +9,12 @@ namespace Tubes_Kelompok_3_Test
         [TestMethod]
         public void TotalScoreModeGambar_Benar()
         {
-            ProgressGame.ScoreModeGambarLevel1 = 10;
-            ProgressGame.ScoreModeGambarLevel2 = 20;
-            ProgressGame.ScoreModeGambarLevel3 = 30;
+            ProgressGame.Instance.ScoreModeGambarLevel1 = 10;
+            ProgressGame.Instance.ScoreModeGambarLevel2 = 20;
+            ProgressGame.Instance.ScoreModeGambarLevel3 = 30;
 
             int total =
-                ProgressGame.TotalScoreModeGambar();
+                ProgressGame.Instance.TotalScoreModeGambar();
 
             Assert.AreEqual(60, total);
         }
@@ -22,12 +22,12 @@ namespace Tubes_Kelompok_3_Test
         [TestMethod]
         public void TotalScoreMemilihKata_Benar()
         {
-            ProgressGame.ScoreMemilihKataLevel1 = 10;
-            ProgressGame.ScoreMemilihKataLevel2 = 10;
-            ProgressGame.ScoreMemilihKataLevel3 = 10;
+            ProgressGame.Instance.ScoreMemilihKataLevel1 = 10;
+            ProgressGame.Instance.ScoreMemilihKataLevel2 = 10;
+            ProgressGame.Instance.ScoreMemilihKataLevel3 = 10;
 
             int total =
-                ProgressGame.TotalScoreMemilihKata();
+                ProgressGame.Instance.TotalScoreMemilihKata();
 
             Assert.AreEqual(30, total);
         }
@@ -35,12 +35,12 @@ namespace Tubes_Kelompok_3_Test
         [TestMethod]
         public void TotalScoreMencocokan_Benar()
         {
-            ProgressGame.ScoreMencocokanKataLevel1 = 5;
-            ProgressGame.ScoreMencocokanKataLevel2 = 5;
-            ProgressGame.ScoreMencocokanKataLevel3 = 5;
+            ProgressGame.Instance.ScoreMencocokanKataLevel1 = 5;
+            ProgressGame.Instance.ScoreMencocokanKataLevel2 = 5;
+            ProgressGame.Instance.ScoreMencocokanKataLevel3 = 5;
 
             int total =
-                ProgressGame.TotalScoreMencocokanKata();
+                ProgressGame.Instance.TotalScoreMencocokanKata();
 
             Assert.AreEqual(15, total);
         }

@@ -19,17 +19,13 @@ namespace Tubes_Kelompok_3
 
         private void button1_Click(object sender, EventArgs e)
         {
-            ProgressGame.ScoreMemilihKataLevel3 = 15;
-
-            // Update progress
-            ProgressGame.ProgressMemilihKata =
-                ProgressMemilihKata.SELESAI;
+            ProgressGame.Instance.SetProgressMemilihKata(
+                15,
+                3,
+                ProgressMemilihKata.SELESAI,
+                AlurGame.MAIN_MENU);
 
             MessageBox.Show("Mode memilih kata selesai!");
-
-            // Kembali ke menu utama
-            GameManager.AlurSaatIni =
-                AlurGame.MAIN_MENU;
         }
     }
 }

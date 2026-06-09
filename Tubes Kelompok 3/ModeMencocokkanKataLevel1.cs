@@ -19,15 +19,11 @@ namespace Tubes_Kelompok_3
 
         private void button1_Click(object sender, EventArgs e)
         {
-            ProgressGame.ScoreMencocokanKataLevel1 = 8;
-
-            // Update progress
-            ProgressGame.ProgressMencocokanKata =
-                ProgressMencocokanKata.LEVEL2;
-
-            // Pindah state UI
-            GameManager.AlurSaatIni =
-                AlurGame.MODE_MENCOCOKKANKATA_LEVEL2;
+            ProgressGame.Instance.SetProgressMencocokanKata(
+                8,
+                1,
+                ProgressMencocokanKata.LEVEL2,
+                AlurGame.MODE_MENCOCOKKANKATA_LEVEL2);
         }
     }
 }

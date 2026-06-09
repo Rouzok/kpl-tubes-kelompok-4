@@ -16,10 +16,10 @@ namespace Tubes_Kelompok_3
         {
             InitializeComponent();
 
-            if (ProgressGame.ProgressMencocokanKata ==
+            if (ProgressGame.Instance.ProgressMencocokanKata ==
                 ProgressMencocokanKata.LOCKED)
             {
-                ProgressGame.ProgressMencocokanKata =
+                ProgressGame.Instance.ProgressMencocokanKata =
                     ProgressMencocokanKata.LEVEL1;
             }
         }
