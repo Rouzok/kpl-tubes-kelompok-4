@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace AuthLibrary
 {
-    public class ValidasiInput
+    public static class ValidasiInput
     {
         //Validasi Inputan Kosong
         public static bool IsEmpty(string input)
@@ -11,8 +11,8 @@ namespace AuthLibrary
             return string.IsNullOrWhiteSpace(input);
         }
 
-        //Validasi Password Minimal 6 Karakter dan Mengandung Huruf Besar dan Angka
-        public static bool IsPasswordValid(char[] password)
+    //Validasi Password Minimal 6 Karakter dan Mengandung Huruf Besar dan Angka
+    public static bool IsPasswordValid(char[] password)
         {
             bool adaHurufBesar = password.Any(char.IsUpper);
             bool adaAngka = password.Any(char.IsDigit);
@@ -35,4 +35,5 @@ namespace AuthLibrary
             return nama.All(char.IsLetter);
         }
     }
+
 }

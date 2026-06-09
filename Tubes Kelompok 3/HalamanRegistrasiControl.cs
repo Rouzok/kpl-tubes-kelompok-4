@@ -9,7 +9,7 @@ namespace Tubes_Kelompok_3
 {
     public partial class HalamanRegistrasiControl : UserControl
     {
-        //Automata / State-Based
+        //Automata
         public enum RegisterState
         {
             RegistrasiBerhasil,
@@ -156,6 +156,20 @@ namespace Tubes_Kelompok_3
                     return;
                 }
 
+                //Secure Coding untuk Cek Username Duplikat
+                bool usernameSudahAda =
+                daftarUser.Any(
+                user => user.Username.Equals(
+                usernameRegistrasi,
+                StringComparison.OrdinalIgnoreCase));
+
+                if (usernameSudahAda)
+                {
+                    MessageBox.Show(
+                    "Username sudah digunakan!");
+                    return;
+                }
+
                 //Membuat User Baru
                 User userBaru = new User(
                     namaDepan,
@@ -201,15 +215,15 @@ namespace Tubes_Kelompok_3
 
                 this.Hide();
             }
-            catch (Exception ex)
+
+            catch (Exception)
             {
                 //Automata
                 RegisterState state =
-                    RegisterState.RegistrasiGagal;
-
-                MessageBox.Show(
-                    "Terjadi error : " + ex.Message);
+                RegisterState.RegistrasiGagal;
+                MessageBox.Show("Terjadi kesalahan saat registrasi.");
             }
+
         }
     }
 }

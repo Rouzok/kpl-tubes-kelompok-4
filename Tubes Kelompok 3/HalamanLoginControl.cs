@@ -109,6 +109,10 @@ namespace Tubes_Kelompok_3
                 {
                     state = LoginState.LoginBerhasil;
 
+                    //Singleton Pattern
+                    UserSession.Instance.CurrentUser =
+                        userDitemukan;
+
                     MessageBox.Show(
                         "Login berhasil!\nHalo " +
                         userDitemukan.NamaDepan + " " +
@@ -124,12 +128,12 @@ namespace Tubes_Kelompok_3
                     );
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                MessageBox.Show(
-                    "Terjadi error : " + ex.Message
+                MessageBox.Show("Terjadi kesalahan saat login."
                 );
             }
+
         }
 
         private void btn_buat_akun_Click(object sender, EventArgs e)

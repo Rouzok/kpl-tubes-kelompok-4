@@ -1,4 +1,5 @@
 <Solution>
+  <Folder Name="/Solution Items/" />
   <Project Path="AuthLibrary/AuthLibrary.csproj" Id="e7f04458-3864-4695-be74-901bb29f20ec" />
   <Project Path="AuthLibraryTest/AuthLibraryTest.csproj" Id="9b511cce-2bcc-4d0e-bf10-09158b4462b1" />
   <Project Path="Tubes Kelompok 3/Tubes Kelompok 3.csproj" Id="e2fdb764-bbfe-4d70-a00d-b73aa6b2d3a6" />
