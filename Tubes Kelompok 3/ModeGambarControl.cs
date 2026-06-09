@@ -3,29 +3,31 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Tubes_Kelompok_3
 {
     public partial class ModeGambarControl : UserControl
     {
+        private const string QuestionFilePath = "questions.json";
+
         // MENYIMPAN SEMUA SOAL
-        private List<QuestionItem<object>> questions =
+        private readonly List<QuestionItem<object>> questions =
             new List<QuestionItem<object>>();
 
         // SOAL YANG SEDANG TAMPIL
         private QuestionItem<object> currentQuestion;
 
         // SCORE
-        private int score = 0;
+        private int score;
 
-        Random rnd = new Random();
+        private readonly Random random = new Random();
 
         public ModeGambarControl()
         {
             InitializeComponent();
-
-            this.Load += ModeGambarControl_Load;
+            Load += ModeGambarControl_Load;
         }
 
         // LOAD AWAL
@@ -34,49 +36,82 @@ namespace Tubes_Kelompok_3
             EventArgs e)
         {
             LoadQuestionsFromJson();
-
             LoadQuestion();
         }
 
         // LOAD SOAL DARI JSON
         private void LoadQuestionsFromJson()
         {
-            string json =
-                File.ReadAllText("questions.json");
+            if (!File.Exists(QuestionFilePath))
+            {
+                MessageBox.Show(
+                    "File questions.json tidak ditemukan.",
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
 
-            List<QuestionData> data =
-                JsonConvert.DeserializeObject
-                <List<QuestionData>>(json);
+                return;
+            }
+
+            var json = File.ReadAllText(QuestionFilePath);
+
+            var data =
+                JsonConvert.DeserializeObject<List<QuestionData>>(json);
+
+            if (data == null)
+            {
+                MessageBox.Show(
+                    "Data soal tidak valid.",
+                    "Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+
+                return;
+            }
 
             foreach (var item in data)
             {
+                var image = GetImage(item.ImageName);
+
+                if (image == null)
+                {
+                    continue;
+                }
+
                 questions.Add(
                     new QuestionItem<object>(
-                        GetImage(item.ImageName),
-
-                        item.Answers
-                    )
-                );
+                        image,
+                        item.Answers));
             }
         }
 
         // AMBIL GAMBAR DARI RESOURCES
         private Image GetImage(string imageName)
         {
-            return (Image)Properties.Resources
+            return Properties.Resources
                 .ResourceManager
-                .GetObject(imageName);
+                .GetObject(imageName) as Image;
         }
 
         // LOAD SOAL RANDOM
         private void LoadQuestion()
         {
-            int index = rnd.Next(questions.Count);
+            if (questions.Count == 0)
+            {
+                MessageBox.Show(
+                    "Tidak ada soal yang tersedia.",
+                    "Informasi",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+
+                return;
+            }
+
+            var index = random.Next(questions.Count);
 
             currentQuestion = questions[index];
 
-            pbQuestion.Image =
-                currentQuestion.SoalGambar;
+            pbQuestion.Image = currentQuestion.SoalGambar;
         }
 
         // CHECK JAWABAN
@@ -84,37 +119,32 @@ namespace Tubes_Kelompok_3
             object sender,
             EventArgs e)
         {
-            string userInput =
-                txtAnswer.Text.Trim().ToLower();
-
-            bool correct = false;
-
-            foreach (var answer
-                in currentQuestion.JawabanBenar)
+            if (currentQuestion == null)
             {
-                if (answer.ToString().ToLower()
-                    == userInput)
-                {
-                    correct = true;
-                }
+                return;
             }
 
-            // HASIL
+            var userInput = txtAnswer.Text.Trim();
+
+            bool correct =
+                currentQuestion.JawabanBenar.Any(answer =>
+                    string.Equals(
+                        answer?.ToString(),
+                        userInput,
+                        StringComparison.OrdinalIgnoreCase));
+
             if (correct)
             {
                 score++;
-
                 MessageBox.Show("Correct!");
             }
             else
             {
                 score--;
-
                 MessageBox.Show("Wrong!");
             }
 
-            lblScore.Text =
-                "Score : " + score;
+            lblScore.Text = $"Score : {score}";
 
             txtAnswer.Clear();
 
@@ -135,14 +165,12 @@ namespace Tubes_Kelompok_3
             object sender,
             EventArgs e)
         {
-
         }
 
         private void lblAnswer_Click(
             object sender,
             EventArgs e)
         {
-
         }
     }
 
@@ -158,7 +186,6 @@ namespace Tubes_Kelompok_3
             List<T> jawabanBenar)
         {
             SoalGambar = soalGambar;
-
             JawabanBenar = jawabanBenar;
         }
     }

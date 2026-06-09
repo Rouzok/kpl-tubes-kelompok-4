@@ -12,13 +12,13 @@ namespace UnitTest
         [Fact]
         public void Test_LoadWords_NotNull()
         {
-            // Arrange
+            // Arrange menyiapkan data/object
             ModeMencocokkanKataTest mode = new ModeMencocokkanKataTest();
 
-            // Act
+            // Act enjalankan proses
             var result = mode.ToString();
 
-            // Assert
+            // Assert memeriksa hasil
             Assert.NotNull(result);
         }
 
