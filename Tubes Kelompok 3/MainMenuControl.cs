@@ -19,7 +19,7 @@ namespace Tubes_Kelompok_3
        
         private void btnPilihMode_Click(object sender, EventArgs e)
         {
-            GameManager.AlurSaatIni = AlurGame.MENU_PILIH_MODE;
+            GameManager.Instance.AlurSaatIni = AlurGame.MENU_PILIH_MODE;
         }
     }
 }

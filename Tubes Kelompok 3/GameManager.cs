@@ -6,42 +6,62 @@ namespace Tubes_Kelompok_3
 {
     public enum AlurGame { NULL, MAIN_MENU, MENU_PILIH_MODE, MODE_MEMILIH_KATA, MODE_GAMBAR, MODE_MENCOCOKAN_KATA }
 
-    public static class GameManager
+    public sealed class GameManager : ISubject<AlurGame>
     {
-        private static readonly List<IGameObserver<AlurGame>> _observers = new List<IGameObserver<AlurGame>>();
-        private static AlurGame _alurSaatIni = AlurGame.NULL;
+        private const string ErrorAlurNull = "Kontrak Dilanggar: AlurGame tidak boleh diatur ke NULL setelah inisialisasi.";
+        private const string ErrorObserverNull = "Observer tidak boleh null.";
 
-        public static void Attach(IGameObserver<AlurGame> observer)
+        private static readonly GameManager _instance = new GameManager();
+
+        private readonly List<IGameObserver<AlurGame>> _observers;
+        private AlurGame _alurSaatIni;
+
+        private GameManager()
         {
-            if (observer == null) throw new ArgumentNullException(nameof(observer));
-            if (!_observers.Contains(observer)){
+            _observers = new List<IGameObserver<AlurGame>>();
+            _alurSaatIni = AlurGame.NULL;
+        }
+
+        public static GameManager Instance
+        {
+            get { return _instance; }
+        }
+
+        public void Attach(IGameObserver<AlurGame> observer)
+        {
+            // Defensive Programming
+            if (observer == null) throw new ArgumentNullException(nameof(observer), ErrorObserverNull);
+            if (!_observers.Contains(observer))
+            {
                 _observers.Add(observer);
             }
         }
 
-        public static void Detach(IGameObserver<AlurGame> observer)
+        public void Detach(IGameObserver<AlurGame> observer)
         {
-            if (observer != null){
+            if (observer != null)
+            {
                 _observers.Remove(observer);
             }
         }
 
-        private static void Notify()
+        public void Notify()
         {
-            foreach (IGameObserver<AlurGame> observer in _observers){
+            foreach (IGameObserver<AlurGame> observer in _observers)
+            {
                 observer.UpdateData(_alurSaatIni);
             }
         }
 
-        public static AlurGame AlurSaatIni
+        public AlurGame AlurSaatIni
         {
             get { return _alurSaatIni; }
             set
             {
-                // PRECONDITION (DbC): Alur baru tidak boleh NULL
+                // PRECONDITION (DbC)
                 if (value == AlurGame.NULL)
                 {
-                    throw new ArgumentException("Kontrak Dilanggar: AlurGame tidak boleh diatur ke NULL setelah inisialisasi.");
+                    throw new ArgumentException(ErrorAlurNull);
                 }
 
                 if (_alurSaatIni != value)

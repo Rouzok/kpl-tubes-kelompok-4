@@ -5,9 +5,12 @@ using Tubes_Kelompok_3.Interface;
 
 namespace Tubes_Kelompok_3
 {
-    // Mengimplementasikan antarmuka IObserver
     public partial class MainForm : Form, IGameObserver<AlurGame>
     {
+        private const string ErrorViewNull = "Kontrak Dilanggar: MainForm memerlukan UserControl valid.";
+        private const string ErrorTransisiTidakDikenal = "Transisi state di luar definisi tabel transisi.";
+        private const string PesanAssertContainer = "Kontrak Pasca-kondisi: Container gagal memuat view.";
+
         // Struktur data Table-Driven
         private readonly Dictionary<AlurGame, Func<UserControl>> _tabelTransisiView;
 
@@ -25,9 +28,9 @@ namespace Tubes_Kelompok_3
             };
 
             // Mendaftarkan MainForm sebagai Observer ke dalam Subject (GameManager)
-            GameManager.Attach(this);
+            GameManager.Instance.Attach(this);
 
-            GameManager.AlurSaatIni = AlurGame.MAIN_MENU;
+            GameManager.Instance.AlurSaatIni = AlurGame.MAIN_MENU;
         }
 
         public void SwitchView(UserControl newView)
@@ -35,23 +38,30 @@ namespace Tubes_Kelompok_3
             // PRECONDITION (DbC): View baru harus ada
             if (newView == null)
             {
-                throw new ArgumentNullException(nameof(newView), "Kontrak Dilanggar: MainForm memerlukan UserControl valid.");
+                throw new ArgumentNullException(nameof(newView), ErrorViewNull);
             }
 
             foreach (Control control in containerPanel.Controls)
             {
                 control.Dispose();
             }
-            containerPanel.Controls.Clear();
+            BersihkanContainer();
 
             newView.Dock = DockStyle.Fill;
             containerPanel.Controls.Add(newView);
 
             // POSTCONDITION (DbC): Container harus memiliki tepat 1 control
-            System.Diagnostics.Debug.Assert(containerPanel.Controls.Count == 1, "Kontrak Pasca-kondisi: Container gagal memuat view.");
+            System.Diagnostics.Debug.Assert(containerPanel.Controls.Count == 1, PesanAssertContainer);
         }
 
-        // Implementasi kontrak dari IObserver<AlurGame>
+        private void BersihkanContainer()
+        {
+            while (containerPanel.Controls.Count > 0)
+            {
+                containerPanel.Controls[0].Dispose();
+            }
+        }
+
         public void UpdateData(AlurGame alurBaru)
         {
             // Defensive Programming: Sinkronisasi operasi lintas-utas
@@ -61,17 +71,13 @@ namespace Tubes_Kelompok_3
                 return;
             }
 
-            // Eksekusi Table-Driven tanpa percabangan switch-case
-            if (_tabelTransisiView.TryGetValue(alurBaru, out Func<UserControl> instansiasiView))
-            {
+            if (_tabelTransisiView.TryGetValue(alurBaru, out Func<UserControl> instansiasiView)){
                 System.Diagnostics.Debug.WriteLine($"[Observer Notification] Transisi ke : {alurBaru}");
                 SwitchView(instansiasiView());
-            }
-            else
-            {
-                // Fallback / Defensive programming
+            }else{
+                // Defensive programming
                 System.Diagnostics.Debug.WriteLine($"[ERROR] Transisi state tidak diregistrasi di tabel: {alurBaru}");
-                throw new ArgumentOutOfRangeException(nameof(alurBaru), alurBaru, "Transisi state di luar definisi tabel transisi.");
+                throw new ArgumentOutOfRangeException(nameof(alurBaru), alurBaru, ErrorTransisiTidakDikenal);
             }
         }
     }
