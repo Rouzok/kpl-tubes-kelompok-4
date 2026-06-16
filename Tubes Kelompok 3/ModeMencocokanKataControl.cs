@@ -7,6 +7,10 @@ namespace Tubes_Kelompok_3
 {
     public partial class ModeMencocokanKataControl : UserControl
     {
+        //Observer pattern
+        public event Action<int> OnScoreChanged;
+        public event Action<int> OnGameFinished;
+
         private Dictionary<string, string> wordTable;
 
         private List<string> questions;
@@ -145,9 +149,13 @@ namespace Tubes_Kelompok_3
 
             lblScore.Text = $"Score: {score}";
 
+            //observer pattern
+            OnScoreChanged?.Invoke(score);
+
             // Cek apakah game selesai
             if (score == wordTable.Count)
             {
+                OnGameFinished?.Invoke(score);
                 MessageBox.Show(
                     $"Game selesai!\nSkor: {score}/{wordTable.Count}");
             }

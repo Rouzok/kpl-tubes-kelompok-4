@@ -27,10 +27,5 @@ namespace Tubes_Kelompok_3
         }
 
     }
-    //public class GameMode
-    //{
-    //    private string nama;
-    //    private int level;
-    //    private
-    //}
+    
 }
