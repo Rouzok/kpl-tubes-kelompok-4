@@ -40,7 +40,7 @@
             this.btnMenuPilihMode.TabIndex = 1;
             this.btnMenuPilihMode.Text = "Main Menu";
             this.btnMenuPilihMode.UseVisualStyleBackColor = true;
-            this.btnMenuPilihMode.Click += new System.EventHandler(this.btnMenuPilihMode_Click);
+            //this.btnMenuPilihMode.Click += new System.EventHandler(this.btnMenuPilihMode_Click);
             // 
             // ModeMencocokanKataControl
             // 
