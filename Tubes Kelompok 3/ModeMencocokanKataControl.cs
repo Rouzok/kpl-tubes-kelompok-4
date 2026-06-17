@@ -1,123 +1,205 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Tubes_Kelompok_3
 {
     public partial class ModeMencocokanKataControl : UserControl
     {
-        // 🔥 TABLE DRIVEN
-        //Dictionary<string, string> wordTable;
-        //List<string> questions;
-        //List<string> answers;
+        //Observer pattern
+        public event Action<int> OnScoreChanged;
+        public event Action<int> OnGameFinished;
 
-        //    int currentIndex = 0;
-        //    int score = 0;
+        private Dictionary<string, string> wordTable;
+
+        private List<string> questions;
+        private List<string> answers;
+
+        private List<Button> btnInggrisList;
+        private List<Button> btnIndoList;
+
+        private int score = 0;
+
+        private string selectedQuestion = "";
+
+        private readonly Random random = new Random();
+
         public ModeMencocokanKataControl()
         {
             InitializeComponent();
-            //LoadData();      // isi data
-            //LoadQuestion();  // tampil soal pertama
+
+            LoadData();
+            SetupButtons();
+            LoadQuestion();
         }
 
-        //    private void btnMenuPilihMode_Click(object sender, EventArgs e)
-        //    {
-        //        GameManager.AlurSaatIni = AlurGame.MENU_PILIH_MODE;
-        //    }
+        private void LoadData()
+        {
+            wordTable = new Dictionary<string, string>()
+            {
+                { "Apple", "Apel" },
+                { "Book", "Buku" },
+                { "Cat", "Kucing" },
+                { "Dog", "Anjing" },
+                { "Eagle", "Elang" },
+                { "Fire", "Api" }
+            };
 
-        //    void LoadData()
-        //    {
-        //        wordTable = new Dictionary<string, string>()
-        //        {
-        //            {"Apple", "Apel"},
-        //            {"Book", "Buku"},
-        //            {"Cat", "Kucing"},
-        //            {"Dog", "Anjing"},
-        //            {"Eagle", "Elang"},
-        //            {"Fire", "Api"},
-        //            {"Girrafe", "Jerapah"},
-        //            {"Hat", "Topi"},
-        //            {"Island", "Pulau"}
-        //        };
+            questions = wordTable.Keys.ToList();
+            answers = wordTable.Values.ToList();
 
-        //        questions = new List<string>(wordTable.Keys);
-        //        answers = new List<string>(wordTable.Values);
-        //    }
+            btnInggrisList = new List<Button>()
+            {
+                btnInggris1,
+                btnInggris2,
+                btnInggris3,
+                btnInggris4,
+                btnInggris5,
+                btnInggris6
+            };
 
+            btnIndoList = new List<Button>()
+            {
+                btnIndo1,
+                btnIndo2,
+                btnIndo3,
+                btnIndo4,
+                btnIndo5,
+                btnIndo6
+            };
+        }
 
-        //    void LoadQuestion()
-        //    {
-        //        if (currentIndex >= questions.Count)
-        //        {
-        //            MessageBox.Show($"Game selesai!\nSkor: {score}/{questions.Count}");
-        //            return;
-        //        }
+        private void SetupButtons()
+        {
+            // Event tombol bahasa Inggris
+            foreach (var button in btnInggrisList)
+            {
+                button.Click += BtnInggris_Click;
+            }
 
-        //        // tampilkan soal
-        //        lblQuestion.Text = questions[currentIndex];
+            // Event tombol bahasa Indonesia
+            foreach (var button in btnIndoList)
+            {
+                button.Click += BtnIndo_Click;
+            }
+        }
 
-        //        // update skor
-        //        lblScore.Text = $"Score: {score}";
+        private void LoadQuestion()
+        {
+            for (int i = 0; i < btnInggrisList.Count; i++)
+            {
+                btnInggrisList[i].Text = questions[i];
+                btnInggrisList[i].Enabled = true;
+            }
 
-        //        // bersihkan tombol lama
-        //        panelAnswers.Controls.Clear();
+            // Acak jawaban
+            List<string> shuffledAnswers = new List<string>(answers);
 
-        //        // shuffle jawaban
-        //        List<string> shuffledAnswers = new List<string>(answers);
-        //        Shuffle(shuffledAnswers);
+            Shuffle(shuffledAnswers);
 
-        //        // buat tombol dinamis
-        //        foreach (var ans in shuffledAnswers)
-        //        {
-        //            Button btn = new Button();
-        //            btn.Text = ans;
-        //            btn.Width = 120;
-        //            btn.Height = 40;
-        //            btn.Margin = new Padding(5);
+            for (int i = 0; i < btnIndoList.Count; i++)
+            {
+                btnIndoList[i].Text = shuffledAnswers[i];
+                btnIndoList[i].Enabled = true;
+            }
+        }
 
-        //            // event klik
-        //            btn.Click += (s, e) => CheckAnswer(ans);
+        private void BtnInggris_Click(object sender, EventArgs e)
+        {
+            Button button = sender as Button;
 
-        //            panelAnswers.Controls.Add(btn);
-        //        }
-        //    }
+            selectedQuestion = button.Text;
+        }
 
+        private void BtnIndo_Click(object sender, EventArgs e)
+        {
+            if (selectedQuestion == "")
+            {
+                MessageBox.Show("Pilih kata Inggris dulu!");
+                return;
+            }
 
-        //    void CheckAnswer(string selected)
-        //    {
-        //        string correct = wordTable[questions[currentIndex]];
+            Button button = sender as Button;
 
-        //        if (selected == correct)
-        //        {
-        //            score++;
-        //            MessageBox.Show("Benar!");
-        //        }
-        //        else
-        //        {
-        //            MessageBox.Show($"Salah!\nJawaban benar: {correct}");
-        //        }
+            string selectedAnswer = button.Text;
 
-        //        currentIndex++;
-        //        LoadQuestion();
-        //    }
+            string correctAnswer = wordTable[selectedQuestion];
 
+            if (selectedAnswer == correctAnswer)
+            {
+                score++;
 
-        //    void Shuffle(List<string> list)
-        //    {
-        //        Random rand = new Random();
-        //        for (int i = list.Count - 1; i > 0; i--)
-        //        {
-        //            int j = rand.Next(i + 1);
-        //            var temp = list[i];
-        //            list[i] = list[j];
-        //            list[j] = temp;
-        //        }
-        //    }
+                MessageBox.Show("Benar!");
+
+                // Disable pasangan yang sudah benar
+                DisableMatchedButtons(
+                    selectedQuestion,
+                    selectedAnswer);
+            }
+            else
+            {
+                score--;
+
+                MessageBox.Show(
+                    $"Salah! Skor -1\nJawaban benar: {correctAnswer}");
+            }
+
+            selectedQuestion = "";
+
+            lblScore.Text = $"Score: {score}";
+
+            //observer pattern
+            OnScoreChanged?.Invoke(score);
+
+            // Cek apakah game selesai
+            if (score == wordTable.Count)
+            {
+                OnGameFinished?.Invoke(score);
+                MessageBox.Show(
+                    $"Game selesai!\nSkor: {score}/{wordTable.Count}");
+            }
+        }
+
+        private void DisableMatchedButtons(
+            string question,
+            string answer)
+        {
+            foreach (var button in btnInggrisList)
+            {
+                if (button.Text == question)
+                {
+                    button.Enabled = false;
+                }
+            }
+
+            foreach (var button in btnIndoList)
+            {
+                if (button.Text == answer)
+                {
+                    button.Enabled = false;
+                }
+            }
+        }
+
+        private void Shuffle(List<string> list)
+        {
+            for (int i = list.Count - 1; i > 0; i--)
+            {
+                int randomIndex = random.Next(i + 1);
+
+                string temp = list[i];
+
+                list[i] = list[randomIndex];
+
+                list[randomIndex] = temp;
+            }
+        }
+
+        private void label1_Click(
+            object sender,
+            EventArgs e)
+        {
+        }
     }
 }
