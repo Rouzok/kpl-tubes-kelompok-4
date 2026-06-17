@@ -4,9 +4,8 @@ using Tubes_Kelompok_3.Interface;
 
 namespace Tubes_Kelompok_3
 {
-    public enum AlurGame { NULL, MAIN_MENU, MENU_PILIH_MODE, MODE_MEMILIH_KATA, MODE_GAMBAR, MODE_MENCOCOKAN_KATA }
-
-    public sealed class GameManager : ISubject<AlurGame>
+    public enum AlurGame { NULL, HalamanLogin, HalamanRegistrasi, MAIN_MENU, MENU_PILIH_MODE, MODE_MEMILIH_KATA, MODE_GAMBAR, MODE_MENCOCOKAN_KATA}
+    public static class GameManager
     {
         private const string ErrorAlurNull = "Kontrak Dilanggar: AlurGame tidak boleh diatur ke NULL setelah inisialisasi.";
         private const string ErrorObserverNull = "Observer tidak boleh null.";

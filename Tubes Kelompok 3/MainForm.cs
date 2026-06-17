@@ -30,7 +30,7 @@ namespace Tubes_Kelompok_3
             // Mendaftarkan MainForm sebagai Observer ke dalam Subject (GameManager)
             GameManager.Instance.Attach(this);
 
-            GameManager.Instance.AlurSaatIni = AlurGame.MAIN_MENU;
+            GameManager.Instance.AlurSaatIni = AlurGame.HalamanLogin;
         }
 
         public void SwitchView(UserControl newView)
