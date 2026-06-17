@@ -1,31 +1,74 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+using Tubes_Kelompok_3.Interface;
 
 namespace Tubes_Kelompok_3
 {
-    public enum AlurGame { NULL, MAIN_MENU, MENU_PILIH_MODE, MODE_MEMILIH_KATA, MODE_GAMBAR, MODE_MENCOCOKAN_KATA}
+    public enum AlurGame { NULL, HalamanLogin, HalamanRegistrasi, MAIN_MENU, MENU_PILIH_MODE, MODE_MEMILIH_KATA, MODE_GAMBAR, MODE_MENCOCOKAN_KATA}
     public static class GameManager
     {
-        public static event Action<AlurGame> OnAlurChanged;
-        private static AlurGame _alurSaatIni = AlurGame.NULL;
-        public static AlurGame AlurSaatIni
+        private const string ErrorAlurNull = "Kontrak Dilanggar: AlurGame tidak boleh diatur ke NULL setelah inisialisasi.";
+        private const string ErrorObserverNull = "Observer tidak boleh null.";
+
+        private static readonly GameManager _instance = new GameManager();
+
+        private readonly List<IGameObserver<AlurGame>> _observers;
+        private AlurGame _alurSaatIni;
+
+        private GameManager()
+        {
+            _observers = new List<IGameObserver<AlurGame>>();
+            _alurSaatIni = AlurGame.NULL;
+        }
+
+        public static GameManager Instance
+        {
+            get { return _instance; }
+        }
+
+        public void Attach(IGameObserver<AlurGame> observer)
+        {
+            // Defensive Programming
+            if (observer == null) throw new ArgumentNullException(nameof(observer), ErrorObserverNull);
+            if (!_observers.Contains(observer))
+            {
+                _observers.Add(observer);
+            }
+        }
+
+        public void Detach(IGameObserver<AlurGame> observer)
+        {
+            if (observer != null)
+            {
+                _observers.Remove(observer);
+            }
+        }
+
+        public void Notify()
+        {
+            foreach (IGameObserver<AlurGame> observer in _observers)
+            {
+                observer.UpdateData(_alurSaatIni);
+            }
+        }
+
+        public AlurGame AlurSaatIni
         {
             get { return _alurSaatIni; }
             set
             {
+                // PRECONDITION (DbC)
+                if (value == AlurGame.NULL)
+                {
+                    throw new ArgumentException(ErrorAlurNull);
+                }
+
                 if (_alurSaatIni != value)
                 {
                     _alurSaatIni = value;
-
-                    OnAlurChanged?.Invoke(_alurSaatIni);
+                    Notify();
                 }
             }
         }
-
     }
-    
 }
