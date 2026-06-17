@@ -156,20 +156,6 @@ namespace Tubes_Kelompok_3
                     return;
                 }
 
-                //Secure Coding untuk Cek Username Duplikat
-                bool usernameSudahAda =
-                daftarUser.Any(
-                user => user.Username.Equals(
-                usernameRegistrasi,
-                StringComparison.OrdinalIgnoreCase));
-
-                if (usernameSudahAda)
-                {
-                    MessageBox.Show(
-                    "Username sudah digunakan!");
-                    return;
-                }
-
                 //Membuat User Baru
                 User userBaru = new User(
                     namaDepan,
