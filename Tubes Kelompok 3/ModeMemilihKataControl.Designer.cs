@@ -28,65 +28,62 @@
 
         private void InitializeComponent()
         {
-            this.btnLevel1 = new System.Windows.Forms.Button();
-            this.btnLevel2 = new System.Windows.Forms.Button();
-            this.btnLevel3 = new System.Windows.Forms.Button();
             this.lblTitle = new System.Windows.Forms.Label();
+            this.btnSubmit = new System.Windows.Forms.Button();
+            this.flpWordContainer = new System.Windows.Forms.FlowLayoutPanel();
             this.SuspendLayout();
 
             // 
             // lblTitle
             // 
-            this.lblTitle.AutoSize = true;
-            this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
-            this.lblTitle.Location = new System.Drawing.Point(50, 20);
+            this.lblTitle.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblTitle.Font = new System.Drawing.Font("Arial", 14F, System.Drawing.FontStyle.Bold);
+            this.lblTitle.Location = new System.Drawing.Point(0, 0);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(220, 25);
-            this.lblTitle.Text = "Pilih Level Memilih Kata";
-
+            this.lblTitle.Size = new System.Drawing.Size(400, 60);
+            this.lblTitle.TabIndex = 0;
+            this.lblTitle.Text = "Select the real English words in this list";
+            this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // btnLevel1
+            // btnSubmit
             // 
-            this.btnLevel1.Location = new System.Drawing.Point(100, 80);
-            this.btnLevel1.Name = "btnLevel1";
-            this.btnLevel1.Size = new System.Drawing.Size(120, 35);
-            this.btnLevel1.Text = "Level 1";
-            this.btnLevel1.UseVisualStyleBackColor = true;
-            this.btnLevel1.Click += new System.EventHandler(this.btnLevel1_Click);
-
+            this.btnSubmit.BackColor = System.Drawing.Color.LimeGreen;
+            this.btnSubmit.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btnSubmit.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
+            this.btnSubmit.ForeColor = System.Drawing.Color.White;
+            this.btnSubmit.Location = new System.Drawing.Point(0, 440);
+            this.btnSubmit.Name = "btnSubmit";
+            this.btnSubmit.Size = new System.Drawing.Size(400, 60);
+            this.btnSubmit.TabIndex = 1;
+            this.btnSubmit.Text = "Submit";
+            this.btnSubmit.UseVisualStyleBackColor = false;
             // 
-            // btnLevel2
+            // flpWordContainer
             // 
-            this.btnLevel2.Location = new System.Drawing.Point(100, 130);
-            this.btnLevel2.Name = "btnLevel2";
-            this.btnLevel2.Size = new System.Drawing.Size(120, 35);
-            this.btnLevel2.Text = "Level 2";
-            this.btnLevel2.UseVisualStyleBackColor = true;
-            this.btnLevel2.Click += new System.EventHandler(this.btnLevel2_Click);
-
-            // 
-            // btnLevel3
-            // 
-            this.btnLevel3.Location = new System.Drawing.Point(100, 180);
-            this.btnLevel3.Name = "btnLevel3";
-            this.btnLevel3.Size = new System.Drawing.Size(120, 35);
-            this.btnLevel3.Text = "Level 3";
-            this.btnLevel3.UseVisualStyleBackColor = true;
-            this.btnLevel3.Click += new System.EventHandler(this.btnLevel3_Click);
-
+            this.flpWordContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flpWordContainer.Location = new System.Drawing.Point(0, 60);
+            this.flpWordContainer.Name = "flpWordContainer";
+            this.flpWordContainer.Padding = new System.Windows.Forms.Padding(15);
+            this.flpWordContainer.Size = new System.Drawing.Size(400, 380);
+            this.flpWordContainer.TabIndex = 2;
             // 
             // ModeMemilihKataControl
             // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.flpWordContainer);
+            this.Controls.Add(this.btnSubmit);
             this.Controls.Add(this.lblTitle);
-            this.Controls.Add(this.btnLevel1);
-            this.Controls.Add(this.btnLevel2);
-            this.Controls.Add(this.btnLevel3);
             this.Name = "ModeMemilihKataControl";
-            this.Size = new System.Drawing.Size(314, 284);
+            this.Size = new System.Drawing.Size(400, 500);
             this.ResumeLayout(false);
-            this.PerformLayout();
+
         }
 
         #endregion
+
+        private System.Windows.Forms.Label lblTitle;
+        private System.Windows.Forms.Button btnSubmit;
+        public System.Windows.Forms.FlowLayoutPanel flpWordContainer;
     }
 }

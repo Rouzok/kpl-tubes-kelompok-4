@@ -15,48 +15,21 @@ namespace Tubes_Kelompok_3
             object sender,
             EventArgs e)
         {
-            PasswordForm form =
-                new PasswordForm(GameMode.COCOK);
-
-            form.ShowDialog();
-
-            if (form.IsLoginSuccess)
-            {
-                GameManager.AlurSaatIni =
-                    AlurGame.MODE_MENCOCOKAN_KATA;
-            }
+            GameManager.Instance.AlurSaatIni= AlurGame.MODE_MENCOCOKAN_KATA;
         }
 
         private void btnModeMemilihKata_Click(
             object sender,
             EventArgs e)
         {
-            PasswordForm form =
-                new PasswordForm(GameMode.KATA);
-
-            form.ShowDialog();
-
-            if (form.IsLoginSuccess)
-            {
-                GameManager.AlurSaatIni =
-                    AlurGame.MODE_MEMILIH_KATA;
-            }
+            GameManager.Instance.AlurSaatIni = AlurGame.MODE_MEMILIH_KATA;
         }
 
         private void btnModeGambar_Click(
             object sender,
             EventArgs e)
         {
-            PasswordForm form =
-                new PasswordForm(GameMode.GAMBAR);
-
-            form.ShowDialog();
-
-            if (form.IsLoginSuccess)
-            {
-                GameManager.AlurSaatIni =
-                    AlurGame.MODE_GAMBAR;
-            }
+            GameManager.Instance.AlurSaatIni = AlurGame.MODE_GAMBAR;
         }
     }
 }
