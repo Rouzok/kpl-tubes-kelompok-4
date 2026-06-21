@@ -6,6 +6,10 @@
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
+        private System.Windows.Forms.Button btnLevel1;
+        private System.Windows.Forms.Button btnLevel2;
+        private System.Windows.Forms.Button btnLevel3;
+        private System.Windows.Forms.Label lblTitle;
 
         /// <summary> 
         /// Clean up any resources being used.
@@ -22,54 +26,64 @@
 
         #region Component Designer generated code
 
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
-            this.btnMenuPilihMode = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblTitle = new System.Windows.Forms.Label();
+            this.btnSubmit = new System.Windows.Forms.Button();
+            this.flpWordContainer = new System.Windows.Forms.FlowLayoutPanel();
             this.SuspendLayout();
+
             // 
-            // btnMenuPilihMode
+            // lblTitle
             // 
-            this.btnMenuPilihMode.Location = new System.Drawing.Point(60, 111);
-            this.btnMenuPilihMode.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.btnMenuPilihMode.Name = "btnMenuPilihMode";
-            this.btnMenuPilihMode.Size = new System.Drawing.Size(119, 28);
-            this.btnMenuPilihMode.TabIndex = 0;
-            this.btnMenuPilihMode.Text = "Main Menu";
-            this.btnMenuPilihMode.UseVisualStyleBackColor = true;
-            this.btnMenuPilihMode.Click += new System.EventHandler(this.btnMenuPilihMode_Click);
+            this.lblTitle.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblTitle.Font = new System.Drawing.Font("Arial", 14F, System.Drawing.FontStyle.Bold);
+            this.lblTitle.Location = new System.Drawing.Point(0, 0);
+            this.lblTitle.Name = "lblTitle";
+            this.lblTitle.Size = new System.Drawing.Size(400, 60);
+            this.lblTitle.TabIndex = 0;
+            this.lblTitle.Text = "Select the real English words in this list";
+            this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label1
+            // btnSubmit
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(57, 34);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(112, 16);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Quiz Memilih Kata";
+            this.btnSubmit.BackColor = System.Drawing.Color.LimeGreen;
+            this.btnSubmit.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btnSubmit.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
+            this.btnSubmit.ForeColor = System.Drawing.Color.White;
+            this.btnSubmit.Location = new System.Drawing.Point(0, 440);
+            this.btnSubmit.Name = "btnSubmit";
+            this.btnSubmit.Size = new System.Drawing.Size(400, 60);
+            this.btnSubmit.TabIndex = 1;
+            this.btnSubmit.Text = "Submit";
+            this.btnSubmit.UseVisualStyleBackColor = false;
             // 
-            // ModeMemilihKata
+            // flpWordContainer
+            // 
+            this.flpWordContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flpWordContainer.Location = new System.Drawing.Point(0, 60);
+            this.flpWordContainer.Name = "flpWordContainer";
+            this.flpWordContainer.Padding = new System.Windows.Forms.Padding(15);
+            this.flpWordContainer.Size = new System.Drawing.Size(400, 380);
+            this.flpWordContainer.TabIndex = 2;
+            // 
+            // ModeMemilihKataControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.btnMenuPilihMode);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.Name = "ModeMemilihKata";
-            this.Size = new System.Drawing.Size(200, 185);
+            this.Controls.Add(this.flpWordContainer);
+            this.Controls.Add(this.btnSubmit);
+            this.Controls.Add(this.lblTitle);
+            this.Name = "ModeMemilihKataControl";
+            this.Size = new System.Drawing.Size(400, 500);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Button btnMenuPilihMode;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblTitle;
+        private System.Windows.Forms.Button btnSubmit;
+        public System.Windows.Forms.FlowLayoutPanel flpWordContainer;
     }
 }

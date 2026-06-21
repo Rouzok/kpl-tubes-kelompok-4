@@ -9,6 +9,9 @@
 bin/
 obj/
 
+# Packages
+packages/
+
 # .NET Core
 project.lock.json
 project.fragment.lock.json
