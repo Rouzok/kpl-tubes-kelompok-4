@@ -6,6 +6,10 @@
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
+        private System.Windows.Forms.Button btnLevel1;
+        private System.Windows.Forms.Button btnLevel2;
+        private System.Windows.Forms.Button btnLevel3;
+        private System.Windows.Forms.Label lblTitle;
 
         /// <summary> 
         /// Clean up any resources being used.
@@ -22,16 +26,13 @@
 
         #region Component Designer generated code
 
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
             this.lblTitle = new System.Windows.Forms.Label();
             this.btnSubmit = new System.Windows.Forms.Button();
             this.flpWordContainer = new System.Windows.Forms.FlowLayoutPanel();
             this.SuspendLayout();
+
             // 
             // lblTitle
             // 

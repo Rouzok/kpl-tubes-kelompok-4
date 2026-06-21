@@ -6,6 +6,10 @@
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
+        private System.Windows.Forms.Button btnLevel1;
+        private System.Windows.Forms.Button btnLevel2;
+        private System.Windows.Forms.Button btnLevel3;
+        private System.Windows.Forms.Label lblTitle;
 
         /// <summary> 
         /// Clean up any resources being used.
@@ -22,10 +26,6 @@
 
         #region Component Designer generated code
 
-        /// <summary> 
-        /// Required method for Designer support - do not modify 
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
             this.btnInggris1 = new System.Windows.Forms.Button();
@@ -43,6 +43,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.lblScore = new System.Windows.Forms.Label();
             this.SuspendLayout();
+
+            // 
+            // lblTitle
             // 
             // btnInggris1
             // 

@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using Tubes_Kelompok_3.Library;
 
 namespace Tubes_Kelompok_3
 {
@@ -16,17 +10,24 @@ namespace Tubes_Kelompok_3
         {
             InitializeComponent();
         }
-        private void btnModeMencocokanKata_Click(object sender, EventArgs e)
+
+        private void btnModeMencocokanKata_Click(
+            object sender,
+            EventArgs e)
         {
             GameManager.Instance.AlurSaatIni= AlurGame.MODE_MENCOCOKAN_KATA;
         }
 
-        private void btnModeMemilihKata_Click(object sender, EventArgs e)
+        private void btnModeMemilihKata_Click(
+            object sender,
+            EventArgs e)
         {
             GameManager.Instance.AlurSaatIni = AlurGame.MODE_MEMILIH_KATA;
         }
 
-        private void btnModeGambar_Click(object sender, EventArgs e)
+        private void btnModeGambar_Click(
+            object sender,
+            EventArgs e)
         {
             GameManager.Instance.AlurSaatIni = AlurGame.MODE_GAMBAR;
         }

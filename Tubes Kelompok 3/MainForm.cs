@@ -26,7 +26,19 @@ namespace Tubes_Kelompok_3
                 { AlurGame.MENU_PILIH_MODE, () => new PilihModeControl() },
                 { AlurGame.MODE_MEMILIH_KATA, () => new ModeMemilihKataControl() },
                 { AlurGame.MODE_GAMBAR, () => new ModeGambarControl() },
-                { AlurGame.MODE_MENCOCOKAN_KATA, () => new ModeMencocokanKataControl() }
+                { AlurGame.MODE_MENCOCOKAN_KATA, () => new ModeMencocokanKataControl() },
+                
+                { AlurGame.MODE_GAMBAR_LEVEL1, () => new ModeGambarLevel1() },
+                { AlurGame.MODE_GAMBAR_LEVEL2, () => new ModeGambarLevel2() },
+                { AlurGame.MODE_GAMBAR_LEVEL3, () => new ModeGambarLevel3() },
+
+                { AlurGame.MODE_MEMILIHKATA_LEVEL1, () => new ModeMemilihKataLevel1() },
+                { AlurGame.MODE_MEMILIHKATA_LEVEL2, () => new ModeMemilihKataLevel2() },
+                { AlurGame.MODE_MEMILIHKATA_LEVEL3, () => new ModeMemilihKataLevel3() },
+
+                { AlurGame.MODE_MENCOCOKKANKATA_LEVEL1, () => new ModeMencocokkanKataLevel1() },
+                { AlurGame.MODE_MENCOCOKKANKATA_LEVEL2, () => new ModeMencocokkanKataLevel2() },
+                { AlurGame.MODE_MENCOCOKKANKATA_LEVEL3, () => new ModeMencocokkanKataLevel3() }
             };
 
             // Mendaftarkan MainForm sebagai Observer ke dalam Subject (GameManager)
@@ -81,6 +93,13 @@ namespace Tubes_Kelompok_3
                 System.Diagnostics.Debug.WriteLine($"[ERROR] Transisi state tidak diregistrasi di tabel: {alurBaru}");
                 throw new ArgumentOutOfRangeException(nameof(alurBaru), alurBaru, ErrorTransisiTidakDikenal);
             }
+        }
+
+        private void containerPanel_Paint(
+            object sender,
+            PaintEventArgs e)
+        {
+
         }
     }
 }
