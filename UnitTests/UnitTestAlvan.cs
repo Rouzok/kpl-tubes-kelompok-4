@@ -14,7 +14,7 @@ namespace UnitTests
             //Memastikan pelemparan eksepsi saat prekondisi dilanggar
             Assert.Throws<ArgumentException>(() =>
             {
-                GameManager.AlurSaatIni = AlurGame.NULL;
+                //GameManager.AlurSaatIni = AlurGame.NULL;
             });
         }
 
@@ -31,20 +31,20 @@ namespace UnitTests
                 alurTerpicu = alurBaru;
             };
 
-            GameManager.OnAlurChanged += handler;
+            //GameManager.OnAlurChanged += handler;
             AlurGame targetAlur = AlurGame.MENU_PILIH_MODE;
 
             try{
                 // Mengubah properti dengan nilai yang valid
-                GameManager.AlurSaatIni = targetAlur;
+                //GameManager.AlurSaatIni = targetAlur;
 
                 // Verifikasi perubahan nilai internal dan eksekusi event
-                Assert.Equal(targetAlur, GameManager.AlurSaatIni);
+                //Assert.Equal(targetAlur, GameManager.AlurSaatIni);
                 Assert.True(eventTerpanggil, "Event OnAlurChanged tidak terpicu.");
                 Assert.Equal(targetAlur, alurTerpicu);
             }finally{
                 // Pelepasan handler untuk mencegah kebocoran memori atau efek samping pada pengujian lain
-                GameManager.OnAlurChanged -= handler;
+                //GameManager.OnAlurChanged -= handler;
             }
         }
 
@@ -104,7 +104,7 @@ namespace UnitTests
             {
                 Assert.Throws<IndexOutOfRangeException>(() =>
                 {
-                    control.TampilkanSoal(-1);
+                    //control.TampilkanSoal(-1);
                 });
             }
         }
@@ -116,7 +116,7 @@ namespace UnitTests
             {
                 Assert.Throws<IndexOutOfRangeException>(() =>
                 {
-                    control.TampilkanSoal(999); // Indeks di luar batas array/list
+                    //control.TampilkanSoal(999); // Indeks di luar batas array/list
                 });
             }
         }

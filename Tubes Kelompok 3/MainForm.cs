@@ -20,6 +20,8 @@ namespace Tubes_Kelompok_3
 
             _tabelTransisiView = new Dictionary<AlurGame, Func<UserControl>>
             {
+                { AlurGame.HalamanLogin, () => new HalamanLoginControl() },
+                { AlurGame.HalamanRegistrasi, () => new HalamanRegistrasiControl() },
                 { AlurGame.MAIN_MENU, () => new MainMenuControl() },
                 { AlurGame.MENU_PILIH_MODE, () => new PilihModeControl() },
                 { AlurGame.MODE_MEMILIH_KATA, () => new ModeMemilihKataControl() },

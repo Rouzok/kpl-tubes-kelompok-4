@@ -156,7 +156,7 @@ namespace Tubes_Kelompok_3
             object sender,
             EventArgs e)
         {
-            GameManager.AlurSaatIni =
+            GameManager.Instance.AlurSaatIni =
                 AlurGame.MENU_PILIH_MODE;
         }
 
