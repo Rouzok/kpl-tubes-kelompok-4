@@ -77,27 +77,21 @@ namespace Tubes_Kelompok_3
                     return;
                 }
 
-                ////Password menggunakan char[]
-                //if (!ValidasiInput.IsPasswordValid(
-                //    passwordLogin.ToCharArray()))
-                //{
-                //    state = LoginState.PasswordTidakValid;
+                //Password menggunakan char[]
+                if (!ValidasiInput.IsPasswordValid(
+                    passwordLogin.ToCharArray()))
+                {
+                    state = LoginState.PasswordTidakValid;
 
-                //    MessageBox.Show(
-                //        "Password minimal 6 karakter, mengandung huruf besar dan angka!"
-                //    );
+                    MessageBox.Show(
+                        "Password minimal 6 karakter, mengandung huruf besar dan angka!"
+                    );
 
-                //    return;
-                //}
+                    return;
+                }
 
                 //Mencari User di List
                 User userDitemukan = DatabaseSingleton.GetInstance().Login(usernameLogin, passwordLogin);
-
-                //DBC (Postcondition)
-                //Debug.Assert(
-                //HalamanRegistrasiControl.daftarUser != null,
-                //"Daftar user tidak boleh null"
-                //);
 
                 //State Login
                 if (userDitemukan != null)
@@ -116,6 +110,8 @@ namespace Tubes_Kelompok_3
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Information
                     );
+
+                    GameManager.Instance.AlurSaatIni = AlurGame.MAIN_MENU;
                 }
                 else
                 {
@@ -136,16 +132,7 @@ namespace Tubes_Kelompok_3
 
         private void btn_buat_akun_Click(object sender, EventArgs e)
         {
-            HalamanRegistrasiControl registerPage =
-                new HalamanRegistrasiControl();
-
-            this.Parent.Controls.Add(registerPage);
-
-            registerPage.Dock = DockStyle.Fill;
-
-            registerPage.BringToFront();
-
-            this.Hide();
+            GameManager.Instance.AlurSaatIni = AlurGame.HalamanRegistrasi;
         }
 
         private void label1_Click_1(object sender, EventArgs e)

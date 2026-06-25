@@ -151,39 +151,46 @@ namespace Tubes_Kelompok_3
                     return;
                 }
 
-                DatabaseSingleton.GetInstance().Register(
+                // Eksekusi fungsi dan evaluasi hasil komputasi basis data
+                bool registrasiBerhasil = DatabaseSingleton.GetInstance().Register(
                     usernameRegistrasi,
                     passwordRegistrasi,
                     namaDepan,
                     namaBelakang
                 );
 
-                //Menyimpan User ke List
-                //daftarUser.Add(userBaru);
+                if (registrasiBerhasil)
+                {
+                    // Automata 
+                    RegisterState state = RegisterState.RegistrasiBerhasil;
 
-                //Membuat User Baru
-                //DBC (Postcondition)
-                //Debug.Assert(,"User harus berhasil ditambahkan");
+                    MessageBox.Show(
+                        "Registrasi berhasil!\n" +
+                        "Halo " + namaDepan + " " + namaBelakang,
+                        "Status Registrasi", MessageBoxButtons.OK, MessageBoxIcon.Information
+                    );
 
-                //Automata 
-                RegisterState state = RegisterState.RegistrasiBerhasil;
+                    // Instruksi pembersihan (Disposal) pada input setelah sukses
+                    tb_nama_depan.Text = "";
+                    tb_nama_belakang.Text = "";
+                    tb_username_registrasi.Text = "";
+                    tb_password_registrasi.Text = "";
 
-                MessageBox.Show(
-                    "Registrasi berhasil!\n" +
-                    "Halo " +
-                    namaDepan + " " +
-                    namaBelakang
-                );
+                    // Transisi Alur Permainan
+                    GameManager.Instance.AlurSaatIni = AlurGame.HalamanLogin;
+                }
+                else
+                {
+                    // Automata
+                    RegisterState state = RegisterState.RegistrasiGagal;
 
-                //Reset TextBox
-                //tb_nama_depan.Text = "";
-                //tb_nama_belakang.Text = "";
-                //tb_username_registrasi.Text = "";
-                //tb_password_registrasi.Text = "";
-
-                //Berpindah ke Halaman Login
-                GameManager.Instance.AlurSaatIni = AlurGame.HalamanLogin;
-            }catch (Exception){
+                    MessageBox.Show(
+                        "Username telah terdaftar. Silakan gunakan username lain.",
+                        "Registrasi Ditolak", MessageBoxButtons.OK, MessageBoxIcon.Warning
+                    );
+                }
+            }
+            catch (Exception){
                 //Automata
                 RegisterState state = RegisterState.RegistrasiGagal;
                 MessageBox.Show("Terjadi kesalahan saat registrasi.");
