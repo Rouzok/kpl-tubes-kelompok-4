@@ -77,32 +77,27 @@ namespace Tubes_Kelompok_3
                     return;
                 }
 
-                //Password menggunakan char[]
-                if (!ValidasiInput.IsPasswordValid(
-                    passwordLogin.ToCharArray()))
-                {
-                    state = LoginState.PasswordTidakValid;
+                ////Password menggunakan char[]
+                //if (!ValidasiInput.IsPasswordValid(
+                //    passwordLogin.ToCharArray()))
+                //{
+                //    state = LoginState.PasswordTidakValid;
 
-                    MessageBox.Show(
-                        "Password minimal 6 karakter, mengandung huruf besar dan angka!"
-                    );
+                //    MessageBox.Show(
+                //        "Password minimal 6 karakter, mengandung huruf besar dan angka!"
+                //    );
 
-                    return;
-                }
+                //    return;
+                //}
 
                 //Mencari User di List
-                User userDitemukan =
-                    HalamanRegistrasiControl.daftarUser.FirstOrDefault(
-                        user =>
-                            user.Username == usernameLogin &&
-                            new string(user.Password) == passwordLogin
-                    );
+                User userDitemukan = DatabaseSingleton.GetInstance().Login(usernameLogin, passwordLogin);
 
                 //DBC (Postcondition)
-                Debug.Assert(
-                    HalamanRegistrasiControl.daftarUser != null,
-                    "Daftar user tidak boleh null"
-                );
+                //Debug.Assert(
+                //HalamanRegistrasiControl.daftarUser != null,
+                //"Daftar user tidak boleh null"
+                //);
 
                 //State Login
                 if (userDitemukan != null)
@@ -116,7 +111,10 @@ namespace Tubes_Kelompok_3
                     MessageBox.Show(
                         "Login berhasil!\nHalo " +
                         userDitemukan.NamaDepan + " " +
-                        userDitemukan.NamaBelakang
+                        userDitemukan.NamaBelakang,
+                        "Status Autentikasi",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information
                     );
                 }
                 else

@@ -23,23 +23,18 @@ namespace Tubes_Kelompok_3
             public string NamaBelakang { get; set; }
 
             public string Username { get; set; }
-            public char[] Password { get; set; }
+            public string Password { get; set; }
 
             public User(
                 string namaDepan,
                 string namaBelakang,
-                string username,
-                char[] password)
+                string username)
             {
                 NamaDepan = namaDepan;
                 NamaBelakang = namaBelakang;
                 Username = username;
-                Password = password;
             }
         }
-
-        //List User
-        public static List<User> daftarUser = new List<User>();
 
         public HalamanRegistrasiControl()
         {
@@ -156,25 +151,22 @@ namespace Tubes_Kelompok_3
                     return;
                 }
 
-                //Membuat User Baru
-                User userBaru = new User(
-                    namaDepan,
-                    namaBelakang,
+                DatabaseSingleton.GetInstance().Register(
                     usernameRegistrasi,
-                    passwordRegistrasi.ToCharArray()
+                    passwordRegistrasi,
+                    namaDepan,
+                    namaBelakang
                 );
 
                 //Menyimpan User ke List
-                daftarUser.Add(userBaru);
+                //daftarUser.Add(userBaru);
 
+                //Membuat User Baru
                 //DBC (Postcondition)
-                Debug.Assert(
-                    daftarUser.Contains(userBaru),
-                    "User harus berhasil ditambahkan");
+                //Debug.Assert(,"User harus berhasil ditambahkan");
 
                 //Automata 
-                RegisterState state =
-                    RegisterState.RegistrasiBerhasil;
+                RegisterState state = RegisterState.RegistrasiBerhasil;
 
                 MessageBox.Show(
                     "Registrasi berhasil!\n" +
@@ -184,29 +176,16 @@ namespace Tubes_Kelompok_3
                 );
 
                 //Reset TextBox
-                tb_nama_depan.Text = "";
-                tb_nama_belakang.Text = "";
-                tb_username_registrasi.Text = "";
-                tb_password_registrasi.Text = "";
+                //tb_nama_depan.Text = "";
+                //tb_nama_belakang.Text = "";
+                //tb_username_registrasi.Text = "";
+                //tb_password_registrasi.Text = "";
 
                 //Berpindah ke Halaman Login
-                HalamanLoginControl loginPage =
-                    new HalamanLoginControl();
-
-                this.Parent.Controls.Add(loginPage);
-
-                loginPage.Dock = DockStyle.Fill;
-
-                loginPage.BringToFront();
-
-                this.Hide();
-            }
-
-            catch (Exception)
-            {
+                GameManager.Instance.AlurSaatIni = AlurGame.HalamanLogin;
+            }catch (Exception){
                 //Automata
-                RegisterState state =
-                RegisterState.RegistrasiGagal;
+                RegisterState state = RegisterState.RegistrasiGagal;
                 MessageBox.Show("Terjadi kesalahan saat registrasi.");
             }
 
