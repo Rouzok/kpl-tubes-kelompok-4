@@ -49,6 +49,7 @@ namespace Tubes_Kelompok_3
             }
             BersihkanContainer();
 
+            this.ClientSize = new System.Drawing.Size(newView.Width, newView.Height);
             newView.Dock = DockStyle.Fill;
             containerPanel.Controls.Add(newView);
 
