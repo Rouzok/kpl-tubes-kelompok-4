@@ -6,11 +6,7 @@
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
-        private System.Windows.Forms.Button btnLevel1;
-        private System.Windows.Forms.Button btnLevel2;
-        private System.Windows.Forms.Button btnLevel3;
-        private System.Windows.Forms.Label lblTitle;
-
+        
         /// <summary> 
         /// Clean up any resources being used.
         /// </summary>

@@ -139,8 +139,8 @@
             this.btnLevel1.TabIndex = 1;
             this.btnLevel1.Text = "Level 1";
             this.btnLevel1.UseVisualStyleBackColor = true;
-            this.btnLevel1.Click +=
-                new System.EventHandler(this.btnLevel1_Click);
+            //this.btnLevel1.Click +=
+                //new System.EventHandler(this.btnLevel1_Click);
 
             // =========================
             // btnLevel2
@@ -151,8 +151,8 @@
             this.btnLevel2.TabIndex = 2;
             this.btnLevel2.Text = "Level 2";
             this.btnLevel2.UseVisualStyleBackColor = true;
-            this.btnLevel2.Click +=
-                new System.EventHandler(this.btnLevel2_Click);
+            //this.btnLevel2.Click +=
+                //new System.EventHandler(this.btnLevel2_Click);
 
             // =========================
             // btnLevel3
@@ -163,8 +163,8 @@
             this.btnLevel3.TabIndex = 3;
             this.btnLevel3.Text = "Level 3";
             this.btnLevel3.UseVisualStyleBackColor = true;
-            this.btnLevel3.Click +=
-                new System.EventHandler(this.btnLevel3_Click);
+            //this.btnLevel3.Click +=
+                //new System.EventHandler(this.btnLevel3_Click);
 
             // =========================
             // ModeGambarControl

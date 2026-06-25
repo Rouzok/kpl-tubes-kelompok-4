@@ -129,7 +129,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DatabaseSingleton.cs" />
+    <Compile Include="Helper\DatabaseSingleton.cs" />
     <Compile Include="GameManager.cs" />
     <Compile Include="HalamanLoginControl.cs">
       <SubType>UserControl</SubType>
@@ -143,7 +143,6 @@
     <Compile Include="HalamanRegistrasiControl.Designer.cs">
       <DependentUpon>HalamanRegistrasiControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Helper\DatabaseHelper.cs" />
     <Compile Include="Interface\IObserver.cs" />
     <Compile Include="Interface\ISubject.cs" />
     <Compile Include="MainForm.cs">
@@ -164,77 +163,17 @@
     <Compile Include="ModeGambarControl.Designer.cs">
       <DependentUpon>ModeGambarControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="ModeGambarLevel1.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="ModeGambarLevel1.Designer.cs">
-      <DependentUpon>ModeGambarLevel1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ModeGambarLevel2.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="ModeGambarLevel2.Designer.cs">
-      <DependentUpon>ModeGambarLevel2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ModeGambarLevel3.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="ModeGambarLevel3.Designer.cs">
-      <DependentUpon>ModeGambarLevel3.cs</DependentUpon>
-    </Compile>
     <Compile Include="ModeMemilihKataControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="ModeMemilihKataControl.Designer.cs">
       <DependentUpon>ModeMemilihKataControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="ModeMemilihKataLevel1.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="ModeMemilihKataLevel1.Designer.cs">
-      <DependentUpon>ModeMemilihKataLevel1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ModeMemilihKataLevel2.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="ModeMemilihKataLevel2.Designer.cs">
-      <DependentUpon>ModeMemilihKataLevel2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ModeMemilihKataLevel3.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="ModeMemilihKataLevel3.Designer.cs">
-      <DependentUpon>ModeMemilihKataLevel3.cs</DependentUpon>
-    </Compile>
     <Compile Include="ModeMencocokanKataControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="ModeMencocokanKataControl.Designer.cs">
       <DependentUpon>ModeMencocokanKataControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ModeMencocokkanKataLevel1.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="ModeMencocokkanKataLevel1.Designer.cs">
-      <DependentUpon>ModeMencocokkanKataLevel1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ModeMencocokkanKataLevel2.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="ModeMencocokkanKataLevel2.Designer.cs">
-      <DependentUpon>ModeMencocokkanKataLevel2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ModeMencocokkanKataLevel3.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="ModeMencocokkanKataLevel3.Designer.cs">
-      <DependentUpon>ModeMencocokkanKataLevel3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="PasswordForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="PasswordForm.Designer.cs">
-      <DependentUpon>PasswordForm.cs</DependentUpon>
     </Compile>
     <Compile Include="PilihModeControl.cs">
       <SubType>UserControl</SubType>
@@ -262,41 +201,11 @@
     <EmbeddedResource Include="ModeGambarControl.resx">
       <DependentUpon>ModeGambarControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ModeGambarLevel1.resx">
-      <DependentUpon>ModeGambarLevel1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ModeGambarLevel2.resx">
-      <DependentUpon>ModeGambarLevel2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ModeGambarLevel3.resx">
-      <DependentUpon>ModeGambarLevel3.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="ModeMemilihKataControl.resx">
       <DependentUpon>ModeMemilihKataControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ModeMemilihKataLevel1.resx">
-      <DependentUpon>ModeMemilihKataLevel1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ModeMemilihKataLevel2.resx">
-      <DependentUpon>ModeMemilihKataLevel2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ModeMemilihKataLevel3.resx">
-      <DependentUpon>ModeMemilihKataLevel3.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="ModeMencocokanKataControl.resx">
       <DependentUpon>ModeMencocokanKataControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ModeMencocokkanKataLevel1.resx">
-      <DependentUpon>ModeMencocokkanKataLevel1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ModeMencocokkanKataLevel2.resx">
-      <DependentUpon>ModeMencocokkanKataLevel2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ModeMencocokkanKataLevel3.resx">
-      <DependentUpon>ModeMencocokkanKataLevel3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PasswordForm.resx">
-      <DependentUpon>PasswordForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PilihModeControl.resx">
       <DependentUpon>PilihModeControl.cs</DependentUpon>
@@ -339,6 +248,7 @@
     <ProjectReference Include="..\Tubes_Kelompok_3.Library\Tubes_Kelompok_3.Library.csproj">
       <Project>{ce1bbb1e-96d2-46ec-8334-3b643fbf04b9}</Project>
       <Name>Tubes_Kelompok_3.Library</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AuthLibrary\AuthLibrary.csproj">
       <Project>{e7f04458-3864-4695-be74-901bb29f20ec}</Project>
       <Name>AuthLibrary</Name>

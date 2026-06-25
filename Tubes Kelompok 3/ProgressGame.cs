@@ -94,7 +94,7 @@ namespace Tubes_Kelompok_3
                 ScoreModeGambarLevel3 = score;
 
             ProgressGambar = progressBaru;
-            GameManager.AlurSaatIni = alurBaru;
+            GameManager.Instance.AlurSaatIni = alurBaru;
         }
 
         // DRY MEMILIH KATA
@@ -112,7 +112,7 @@ namespace Tubes_Kelompok_3
                 ScoreMemilihKataLevel3 = score;
 
             ProgressMemilihKata = progressBaru;
-            GameManager.AlurSaatIni = alurBaru;
+            GameManager.Instance.AlurSaatIni = alurBaru;
         }
 
         // DRY MENCOCOKAN KATA
@@ -130,7 +130,7 @@ namespace Tubes_Kelompok_3
                 ScoreMencocokanKataLevel3 = score;
 
             ProgressMencocokanKata = progressBaru;
-            GameManager.AlurSaatIni = alurBaru;
+            GameManager.Instance.AlurSaatIni = alurBaru;
         }
 
         // TOTAL SCORE
