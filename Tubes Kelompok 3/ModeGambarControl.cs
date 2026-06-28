@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace Tubes_Kelompok_3
 {
-    public partial class ModeGambarControl : UserControl
+    public partial class ModeGambarControl : UserControl, IGameMode
     {
         private const string QuestionFilePath = "questions.json";
 
@@ -182,6 +182,10 @@ namespace Tubes_Kelompok_3
         {
             
         }
+        public UserControl GetControl()
+        {
+            return this;
+        }
     }
 
     // GENERIC CLASS
@@ -198,5 +202,7 @@ namespace Tubes_Kelompok_3
             SoalGambar = soalGambar;
             JawabanBenar = jawabanBenar;
         }
+
+
     }
 }

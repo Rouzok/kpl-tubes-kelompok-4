@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace Tubes_Kelompok_3
 {
-    public partial class ModeMencocokanKataControl : UserControl
+    public partial class ModeMencocokanKataControl : UserControl, IGameMode
     {
         //Observer pattern
         public event Action<int> OnScoreChanged;
@@ -205,6 +205,12 @@ namespace Tubes_Kelompok_3
         private void button1_Click(object sender, EventArgs e)
         {
 
+        }
+
+
+        public UserControl GetControl()
+        {
+            return this;
         }
     }
 }
