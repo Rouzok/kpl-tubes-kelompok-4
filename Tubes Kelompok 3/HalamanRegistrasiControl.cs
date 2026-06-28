@@ -61,6 +61,16 @@ namespace Tubes_Kelompok_3
 
         }
 
+        private void label1_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            GameManager.Instance.AlurSaatIni = AlurGame.HalamanLogin;
+        }
+
         private void btn_registrasi_Click(object sender, EventArgs e)
         {
             try
