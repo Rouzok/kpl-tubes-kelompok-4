@@ -42,10 +42,8 @@
             this.btnIndo1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.lblScore = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
-
-            // 
-            // lblTitle
             // 
             // btnInggris1
             // 
@@ -200,10 +198,21 @@
             this.lblScore.TabIndex = 14;
             this.lblScore.Text = "Score: 0";
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(44, 66);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(78, 38);
+            this.button1.TabIndex = 15;
+            this.button1.Text = "back";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // ModeMencocokanKataControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.lblScore);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnIndo6);
@@ -242,5 +251,6 @@
         private System.Windows.Forms.Button btnIndo1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lblScore;
+        private System.Windows.Forms.Button button1;
     }
 }

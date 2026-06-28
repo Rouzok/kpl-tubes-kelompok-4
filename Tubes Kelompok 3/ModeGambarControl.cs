@@ -172,6 +172,16 @@ namespace Tubes_Kelompok_3
             EventArgs e)
         {
         }
+
+        private void ModeGambarControl_Load_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblScore_Click(object sender, EventArgs e)
+        {
+            
+        }
     }
 
     // GENERIC CLASS
