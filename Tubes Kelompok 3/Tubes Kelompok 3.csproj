@@ -145,6 +145,24 @@
     </Compile>
     <Compile Include="Interface\IObserver.cs" />
     <Compile Include="Interface\ISubject.cs" />
+    <Compile Include="LevelGambarControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="LevelGambarControl.Designer.cs">
+      <DependentUpon>LevelGambarControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LevelMemilihKataControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="LevelMemilihKataControl.Designer.cs">
+      <DependentUpon>LevelMemilihKataControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LevelMencocokkanKataControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="LevelMencocokkanKataControl.Designer.cs">
+      <DependentUpon>LevelMencocokkanKataControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -163,6 +181,7 @@
     <Compile Include="ModeGambarControl.Designer.cs">
       <DependentUpon>ModeGambarControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\Level.cs" />
     <Compile Include="ModeMemilihKataControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -191,6 +210,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="HalamanRegistrasiControl.resx">
       <DependentUpon>HalamanRegistrasiControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LevelGambarControl.resx">
+      <DependentUpon>LevelGambarControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
