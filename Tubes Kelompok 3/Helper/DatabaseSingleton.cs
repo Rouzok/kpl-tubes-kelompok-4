@@ -163,6 +163,55 @@ namespace Tubes_Kelompok_3
                 return true;
             }
             finally
+
+            {
+                CloseConnection();
+          
+            }
+
+        }
+        public List<Level> GetLevels(string mode)
+        {
+            List<Level> levels = new List<Level>();
+
+            try
+            {
+                OpenConnection();
+
+                string query = @"
+            SELECT
+                id_level,
+                nama_mode,
+                level_number,
+                total_skor,
+                is_active
+            FROM levels
+            WHERE nama_mode = @mode
+            ORDER BY level_number ASC";
+
+                MySqlCommand cmd = new MySqlCommand(query, _connection);
+
+                cmd.Parameters.AddWithValue("@mode", mode);
+
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Level level = new Level();
+
+                        level.IdLevel = reader.GetInt32("id_level");
+                        level.NamaMode = reader.GetString("nama_mode");
+                        level.LevelNumber = reader.GetInt32("level_number");
+                        level.TotalSkor = reader.GetInt32("total_skor");
+                        level.IsActive = reader.GetBoolean("is_active");
+
+                        levels.Add(level);
+                    }
+                }
+
+                return levels;
+            }
+            finally
             {
                 CloseConnection();
             }

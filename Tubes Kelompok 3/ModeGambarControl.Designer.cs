@@ -7,10 +7,10 @@
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        private System.Windows.Forms.Button btnLevel1;
-        private System.Windows.Forms.Button btnLevel2;
-        private System.Windows.Forms.Button btnLevel3;
-        private System.Windows.Forms.Label lblTitle;
+        //private System.Windows.Forms.Button btnLevel1;
+        //private System.Windows.Forms.Button btnLevel2;
+        //private System.Windows.Forms.Button btnLevel3;
+        //private System.Windows.Forms.Label lblTitle;
 
         /// <summary> 
         /// Clean up any resources being used.
@@ -117,52 +117,52 @@
             // =========================
             // lblTitle
             // =========================
-            this.lblTitle.AutoSize = true;
-            this.lblTitle.Font = new System.Drawing.Font(
-                "Segoe UI",
-                14F,
-                System.Drawing.FontStyle.Bold
-            );
+            //this.lblTitle.AutoSize = true;
+            //this.lblTitle.Font = new System.Drawing.Font(
+            //    "Segoe UI",
+            //    14F,
+            //    System.Drawing.FontStyle.Bold
+            //);
 
-            this.lblTitle.Location = new System.Drawing.Point(75, 20);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(160, 25);
-            this.lblTitle.TabIndex = 0;
-            this.lblTitle.Text = "Pilih Level Gambar";
+            //this.lblTitle.Location = new System.Drawing.Point(75, 20);
+            //this.lblTitle.Name = "lblTitle";
+            //this.lblTitle.Size = new System.Drawing.Size(160, 25);
+            //this.lblTitle.TabIndex = 0;
+            //this.lblTitle.Text = "Pilih Level Gambar";
 
-            // =========================
-            // btnLevel1
-            // =========================
-            this.btnLevel1.Location = new System.Drawing.Point(95, 80);
-            this.btnLevel1.Name = "btnLevel1";
-            this.btnLevel1.Size = new System.Drawing.Size(120, 35);
-            this.btnLevel1.TabIndex = 1;
-            this.btnLevel1.Text = "Level 1";
-            this.btnLevel1.UseVisualStyleBackColor = true;
-            //this.btnLevel1.Click +=
-                //new System.EventHandler(this.btnLevel1_Click);
+            //// =========================
+            //// btnLevel1
+            //// =========================
+            //this.btnLevel1.Location = new System.Drawing.Point(95, 80);
+            //this.btnLevel1.Name = "btnLevel1";
+            //this.btnLevel1.Size = new System.Drawing.Size(120, 35);
+            //this.btnLevel1.TabIndex = 1;
+            //this.btnLevel1.Text = "Level 1";
+            //this.btnLevel1.UseVisualStyleBackColor = true;
+            ////this.btnLevel1.Click +=
+            //    //new System.EventHandler(this.btnLevel1_Click);
 
-            // =========================
-            // btnLevel2
-            // =========================
-            this.btnLevel2.Location = new System.Drawing.Point(95, 130);
-            this.btnLevel2.Name = "btnLevel2";
-            this.btnLevel2.Size = new System.Drawing.Size(120, 35);
-            this.btnLevel2.TabIndex = 2;
-            this.btnLevel2.Text = "Level 2";
-            this.btnLevel2.UseVisualStyleBackColor = true;
-            //this.btnLevel2.Click +=
-                //new System.EventHandler(this.btnLevel2_Click);
+            //// =========================
+            //// btnLevel2
+            //// =========================
+            //this.btnLevel2.Location = new System.Drawing.Point(95, 130);
+            //this.btnLevel2.Name = "btnLevel2";
+            //this.btnLevel2.Size = new System.Drawing.Size(120, 35);
+            //this.btnLevel2.TabIndex = 2;
+            //this.btnLevel2.Text = "Level 2";
+            //this.btnLevel2.UseVisualStyleBackColor = true;
+            ////this.btnLevel2.Click +=
+            //    //new System.EventHandler(this.btnLevel2_Click);
 
-            // =========================
-            // btnLevel3
-            // =========================
-            this.btnLevel3.Location = new System.Drawing.Point(95, 180);
-            this.btnLevel3.Name = "btnLevel3";
-            this.btnLevel3.Size = new System.Drawing.Size(120, 35);
-            this.btnLevel3.TabIndex = 3;
-            this.btnLevel3.Text = "Level 3";
-            this.btnLevel3.UseVisualStyleBackColor = true;
+            //// =========================
+            //// btnLevel3
+            //// =========================
+            //this.btnLevel3.Location = new System.Drawing.Point(95, 180);
+            //this.btnLevel3.Name = "btnLevel3";
+            //this.btnLevel3.Size = new System.Drawing.Size(120, 35);
+            //this.btnLevel3.TabIndex = 3;
+            //this.btnLevel3.Text = "Level 3";
+            //this.btnLevel3.UseVisualStyleBackColor = true;
             //this.btnLevel3.Click +=
                 //new System.EventHandler(this.btnLevel3_Click);
 
@@ -175,10 +175,10 @@
             this.AutoScaleMode =
                 System.Windows.Forms.AutoScaleMode.Font;
 
-            this.Controls.Add(this.lblTitle);
-            this.Controls.Add(this.btnLevel1);
-            this.Controls.Add(this.btnLevel2);
-            this.Controls.Add(this.btnLevel3);
+            //this.Controls.Add(this.lblTitle);
+            //this.Controls.Add(this.btnLevel1);
+            //this.Controls.Add(this.btnLevel2);
+            //this.Controls.Add(this.btnLevel3);
 
             this.Name = "ModeGambarControl";
             this.Size = new System.Drawing.Size(314, 284);

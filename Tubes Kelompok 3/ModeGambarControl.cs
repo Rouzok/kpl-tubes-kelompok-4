@@ -24,6 +24,20 @@ namespace Tubes_Kelompok_3
 
         private readonly Random random = new Random();
 
+        public class QuestionItem<T>
+        {
+            public Image SoalGambar { get; set; }
+
+            public List<T> JawabanBenar { get; set; }
+
+            public QuestionItem(
+                Image soalGambar,
+                List<T> jawabanBenar)
+            {
+                SoalGambar = soalGambar;
+                JawabanBenar = jawabanBenar;
+            }
+        }
         public ModeGambarControl()
         {
             InitializeComponent();
@@ -174,19 +188,4 @@ namespace Tubes_Kelompok_3
         }
     }
 
-    // GENERIC CLASS
-    public class QuestionItem<T>
-    {
-        public Image SoalGambar { get; set; }
-
-        public List<T> JawabanBenar { get; set; }
-
-        public QuestionItem(
-            Image soalGambar,
-            List<T> jawabanBenar)
-        {
-            SoalGambar = soalGambar;
-            JawabanBenar = jawabanBenar;
-        }
-    }
 }
