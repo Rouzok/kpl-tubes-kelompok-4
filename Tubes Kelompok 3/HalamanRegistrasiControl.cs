@@ -16,25 +16,6 @@ namespace Tubes_Kelompok_3
             RegistrasiGagal
         }
 
-        //Class User
-        public class User
-        {
-            public string NamaDepan { get; set; }
-            public string NamaBelakang { get; set; }
-
-            public string Username { get; set; }
-            public string Password { get; set; }
-
-            public User(
-                string namaDepan,
-                string namaBelakang,
-                string username)
-            {
-                NamaDepan = namaDepan;
-                NamaBelakang = namaBelakang;
-                Username = username;
-            }
-        }
 
         public HalamanRegistrasiControl()
         {

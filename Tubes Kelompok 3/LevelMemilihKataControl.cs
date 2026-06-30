@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -77,8 +78,7 @@ namespace Tubes_Kelompok_3
 
             GameManager.Instance.CurrentLevel = level.IdLevel;
 
-            GameManager.Instance.AlurSaatIni =
-                AlurGame.MODE_MEMILIH_KATA;
+            GameManager.Instance.AlurSaatIni = AlurGame.MODE_MEMILIH_KATA;
         }
 
         private void btnBack_Click(object sender, EventArgs e)
