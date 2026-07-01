@@ -188,7 +188,10 @@
     <Compile Include="ModeGambarControl.Designer.cs">
       <DependentUpon>ModeGambarControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\Image.cs" />
     <Compile Include="Models\Level.cs" />
+    <Compile Include="Models\MencocokkanKata.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="ModeMemilihKataControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -211,6 +214,7 @@
     <Compile Include="ProgressGame.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuestionData.cs" />
+    <Compile Include="Models\SoalMemilihKata.cs" />
     <Compile Include="UserSession.cs" />
     <EmbeddedResource Include="HalamanLoginControl.resx">
       <DependentUpon>HalamanLoginControl.cs</DependentUpon>

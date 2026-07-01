@@ -1,4 +1,5 @@
-﻿using static Tubes_Kelompok_3.HalamanRegistrasiControl;
+﻿
+using Tubes_Kelompok_3.Models;
 
 namespace Tubes_Kelompok_3
 {

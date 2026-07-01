@@ -28,9 +28,9 @@ namespace Tubes_Kelompok_3
         public ModeMemilihKataControl()
         {
             InitializeComponent();
-            MuatDataSistem();
+            MuatSoalDariDatabase();
 
-            if (CekValidasiKetersediaanData())
+            if (IsIndeksSoalValid(_indeksSoalAktif))
             {
                 TampilkanSoalKeAntarmuka(_indeksSoalAktif);
             }
@@ -38,47 +38,58 @@ namespace Tubes_Kelompok_3
             btnSubmit.Click += BtnSubmit_Click;
         }
 
-        private void MuatDataSistem()
+        private void MuatSoalDariDatabase()
         {
-            // SECURE CODING / DEFENSIVE PROGRAMMING: 
-            // Mencegah Path Traversal (Tricky/Invalid Paths) dengan membatasi eksekusi pada BaseDirectory yang aman.
-            string pathAman = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, NamaFileSoal);
+            int levelSaatIni = GameManager.Instance.CurrentLevel;
+            var dataDb = DatabaseSingleton.GetInstance().GetSoalMemilihKata(levelSaatIni);
 
-            // DEFENSIVE PROGRAMMING: 
-            if (!File.Exists(pathAman))
-            {
-                TampilkanPesanError($"Berkas sumber data '{NamaFileSoal}' tidak ditemukan.", ErrorJudulSistem);
+            if (dataDb != null){
                 _tabelSoal = new List<DataSoal>();
-                return;
-            }
+                DataSoal soalBaru = new DataSoal
+                {
+                    JudulSoal = dataDb.JudulSoal,
+                    OpsiKata = new Dictionary<string, bool>()
+                };
 
-            try
-            {
-                string jsonString = File.ReadAllText(pathAman);
-                _tabelSoal = JsonSerializer.Deserialize<List<DataSoal>>(jsonString);
+                // Parsing opsi benar dengan delimiter koma
+                string[] kataBenar = dataDb.OpsiBenar.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                foreach (string k in kataBenar)
+                {
+                    soalBaru.OpsiKata[k.Trim()] = true;
+                }
+
+                // Parsing opsi salah dengan delimiter koma
+                string[] kataSalah = dataDb.OpsiSalah.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                foreach (string k in kataSalah)
+                {
+                    soalBaru.OpsiKata[k.Trim()] = false;
+                }
+
+                // Pengacakan (Shuffling) urutan elemen Dictionary menggunakan LINQ OrderBy Guid
+                soalBaru.OpsiKata = soalBaru.OpsiKata
+                    .OrderBy(x => Guid.NewGuid())
+                    .ToDictionary(item => item.Key, item => item.Value);
+
+                _tabelSoal.Add(soalBaru);
             }
-            catch (JsonException)
-            {
-                // DEFENSIVE PROGRAMMING: 
-                TampilkanPesanError(ErrorFormatJson, ErrorJudulData);
+            else{
+                TampilkanPesanError($"Data soal untuk Level {levelSaatIni} tidak ditemukan di database.", ErrorJudulData);
                 _tabelSoal = new List<DataSoal>();
             }
         }
 
-        private bool CekValidasiKetersediaanData()
+        private bool IsIndeksSoalValid(int indeks)
         {
-            return _tabelSoal != null && _tabelSoal.Count > 0;
+            if (_tabelSoal == null || indeks < 0 || indeks >= _tabelSoal.Count)
+            {
+                TampilkanPesanError(ErrorDataTidakValid, ErrorJudulData);
+                return false;
+            }
+            return true;
         }
 
         private void TampilkanSoalKeAntarmuka(int indeks)
         {
-            // PRECONDITION
-            // Memastikan input indeks absolut berada dalam batas jangkauan array/list tabel.
-            if (_tabelSoal == null || indeks < 0 || indeks >= _tabelSoal.Count)
-            {
-                throw new IndexOutOfRangeException($"Kontrak Dilanggar: Indeks soal {indeks} di luar jangkauan _tabelSoal.");
-            }
-
             BersihkanPanelKata();
 
             DataSoal soal = _tabelSoal[indeks];
@@ -135,28 +146,30 @@ namespace Tubes_Kelompok_3
 
         public void BtnSubmit_Click(object sender, EventArgs e)
         {
-            if (!ValidasiStatusIndeksSoal()) return;
+            if (!IsIndeksSoalValid(_indeksSoalAktif)) return;
 
             DataSoal soalAktif = _tabelSoal[_indeksSoalAktif];
             (int totalBenar, int totalSalah) = KalkulasiSkorJawaban(soalAktif);
 
             int jumlahJawabanBenarSeharusnya = soalAktif.OpsiKata.Values.Count(val => val);
+            int jumlahBenarTernormalisasi = Math.Max(0, totalBenar - totalSalah);
 
-            // DEFENSIVE PROGRAMMING 
-            int skorAkhir = Math.Max(0, totalBenar - totalSalah);
-
-            TampilkanHasilEvaluasi(totalBenar, totalSalah, jumlahJawabanBenarSeharusnya, skorAkhir);
-        }
-
-        private bool ValidasiStatusIndeksSoal()
-        {
-            // DEFENSIVE PROGRAMMING: 
-            if (_tabelSoal == null || _indeksSoalAktif < 0 || _indeksSoalAktif >= _tabelSoal.Count)
+            int persentaseSkor = 0;
+            if (jumlahJawabanBenarSeharusnya > 0)
             {
-                TampilkanPesanError(ErrorDataTidakValid, ErrorJudulData);
-                return false;
+                persentaseSkor = (int)Math.Round((double)jumlahBenarTernormalisasi / jumlahJawabanBenarSeharusnya * 100);
             }
-            return true;
+
+            persentaseSkor = Math.Min(100, persentaseSkor);
+
+            int idPenggunaAktif = UserSession.Instance.CurrentUser.IdUser;
+            int idLevelAktif = GameManager.Instance.CurrentLevel;
+
+            DatabaseSingleton.GetInstance().SimpanSkorUser(idPenggunaAktif, idLevelAktif, persentaseSkor);
+
+            TampilkanHasilEvaluasi(totalBenar, totalSalah, jumlahJawabanBenarSeharusnya, persentaseSkor);
+
+             GameManager.Instance.AlurSaatIni = AlurGame.LEVEL_MEMILIH_KATA;
         }
 
         private (int benar, int salah) KalkulasiSkorJawaban(DataSoal soalAktif)
@@ -164,21 +177,14 @@ namespace Tubes_Kelompok_3
             int hitungBenar = 0;
             int hitungSalah = 0;
 
-            foreach (Control control in flpWordContainer.Controls)
-            {
-                if (control is Button btnWord)
-                {
-                    string kata = btnWord.Text;
-                    bool statusTerpilih = btnWord.BackColor == Color.DeepSkyBlue;
+            foreach (Button btnWord in flpWordContainer.Controls.OfType<Button>()){
+                string kata = btnWord.Text;
+                bool statusTerpilih = btnWord.BackColor == Color.DeepSkyBlue;
 
-                    // DEFENSIVE PROGRAMMING: 
-                    if (soalAktif.OpsiKata.TryGetValue(kata, out bool statusValiditasTabel))
-                    {
-                        if (statusTerpilih)
-                        {
-                            if (statusValiditasTabel) hitungBenar++;
-                            else hitungSalah++;
-                        }
+                if (soalAktif.OpsiKata.TryGetValue(kata, out bool statusValiditasTabel)){
+                    if (statusTerpilih){
+                        if (statusValiditasTabel) hitungBenar++;
+                        else hitungSalah++;
                     }
                 }
             }
@@ -199,6 +205,11 @@ namespace Tubes_Kelompok_3
                                 $"- Total Skor: {skorAkhir}";
 
             MessageBox.Show(pesanHasil, "Hasil Penilaian", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            GameManager.Instance.AlurSaatIni = AlurGame.LEVEL_MEMILIH_KATA;
         }
     }
 }

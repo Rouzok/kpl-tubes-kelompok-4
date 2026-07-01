@@ -16,25 +16,6 @@ namespace Tubes_Kelompok_3
             RegistrasiGagal
         }
 
-        //Class User
-        public class User
-        {
-            public string NamaDepan { get; set; }
-            public string NamaBelakang { get; set; }
-
-            public string Username { get; set; }
-            public string Password { get; set; }
-
-            public User(
-                string namaDepan,
-                string namaBelakang,
-                string username)
-            {
-                NamaDepan = namaDepan;
-                NamaBelakang = namaBelakang;
-                Username = username;
-            }
-        }
 
         public HalamanRegistrasiControl()
         {
@@ -59,6 +40,16 @@ namespace Tubes_Kelompok_3
         private void textBox3_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void label1_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            GameManager.Instance.AlurSaatIni = AlurGame.HalamanLogin;
         }
 
         private void btn_registrasi_Click(object sender, EventArgs e)

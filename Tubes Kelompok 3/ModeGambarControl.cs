@@ -10,96 +10,79 @@ namespace Tubes_Kelompok_3
 {
     public partial class ModeGambarControl : UserControl
     {
-        private const string QuestionFilePath = "questions.json";
+        private List<QuestionItem> questions = new List<QuestionItem>();
 
-        // MENYIMPAN SEMUA SOAL
-        private readonly List<QuestionItem<object>> questions =
-            new List<QuestionItem<object>>();
+        // Melacak soal yang sedang dikerjakan agar tidak berulang
+        private int currentQuestionIndex = 0;
 
-        // SOAL YANG SEDANG TAMPIL
-        private QuestionItem<object> currentQuestion;
-
-        // SCORE
-        private int score;
-
-        private readonly Random random = new Random();
-
-        public class QuestionItem<T>
+        public class QuestionItem
         {
             public Image SoalGambar { get; set; }
+            public string JawabanBenar { get; set; }
 
-            public List<T> JawabanBenar { get; set; }
-
-            public QuestionItem(
-                Image soalGambar,
-                List<T> jawabanBenar)
+            public QuestionItem(Image soalGambar, string jawabanBenar)
             {
                 SoalGambar = soalGambar;
                 JawabanBenar = jawabanBenar;
             }
         }
+
+        private int score;
+
         public ModeGambarControl()
         {
             InitializeComponent();
             Load += ModeGambarControl_Load;
         }
 
-        // LOAD AWAL
-        private void ModeGambarControl_Load(
-            object sender,
-            EventArgs e)
+        private void ModeGambarControl_Load(object sender, EventArgs e)
         {
-            LoadQuestionsFromJson();
-            LoadQuestion();
+            score = 0;
+            currentQuestionIndex = 0;
+            lblScore.Text = $"Score : {score}";
+
+            LoadQuestionsFromDatabase();
+            ShowNextQuestion();
         }
 
-        // LOAD SOAL DARI JSON
-        private void LoadQuestionsFromJson()
+        private void LoadQuestionsFromDatabase()
         {
-            if (!File.Exists(QuestionFilePath))
+            questions.Clear();
+
+            int levelSaatIni = GameManager.Instance.CurrentLevel;
+
+            var rawData = DatabaseSingleton.GetInstance().GetSoalModeGambar(levelSaatIni);
+
+            if (rawData == null || rawData.Count == 0)
             {
                 MessageBox.Show(
-                    "File questions.json tidak ditemukan.",
-                    "Error",
+                    $"Data soal untuk Level {levelSaatIni} tidak ditemukan di database.",
+                    "Error Database",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
-
                 return;
             }
 
-            var json = File.ReadAllText(QuestionFilePath);
-
-            var data =
-                JsonConvert.DeserializeObject<List<QuestionData>>(json);
-
-            if (data == null)
+            foreach (var item in rawData)
             {
-                MessageBox.Show(
-                    "Data soal tidak valid.",
-                    "Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                Image imageRes = GetImage(item.PathGambar);
 
-                return;
-            }
-
-            foreach (var item in data)
-            {
-                var image = GetImage(item.ImageName);
-
-                if (image == null)
+                if (imageRes != null)
                 {
-                    continue;
+                    questions.Add(new QuestionItem(imageRes, item.KunciJawaban));
                 }
-
-                questions.Add(
-                    new QuestionItem<object>(
-                        image,
-                        item.Answers));
+                else
+                {
+                    // Defensive Programming: Melaporkan anomali nama file pada tabel
+                    System.Diagnostics.Debug.WriteLine($"[Peringatan] Gambar {item.PathGambar} tidak ditemukan di Resources.");
+                }
             }
+
+            // (Shuffling) menggunakan algoritma berbasis LINQ
+            questions = questions.OrderBy(x => Guid.NewGuid()).ToList();
         }
 
-        // AMBIL GAMBAR DARI RESOURCES
+        // Resolusi ekstraksi dari direktori Assembly (Resources.resx)
         private Image GetImage(string imageName)
         {
             return Properties.Resources
@@ -107,84 +90,71 @@ namespace Tubes_Kelompok_3
                 .GetObject(imageName) as Image;
         }
 
-        // LOAD SOAL RANDOM
-        private void LoadQuestion()
+        private void ShowNextQuestion()
         {
-            if (questions.Count == 0)
+            if (questions.Count == 0) return;
+
+            if (currentQuestionIndex >= questions.Count)
             {
                 MessageBox.Show(
-                    "Tidak ada soal yang tersedia.",
-                    "Informasi",
+                    $"Kuis Selesai!\nSkor Akhir Anda: {score} dari {questions.Count}",
+                    "Evaluasi Selesai",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
 
+                int idUserAktif = UserSession.Instance.CurrentUser.IdUser;
+                int skorPersentase = (int)Math.Round((double)Math.Max(0, score) / questions.Count * 100);
+                DatabaseSingleton.GetInstance().SimpanSkorUser(idUserAktif, GameManager.Instance.CurrentLevel, skorPersentase);
+
+                GameManager.Instance.AlurSaatIni = AlurGame.LEVEL_GAMBAR;
                 return;
             }
 
-            var index = random.Next(questions.Count);
-
-            currentQuestion = questions[index];
-
+            // Memuat soal berdasarkan antrean indeks berjalan
+            var currentQuestion = questions[currentQuestionIndex];
             pbQuestion.Image = currentQuestion.SoalGambar;
+            txtAnswer.Clear();
         }
 
-        // CHECK JAWABAN
-        private void btnCheck_Click(
-            object sender,
-            EventArgs e)
+        private void btnCheck_Click(object sender, EventArgs e)
         {
-            if (currentQuestion == null)
-            {
-                return;
-            }
+            if (questions.Count == 0 || currentQuestionIndex >= questions.Count) return;
 
+            var currentQuestion = questions[currentQuestionIndex];
             var userInput = txtAnswer.Text.Trim();
 
-            bool correct =
-                currentQuestion.JawabanBenar.Any(answer =>
-                    string.Equals(
-                        answer?.ToString(),
-                        userInput,
-                        StringComparison.OrdinalIgnoreCase));
+            // Evaluasi kecocokan string yang tidak sensitif terhadap kapitalisasi (Case-Insensitive)
+            bool correct = string.Equals(currentQuestion.JawabanBenar, userInput, StringComparison.OrdinalIgnoreCase);
 
             if (correct)
             {
                 score++;
-                MessageBox.Show("Correct!");
+                MessageBox.Show("Correct!", "Evaluasi Sistem", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
-                score--;
-                MessageBox.Show("Wrong!");
+                // Pengaturan skor dapat dimodifikasi sesuai spesifikasi apakah salah bernilai negatif
+                MessageBox.Show($"Wrong! Jawaban yang benar adalah: {currentQuestion.JawabanBenar}", "Evaluasi Sistem", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
             lblScore.Text = $"Score : {score}";
 
-            txtAnswer.Clear();
-
-            LoadQuestion();
+            // Maju ke antrean soal berikutnya
+            currentQuestionIndex++;
+            ShowNextQuestion();
         }
 
-        // BUTTON KEMBALI
-        private void btnPilihMenuPilihMode_Click(
-            object sender,
-            EventArgs e)
+        private void btnPilihMenuPilihMode_Click(object sender, EventArgs e)
         {
-            GameManager.Instance.AlurSaatIni =
-                AlurGame.MENU_PILIH_MODE;
+            GameManager.Instance.AlurSaatIni = AlurGame.LEVEL_GAMBAR;
         }
 
-        // EVENT LABEL
-        private void lblQuestion_Click(
-            object sender,
-            EventArgs e)
-        {
-        }
+        private void lblQuestion_Click(object sender, EventArgs e) { }
+        private void lblAnswer_Click(object sender, EventArgs e) { }
 
-        private void lblAnswer_Click(
-            object sender,
-            EventArgs e)
+        private void btnBack_Click(object sender, EventArgs e)
         {
+            GameManager.Instance.AlurSaatIni = AlurGame.LEVEL_GAMBAR;
         }
     }
 
