@@ -9,6 +9,8 @@ namespace Tubes_Kelompok_3
 {
     public partial class HalamanRegistrasiControl : UserControl
     {
+        private bool isPasswordVisible = false;
+
         //Automata
         public enum RegisterState
         {
@@ -39,6 +41,7 @@ namespace Tubes_Kelompok_3
         public HalamanRegistrasiControl()
         {
             InitializeComponent();
+            tb_password_registrasi.UseSystemPasswordChar = true;
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -171,6 +174,7 @@ namespace Tubes_Kelompok_3
 
                 if (registrasiBerhasil)
                 {
+        
                     // Automata 
                     RegisterState state = RegisterState.RegistrasiBerhasil;
 
@@ -207,5 +211,15 @@ namespace Tubes_Kelompok_3
             }
 
         }
+
+        private void btn_show_password_Click(object sender, EventArgs e)
+        {
+            isPasswordVisible = !isPasswordVisible;
+
+            tb_password_registrasi.UseSystemPasswordChar = !isPasswordVisible;
+
+            btn_show_password.Text = isPasswordVisible ? "👁" : "👁";
+        }
+
     }
 }

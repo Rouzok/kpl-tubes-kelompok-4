@@ -9,6 +9,8 @@ namespace Tubes_Kelompok_3
 {
     public partial class HalamanLoginControl : UserControl
     {
+        private bool isPasswordVisible = false;
+
         //Automata State
         enum LoginState
         {
@@ -22,7 +24,9 @@ namespace Tubes_Kelompok_3
         public HalamanLoginControl()
         {
             InitializeComponent();
+            tb_password_login.UseSystemPasswordChar = true;
         }
+        
 
         private void label1_Click(object sender, EventArgs e)
         {
@@ -148,6 +152,15 @@ namespace Tubes_Kelompok_3
         private void label2_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btn_show_password_Click(object sender, EventArgs e)
+        {
+            isPasswordVisible = !isPasswordVisible;
+
+            tb_password_login.UseSystemPasswordChar = !isPasswordVisible;
+
+            btn_show_password.Text = isPasswordVisible ? "👁" : "👁";
         }
     }
 }
