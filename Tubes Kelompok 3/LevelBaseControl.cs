@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace Tubes_Kelompok_3
+namespace Tubes_Kelompok_3 
 {
     internal partial class LevelBaseControl : UserControl
     {
@@ -16,7 +16,8 @@ namespace Tubes_Kelompok_3
 
             database = DatabaseSingleton.GetInstance();
 
-            //Postcondition
+           
+            // Postcondition
             Debug.Assert(database != null,
                 "DatabaseSingleton gagal dibuat.");
         }
@@ -26,7 +27,7 @@ namespace Tubes_Kelompok_3
             string mode,
             EventHandler clickEvent)
         {
-            //Precondition
+            // Precondition
             if (flowLevel == null)
                 throw new ArgumentNullException(nameof(flowLevel));
 
@@ -42,24 +43,9 @@ namespace Tubes_Kelompok_3
 
             foreach (Level level in daftarLevel)
             {
-                Button btn = new Button();
-
-                btn.Width = 320;
-                btn.Height = 55;
-                btn.Margin = new Padding(10);
-
-                btn.FlatStyle = FlatStyle.Flat;
-                btn.FlatAppearance.BorderSize = 0;
-
-                btn.Font = new Font(
-                    "Segoe UI",
-                    12,
-                    FontStyle.Bold);
-
-                btn.BackColor = Color.FromArgb(214, 177, 116);
-                btn.ForeColor = Color.White;
-
-                btn.Tag = level;
+                // DRY
+                // Seluruh konfigurasi Button dipusatkan dalam satu method.
+                Button btn = CreateLevelButton(level);
 
                 if (level.IsActive)
                 {
@@ -76,10 +62,38 @@ namespace Tubes_Kelompok_3
                 flowLevel.Controls.Add(btn);
             }
 
+            
             // Postcondition
             Debug.Assert(
                 flowLevel.Controls.Count == daftarLevel.Count,
                 "Jumlah tombol level tidak sesuai.");
+        }
+
+        
+        // CLEAN CODE - DRY
+        // Menghindari penulisan konfigurasi Button yang berulang.
+        private Button CreateLevelButton(Level level)
+        {
+            Button btn = new Button();
+
+            btn.Width = 320;
+            btn.Height = 55;
+            btn.Margin = new Padding(10);
+
+            btn.FlatStyle = FlatStyle.Flat;
+            btn.FlatAppearance.BorderSize = 0;
+
+            btn.Font = new Font(
+                "Segoe UI",
+                12,
+                FontStyle.Bold);
+
+            btn.BackColor = Color.FromArgb(214, 177, 116);
+            btn.ForeColor = Color.White;
+
+            btn.Tag = level;
+
+            return btn;
         }
     }
 }

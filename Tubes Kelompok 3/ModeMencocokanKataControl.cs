@@ -8,6 +8,7 @@ namespace Tubes_Kelompok_3
 {
     public partial class ModeMencocokanKataControl : UserControl, IGameMode
     {
+        private readonly IScoreStrategy scoreStrategy;
         public event Action<int> OnScoreChanged;
         public event Action<int> OnGameFinished;
 
@@ -29,6 +30,7 @@ namespace Tubes_Kelompok_3
         public ModeMencocokanKataControl()
         {
             InitializeComponent();
+            scoreStrategy = new MencocokkanKataScoreStrategy();
 
             wordTable = new Dictionary<string, string>();
             questions = new List<string>();
@@ -143,7 +145,9 @@ namespace Tubes_Kelompok_3
             string selectedAnswer = btnKananTerpilih.Text;
             string correctAnswer = wordTable[selectedQuestion];
 
-            if (selectedAnswer == correctAnswer)
+            bool benar = selectedAnswer == correctAnswer;
+            score = scoreStrategy.HitungScore(score, benar);
+            if (benar)
             {
                 score++;
                 _pasanganDitemukan++;

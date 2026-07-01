@@ -149,7 +149,6 @@
     </Compile>
     <Compile Include="Interface\IGameMode.cs" />
     <Compile Include="Interface\IObserver.cs" />
-    <Compile Include="Interface\IScore.cs" />
     <Compile Include="Interface\ISubject.cs" />
     <Compile Include="LevelBaseControl.cs">
       <SubType>UserControl</SubType>
@@ -220,6 +219,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuestionData.cs" />
     <Compile Include="Models\SoalMemilihKata.cs" />
+    <Compile Include="Strategy\GambarScoreStrategy.cs" />
+    <Compile Include="Interface\IScoreStrategy.cs" />
+    <Compile Include="Strategy\MemilihKataScoreStrategy.cs" />
+    <Compile Include="Strategy\MencocokkanKataScoreStrategy.cs" />
     <Compile Include="UserSession.cs" />
     <EmbeddedResource Include="HalamanLoginControl.resx">
       <DependentUpon>HalamanLoginControl.cs</DependentUpon>
