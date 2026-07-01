@@ -149,7 +149,32 @@
     </Compile>
     <Compile Include="Interface\IGameMode.cs" />
     <Compile Include="Interface\IObserver.cs" />
+    <Compile Include="Interface\IScore.cs" />
     <Compile Include="Interface\ISubject.cs" />
+    <Compile Include="LevelBaseControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="LevelBaseControl.Designer.cs">
+      <DependentUpon>LevelBaseControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LevelGambarControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="LevelGambarControl.Designer.cs">
+      <DependentUpon>LevelGambarControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LevelMemilihKataControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="LevelMemilihKataControl.Designer.cs">
+      <DependentUpon>LevelMemilihKataControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LevelMencocokkanKataControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="LevelMencocokkanKataControl.Designer.cs">
+      <DependentUpon>LevelMencocokkanKataControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -168,6 +193,10 @@
     <Compile Include="ModeGambarControl.Designer.cs">
       <DependentUpon>ModeGambarControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\Image.cs" />
+    <Compile Include="Models\Level.cs" />
+    <Compile Include="Models\MencocokkanKata.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="ModeMemilihKataControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -190,12 +219,19 @@
     <Compile Include="ProgressGame.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuestionData.cs" />
+    <Compile Include="Models\SoalMemilihKata.cs" />
     <Compile Include="UserSession.cs" />
     <EmbeddedResource Include="HalamanLoginControl.resx">
       <DependentUpon>HalamanLoginControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="HalamanRegistrasiControl.resx">
       <DependentUpon>HalamanRegistrasiControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LevelBaseControl.resx">
+      <DependentUpon>LevelBaseControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LevelGambarControl.resx">
+      <DependentUpon>LevelGambarControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

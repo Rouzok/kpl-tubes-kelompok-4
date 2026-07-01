@@ -2,8 +2,8 @@
 using System.Linq;
 using System.Windows.Forms;
 using System.Diagnostics; //DBC
-using static Tubes_Kelompok_3.HalamanRegistrasiControl;
-using AuthLibrary; //Library
+using AuthLibrary;
+using Tubes_Kelompok_3.Models; //Library
 
 namespace Tubes_Kelompok_3
 {

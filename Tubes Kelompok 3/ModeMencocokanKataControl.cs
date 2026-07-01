@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -7,12 +8,10 @@ namespace Tubes_Kelompok_3
 {
     public partial class ModeMencocokanKataControl : UserControl, IGameMode
     {
-        //Observer pattern
         public event Action<int> OnScoreChanged;
         public event Action<int> OnGameFinished;
 
         private Dictionary<string, string> wordTable;
-
         private List<string> questions;
         private List<string> answers;
 
@@ -20,8 +19,10 @@ namespace Tubes_Kelompok_3
         private List<Button> btnIndoList;
 
         private int score = 0;
+        private int _pasanganDitemukan = 0;
 
         private string selectedQuestion = "";
+        private Button _tombolKiriTerpilih = null;
 
         private readonly Random random = new Random();
 
@@ -29,156 +30,173 @@ namespace Tubes_Kelompok_3
         {
             InitializeComponent();
 
-            LoadData();
-            SetupButtons();
-            LoadQuestion();
-        }
+            wordTable = new Dictionary<string, string>();
+            questions = new List<string>();
+            answers = new List<string>();
+            btnInggrisList = new List<Button>();
+            btnIndoList = new List<Button>();
 
-        private void LoadData()
-        {
-            wordTable = new Dictionary<string, string>()
+            LoadDataDariDatabase();
+
+            if (wordTable.Count > 0)
             {
-                { "Apple", "Apel" },
-                { "Book", "Buku" },
-                { "Cat", "Kucing" },
-                { "Dog", "Anjing" },
-                { "Eagle", "Elang" },
-                { "Fire", "Api" }
-            };
-
-            questions = wordTable.Keys.ToList();
-            answers = wordTable.Values.ToList();
-
-            btnInggrisList = new List<Button>()
-            {
-                btnInggris1,
-                btnInggris2,
-                btnInggris3,
-                btnInggris4,
-                btnInggris5,
-                btnInggris6
-            };
-
-            btnIndoList = new List<Button>()
-            {
-                btnIndo1,
-                btnIndo2,
-                btnIndo3,
-                btnIndo4,
-                btnIndo5,
-                btnIndo6
-            };
-        }
-
-        private void SetupButtons()
-        {
-            // Event tombol bahasa Inggris
-            foreach (var button in btnInggrisList)
-            {
-                button.Click += BtnInggris_Click;
-            }
-
-            // Event tombol bahasa Indonesia
-            foreach (var button in btnIndoList)
-            {
-                button.Click += BtnIndo_Click;
+                RenderTombolDinamis();
             }
         }
 
-        private void LoadQuestion()
+        private void LoadDataDariDatabase()
         {
-            for (int i = 0; i < btnInggrisList.Count; i++)
+            int levelSaatIni = GameManager.Instance.CurrentLevel;
+            var dataDb = DatabaseSingleton.GetInstance().GetSoalMencocokkanKata(levelSaatIni);
+
+            if (dataDb != null)
             {
-                btnInggrisList[i].Text = questions[i];
-                btnInggrisList[i].Enabled = true;
+                string[] arrayKiri = dataDb.EntitasKiri.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                string[] arrayKanan = dataDb.EntitasKanan.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+                // Menggunakan panjang array minimum untuk mencegah eksepsi OutOfBounds jika jumlah data tidak seimbang
+                int batasMaksimal = Math.Min(arrayKiri.Length, arrayKanan.Length);
+
+                for (int i = 0; i < batasMaksimal; i++)
+                {
+                    string kiri = arrayKiri[i].Trim();
+                    string kanan = arrayKanan[i].Trim();
+
+                    wordTable[kiri] = kanan;
+                    questions.Add(kiri);
+                    answers.Add(kanan);
+                }
+            }
+            else
+            {
+                MessageBox.Show(
+                    $"Data soal untuk Level {levelSaatIni} tidak ditemukan di database.",
+                    "Kesalahan Data",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+        }
+
+        private void RenderTombolDinamis()
+        {
+            // Membersihkan sisa kontrol pada memori sebelum merender ulang
+            flpKiri.Controls.Clear();
+            flpKanan.Controls.Clear();
+            btnInggrisList.Clear();
+            btnIndoList.Clear();
+
+            for (int i = 0; i < questions.Count; i++)
+            {
+                Button btnKiri = new Button
+                {
+                    Text = questions[i],
+                    Size = new Size(150, 40),
+                    BackColor = Color.White,
+                    Margin = new Padding(5)
+                };
+
+                btnKiri.Click += BtnInggris_Click;
+                btnInggrisList.Add(btnKiri);
+                flpKiri.Controls.Add(btnKiri);
             }
 
-            // Acak jawaban
             List<string> shuffledAnswers = new List<string>(answers);
-
             Shuffle(shuffledAnswers);
 
-            for (int i = 0; i < btnIndoList.Count; i++)
+            for (int i = 0; i < shuffledAnswers.Count; i++)
             {
-                btnIndoList[i].Text = shuffledAnswers[i];
-                btnIndoList[i].Enabled = true;
+                Button btnKanan = new Button
+                {
+                    Text = shuffledAnswers[i],
+                    Size = new Size(150, 40),
+                    BackColor = Color.White,
+                    Margin = new Padding(5)
+                };
+
+                btnKanan.Click += BtnIndo_Click;
+                btnIndoList.Add(btnKanan);
+                flpKanan.Controls.Add(btnKanan);
             }
         }
 
         private void BtnInggris_Click(object sender, EventArgs e)
         {
-            Button button = sender as Button;
+            if (_tombolKiriTerpilih != null && _tombolKiriTerpilih.Enabled)
+            {
+                _tombolKiriTerpilih.BackColor = Color.White;
+            }
 
-            selectedQuestion = button.Text;
+            _tombolKiriTerpilih = sender as Button;
+            _tombolKiriTerpilih.BackColor = Color.DeepSkyBlue;
+            selectedQuestion = _tombolKiriTerpilih.Text;
         }
 
         private void BtnIndo_Click(object sender, EventArgs e)
         {
-            if (selectedQuestion == "")
+            if (string.IsNullOrEmpty(selectedQuestion) || _tombolKiriTerpilih == null)
             {
-                MessageBox.Show("Pilih kata Inggris dulu!");
+                MessageBox.Show("Pilih kata awal pada lajur kiri terlebih dahulu!", "Validasi Operasi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            Button button = sender as Button;
-
-            string selectedAnswer = button.Text;
-
+            Button btnKananTerpilih = sender as Button;
+            string selectedAnswer = btnKananTerpilih.Text;
             string correctAnswer = wordTable[selectedQuestion];
 
             if (selectedAnswer == correctAnswer)
             {
                 score++;
+                _pasanganDitemukan++;
 
-                MessageBox.Show("Benar!");
+                // Menonaktifkan pasangan yang valid dan memberikan indikator warna hijau
+                _tombolKiriTerpilih.Enabled = false;
+                _tombolKiriTerpilih.BackColor = Color.LightGreen;
 
-                // Disable pasangan yang sudah benar
-                DisableMatchedButtons(
-                    selectedQuestion,
-                    selectedAnswer);
+                btnKananTerpilih.Enabled = false;
+                btnKananTerpilih.BackColor = Color.LightGreen;
             }
             else
             {
                 score--;
+                // Mereset seleksi jika jawaban salah
+                _tombolKiriTerpilih.BackColor = Color.White;
 
                 MessageBox.Show(
-                    $"Salah! Skor -1\nJawaban benar: {correctAnswer}");
+                    $"Pemetaan Salah! Skor dikurangi.\nPasangan yang valid untuk '{selectedQuestion}' adalah: {correctAnswer}",
+                    "Evaluasi Sistem",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
             }
 
+            // Mereset state memori penunjuk seleksi
             selectedQuestion = "";
+            _tombolKiriTerpilih = null;
 
-            lblScore.Text = $"Score: {score}";
+            if (lblScore != null)
+            {
+                lblScore.Text = $"Score: {score}";
+            }
 
-            //observer pattern
             OnScoreChanged?.Invoke(score);
 
-            // Cek apakah game selesai
-            if (score == wordTable.Count)
+            // Evaluasi kondisi penyelesaian (Terminasi)
+            if (_pasanganDitemukan == wordTable.Count && wordTable.Count > 0)
             {
                 OnGameFinished?.Invoke(score);
+
+                int skorPersentase = Math.Max(0, (int)Math.Round((double)score / wordTable.Count * 100));
+                int idUserAktif = UserSession.Instance.CurrentUser.IdUser;
+                int idLevelAktif = GameManager.Instance.CurrentLevel;
+
+                DatabaseSingleton.GetInstance().SimpanSkorUser(idUserAktif, idLevelAktif, skorPersentase);
+
                 MessageBox.Show(
-                    $"Game selesai!\nSkor: {score}/{wordTable.Count}");
-            }
-        }
+                    $"Game selesai!\nTotal Pasangan: {_pasanganDitemukan}\nSkor Perolehan: {skorPersentase}%",
+                    "Informasi Penyelesaian",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
 
-        private void DisableMatchedButtons(
-            string question,
-            string answer)
-        {
-            foreach (var button in btnInggrisList)
-            {
-                if (button.Text == question)
-                {
-                    button.Enabled = false;
-                }
-            }
-
-            foreach (var button in btnIndoList)
-            {
-                if (button.Text == answer)
-                {
-                    button.Enabled = false;
-                }
+                GameManager.Instance.AlurSaatIni = AlurGame.LEVEL_MENCOCOKKAN_KATA;
             }
         }
 
@@ -187,19 +205,15 @@ namespace Tubes_Kelompok_3
             for (int i = list.Count - 1; i > 0; i--)
             {
                 int randomIndex = random.Next(i + 1);
-
                 string temp = list[i];
-
                 list[i] = list[randomIndex];
-
                 list[randomIndex] = temp;
             }
         }
 
-        private void label1_Click(
-            object sender,
-            EventArgs e)
+        private void btnBack_Click(object sender, EventArgs e)
         {
+            GameManager.Instance.AlurSaatIni = AlurGame.LEVEL_MENCOCOKKAN_KATA;
         }
 
         private void button1_Click(object sender, EventArgs e)
