@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace Tubes_Kelompok_3
 {
-    public partial class ModeMemilihKataControl : UserControl
+    public partial class ModeMemilihKataControl : UserControl, IGameMode
     {
         private const string NamaFileSoal = "DataSoal.json";
         private const string ErrorJudulSistem = "Kesalahan Sistem";
@@ -207,6 +207,10 @@ namespace Tubes_Kelompok_3
             MessageBox.Show(pesanHasil, "Hasil Penilaian", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
+        public UserControl GetControl()
+        {
+            return this;
+        }
         private void btnBack_Click(object sender, EventArgs e)
         {
             GameManager.Instance.AlurSaatIni = AlurGame.LEVEL_MEMILIH_KATA;

@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace Tubes_Kelompok_3
 {
-    public partial class ModeGambarControl : UserControl
+    public partial class ModeGambarControl : UserControl, IGameMode
     {
         private List<QuestionItem> questions = new List<QuestionItem>();
 
@@ -155,6 +155,20 @@ namespace Tubes_Kelompok_3
         private void btnBack_Click(object sender, EventArgs e)
         {
             GameManager.Instance.AlurSaatIni = AlurGame.LEVEL_GAMBAR;
+        }
+
+        private void ModeGambarControl_Load_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblScore_Click(object sender, EventArgs e)
+        {
+            
+        }
+        public UserControl GetControl()
+        {
+            return this;
         }
     }
 

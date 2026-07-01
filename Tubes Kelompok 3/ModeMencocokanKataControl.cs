@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace Tubes_Kelompok_3
 {
-    public partial class ModeMencocokanKataControl : UserControl
+    public partial class ModeMencocokanKataControl : UserControl, IGameMode
     {
         public event Action<int> OnScoreChanged;
         public event Action<int> OnGameFinished;
@@ -214,6 +214,17 @@ namespace Tubes_Kelompok_3
         private void btnBack_Click(object sender, EventArgs e)
         {
             GameManager.Instance.AlurSaatIni = AlurGame.LEVEL_MENCOCOKKAN_KATA;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
+        public UserControl GetControl()
+        {
+            return this;
         }
     }
 }

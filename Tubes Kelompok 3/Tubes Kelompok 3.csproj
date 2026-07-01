@@ -129,6 +129,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FactoryMethod\GameFactory.cs" />
+    <Compile Include="FactoryMethod\ModeGambarFactory.cs" />
+    <Compile Include="FactoryMethod\ModeMemilihKataFactory.cs" />
+    <Compile Include="FactoryMethod\ModeMencocokanKataFactory.cs" />
     <Compile Include="Helper\DatabaseSingleton.cs" />
     <Compile Include="GameManager.cs" />
     <Compile Include="HalamanLoginControl.cs">
@@ -143,6 +147,7 @@
     <Compile Include="HalamanRegistrasiControl.Designer.cs">
       <DependentUpon>HalamanRegistrasiControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Interface\IGameMode.cs" />
     <Compile Include="Interface\IObserver.cs" />
     <Compile Include="Interface\IScore.cs" />
     <Compile Include="Interface\ISubject.cs" />
@@ -290,6 +295,7 @@
       <Name>AuthLibrary</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.ValueTuple.4.6.2\build\net471\System.ValueTuple.targets" Condition="Exists('..\packages\System.ValueTuple.4.6.2\build\net471\System.ValueTuple.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

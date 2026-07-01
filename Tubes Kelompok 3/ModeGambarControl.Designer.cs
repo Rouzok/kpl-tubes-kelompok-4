@@ -2,9 +2,7 @@
 {
     partial class ModeGambarControl
     {
-        /// <summary> 
-        /// Required designer variable.
-        /// </summary>
+       
         private System.ComponentModel.IContainer components = null;
 
         //private System.Windows.Forms.Button btnLevel1;
@@ -12,12 +10,7 @@
         //private System.Windows.Forms.Button btnLevel3;
         //private System.Windows.Forms.Label lblTitle;
 
-        /// <summary> 
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">
-        /// true if managed resources should be disposed; otherwise, false.
-        /// </param>
+      
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -41,6 +34,7 @@
             this.btnBack = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbQuestion)).BeginInit();
             this.SuspendLayout();
+
             // 
             // lblQuestion
             // 
@@ -52,6 +46,7 @@
             this.lblQuestion.TabIndex = 2;
             this.lblQuestion.Text = "Question";
             this.lblQuestion.Click += new System.EventHandler(this.lblQuestion_Click);
+
             // 
             // lblScore
             // 
@@ -62,6 +57,8 @@
             this.lblScore.Size = new System.Drawing.Size(59, 16);
             this.lblScore.TabIndex = 3;
             this.lblScore.Text = "Score : 0";
+            this.lblScore.Click += new System.EventHandler(this.lblScore_Click);
+
             // 
             // btnCheck
             // 
@@ -73,6 +70,7 @@
             this.btnCheck.Text = "CHECK";
             this.btnCheck.UseVisualStyleBackColor = true;
             this.btnCheck.Click += new System.EventHandler(this.btnCheck_Click);
+
             // 
             // pbQuestion
             // 
@@ -84,6 +82,7 @@
             this.pbQuestion.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbQuestion.TabIndex = 9;
             this.pbQuestion.TabStop = false;
+
             // 
             // txtAnswer
             // 
@@ -92,6 +91,7 @@
             this.txtAnswer.Name = "txtAnswer";
             this.txtAnswer.Size = new System.Drawing.Size(231, 22);
             this.txtAnswer.TabIndex = 10;
+
             // 
             // lblAnswer
             // 
@@ -103,6 +103,7 @@
             this.lblAnswer.TabIndex = 11;
             this.lblAnswer.Text = "Answer";
             this.lblAnswer.Click += new System.EventHandler(this.lblAnswer_Click);
+
             // 
             // btnBack
             // 
@@ -145,3 +146,7 @@
         private System.Windows.Forms.Button btnBack;
     }
 }
+
+
+
+
