@@ -24,11 +24,13 @@ namespace Tubes_Kelompok_3
                 { AlurGame.HalamanRegistrasi, () => new HalamanRegistrasiControl() },
                 { AlurGame.MAIN_MENU, () => new MainMenuControl() },
                 { AlurGame.MENU_PILIH_MODE, () => new PilihModeControl() },
-                { AlurGame.MODE_MEMILIH_KATA, () => new ModeMemilihKataControl() },
-                { AlurGame.MODE_GAMBAR, () => new ModeGambarControl() },
-                { AlurGame.MODE_MENCOCOKAN_KATA, () => new ModeMencocokanKataControl() }
-            };
 
+                { AlurGame.MODE_MEMILIH_KATA, () => new ModeMemilihKataFactory().CreateGame() },
+
+                { AlurGame.MODE_GAMBAR, () => new ModeGambarFactory().CreateGame() },
+
+                { AlurGame.MODE_MENCOCOKAN_KATA, () => new ModeMencocokanKataFactory().CreateGame() }
+            };
             // Mendaftarkan MainForm sebagai Observer ke dalam Subject (GameManager)
             GameManager.Instance.Attach(this);
 
