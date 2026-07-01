@@ -149,7 +149,6 @@ namespace Tubes_Kelompok_3
             score = scoreStrategy.HitungScore(score, benar);
             if (benar)
             {
-                score++;
                 _pasanganDitemukan++;
 
                 // Menonaktifkan pasangan yang valid dan memberikan indikator warna hijau
@@ -161,7 +160,6 @@ namespace Tubes_Kelompok_3
             }
             else
             {
-                score--;
                 // Mereset seleksi jika jawaban salah
                 _tombolKiriTerpilih.BackColor = Color.White;
 

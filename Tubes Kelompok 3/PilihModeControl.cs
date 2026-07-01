@@ -31,5 +31,15 @@ namespace Tubes_Kelompok_3
         {
             GameManager.Instance.AlurSaatIni = AlurGame.LEVEL_GAMBAR;
         }
+
+        private void btnLogout_Click(object sender, EventArgs e)
+        {
+            if (UserSession.Instance != null)
+            {
+                UserSession.Instance.CurrentUser = null;
+            }
+
+            GameManager.Instance.AlurSaatIni = AlurGame.HalamanLogin;
+        }
     }
 }

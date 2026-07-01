@@ -53,6 +53,7 @@ namespace Tubes_Kelompok_3
                     OpsiKata = new Dictionary<string, bool>()
                 };
 
+                // KISS
                 foreach (string k in dataDb.OpsiBenar.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
                 {
                     soalBaru.OpsiKata[k.Trim()] = true;
