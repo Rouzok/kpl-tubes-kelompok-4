@@ -144,7 +144,14 @@
       <DependentUpon>HalamanRegistrasiControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Interface\IObserver.cs" />
+    <Compile Include="Interface\IScore.cs" />
     <Compile Include="Interface\ISubject.cs" />
+    <Compile Include="LevelBaseControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="LevelBaseControl.Designer.cs">
+      <DependentUpon>LevelBaseControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="LevelGambarControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -214,6 +221,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="HalamanRegistrasiControl.resx">
       <DependentUpon>HalamanRegistrasiControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LevelBaseControl.resx">
+      <DependentUpon>LevelBaseControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LevelGambarControl.resx">
       <DependentUpon>LevelGambarControl.cs</DependentUpon>
