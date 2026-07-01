@@ -11,6 +11,7 @@ namespace Tubes_Kelompok_3
     public partial class ModeGambarControl : UserControl
     {
         private List<QuestionItem> questions = new List<QuestionItem>();
+        private readonly IScoreStrategy scoreStrategy;
 
         // Melacak soal yang sedang dikerjakan agar tidak berulang
         private int currentQuestionIndex = 0;
@@ -32,6 +33,7 @@ namespace Tubes_Kelompok_3
         public ModeGambarControl()
         {
             InitializeComponent();
+            scoreStrategy = new GambarScoreStrategy();
             Load += ModeGambarControl_Load;
         }
 
@@ -126,9 +128,10 @@ namespace Tubes_Kelompok_3
             // Evaluasi kecocokan string yang tidak sensitif terhadap kapitalisasi (Case-Insensitive)
             bool correct = string.Equals(currentQuestion.JawabanBenar, userInput, StringComparison.OrdinalIgnoreCase);
 
+            score = scoreStrategy.HitungScore(score, correct);
+
             if (correct)
             {
-                score++;
                 MessageBox.Show("Correct!", "Evaluasi Sistem", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else

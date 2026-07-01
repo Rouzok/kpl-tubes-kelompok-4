@@ -1,20 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
 using System.Linq;
-using System.Text.Json;
 using System.Windows.Forms;
 
 namespace Tubes_Kelompok_3
 {
     public partial class ModeMemilihKataControl : UserControl
     {
-        private const string NamaFileSoal = "DataSoal.json";
-        private const string ErrorJudulSistem = "Kesalahan Sistem";
         private const string ErrorJudulData = "Kesalahan Data";
         private const string ErrorDataTidakValid = "Terjadi kesalahan sistem: Data soal tidak valid.";
-        private const string ErrorFormatJson = "Terjadi kesalahan pada format data JSON.";
+
+        private readonly IScoreStrategy scoreStrategy;
 
         private class DataSoal
         {
@@ -28,6 +25,9 @@ namespace Tubes_Kelompok_3
         public ModeMemilihKataControl()
         {
             InitializeComponent();
+
+            scoreStrategy = new MemilihKataScoreStrategy();
+
             MuatSoalDariDatabase();
 
             if (IsIndeksSoalValid(_indeksSoalAktif))
@@ -43,37 +43,40 @@ namespace Tubes_Kelompok_3
             int levelSaatIni = GameManager.Instance.CurrentLevel;
             var dataDb = DatabaseSingleton.GetInstance().GetSoalMemilihKata(levelSaatIni);
 
-            if (dataDb != null){
+            if (dataDb != null)
+            {
                 _tabelSoal = new List<DataSoal>();
+
                 DataSoal soalBaru = new DataSoal
                 {
                     JudulSoal = dataDb.JudulSoal,
                     OpsiKata = new Dictionary<string, bool>()
                 };
 
-                // Parsing opsi benar dengan delimiter koma
-                string[] kataBenar = dataDb.OpsiBenar.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-                foreach (string k in kataBenar)
+                foreach (string k in dataDb.OpsiBenar.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
                 {
                     soalBaru.OpsiKata[k.Trim()] = true;
                 }
 
-                // Parsing opsi salah dengan delimiter koma
-                string[] kataSalah = dataDb.OpsiSalah.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-                foreach (string k in kataSalah)
+                foreach (string k in dataDb.OpsiSalah.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
                 {
                     soalBaru.OpsiKata[k.Trim()] = false;
                 }
 
-                // Pengacakan (Shuffling) urutan elemen Dictionary menggunakan LINQ OrderBy Guid
                 soalBaru.OpsiKata = soalBaru.OpsiKata
                     .OrderBy(x => Guid.NewGuid())
-                    .ToDictionary(item => item.Key, item => item.Value);
+                    .ToDictionary(x => x.Key, x => x.Value);
 
                 _tabelSoal.Add(soalBaru);
             }
-            else{
-                TampilkanPesanError($"Data soal untuk Level {levelSaatIni} tidak ditemukan di database.", ErrorJudulData);
+            else
+            {
+                MessageBox.Show(
+                    $"Data soal untuk Level {levelSaatIni} tidak ditemukan.",
+                    ErrorJudulData,
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+
                 _tabelSoal = new List<DataSoal>();
             }
         }
@@ -82,9 +85,15 @@ namespace Tubes_Kelompok_3
         {
             if (_tabelSoal == null || indeks < 0 || indeks >= _tabelSoal.Count)
             {
-                TampilkanPesanError(ErrorDataTidakValid, ErrorJudulData);
+                MessageBox.Show(
+                    ErrorDataTidakValid,
+                    ErrorJudulData,
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+
                 return false;
             }
+
             return true;
         }
 
@@ -93,34 +102,30 @@ namespace Tubes_Kelompok_3
             BersihkanPanelKata();
 
             DataSoal soal = _tabelSoal[indeks];
+
             lblTitle.Text = soal.JudulSoal;
 
-            // INVARIANT
-            // Mengevaluasi integritas objek. Objek soal wajib memiliki setidaknya satu opsi kata.
             if (soal.OpsiKata.Count == 0)
             {
-                throw new InvalidOperationException("Kontrak Invarian Dilanggar: Data soal tidak memiliki opsi kata.");
+                throw new InvalidOperationException("Data soal kosong.");
             }
 
             RenderTombolOpsiKata(soal.OpsiKata);
         }
 
-        // SRP : Pemisahan logika UI disposal
         private void BersihkanPanelKata()
         {
-            // CLEAN CODE: Optimasi pelepasan memori agar menghindari kebocoran memori (Memory Leak).
             while (flpWordContainer.Controls.Count > 0)
             {
                 flpWordContainer.Controls[0].Dispose();
             }
         }
 
-        // SRP : Pemisahan logika perenderan komponen antarmuka
         private void RenderTombolOpsiKata(Dictionary<string, bool> opsiKata)
         {
-            foreach (KeyValuePair<string, bool> item in opsiKata)
+            foreach (var item in opsiKata)
             {
-                Button btnWord = new Button
+                Button btn = new Button
                 {
                     Text = item.Key,
                     Size = new Size(100, 40),
@@ -128,88 +133,96 @@ namespace Tubes_Kelompok_3
                     ForeColor = Color.Black
                 };
 
-                btnWord.Click += WordButton_Click;
-                flpWordContainer.Controls.Add(btnWord);
+                btn.Click += WordButton_Click;
+
+                flpWordContainer.Controls.Add(btn);
             }
         }
 
         private void WordButton_Click(object sender, EventArgs e)
         {
-            if (sender is Button clickedButton)
-            {
-                bool isSelected = clickedButton.BackColor == Color.DeepSkyBlue;
+            Button btn = sender as Button;
 
-                clickedButton.BackColor = isSelected ? Color.White : Color.DeepSkyBlue;
-                clickedButton.ForeColor = isSelected ? Color.Black : Color.White;
-            }
+            bool selected = btn.BackColor == Color.DeepSkyBlue;
+
+            btn.BackColor = selected ? Color.White : Color.DeepSkyBlue;
+            btn.ForeColor = selected ? Color.Black : Color.White;
         }
 
-        public void BtnSubmit_Click(object sender, EventArgs e)
+        private void BtnSubmit_Click(object sender, EventArgs e)
         {
-            if (!IsIndeksSoalValid(_indeksSoalAktif)) return;
+            if (!IsIndeksSoalValid(_indeksSoalAktif))
+                return;
 
-            DataSoal soalAktif = _tabelSoal[_indeksSoalAktif];
-            (int totalBenar, int totalSalah) = KalkulasiSkorJawaban(soalAktif);
+            DataSoal soal = _tabelSoal[_indeksSoalAktif];
 
-            int jumlahJawabanBenarSeharusnya = soalAktif.OpsiKata.Values.Count(val => val);
-            int jumlahBenarTernormalisasi = Math.Max(0, totalBenar - totalSalah);
+            int score = HitungScore(soal);
 
-            int persentaseSkor = 0;
-            if (jumlahJawabanBenarSeharusnya > 0)
+            int jumlahBenar =
+                soal.OpsiKata.Values.Count(v => v);
+
+            int persentase = 0;
+
+            if (jumlahBenar > 0)
             {
-                persentaseSkor = (int)Math.Round((double)jumlahBenarTernormalisasi / jumlahJawabanBenarSeharusnya * 100);
+                persentase = (int)Math.Round(
+                    (double)score / jumlahBenar * 100);
             }
 
-            persentaseSkor = Math.Min(100, persentaseSkor);
+            persentase = Math.Min(100, persentase);
 
-            int idPenggunaAktif = UserSession.Instance.CurrentUser.IdUser;
-            int idLevelAktif = GameManager.Instance.CurrentLevel;
+            DatabaseSingleton.GetInstance().SimpanSkorUser(
+                UserSession.Instance.CurrentUser.IdUser,
+                GameManager.Instance.CurrentLevel,
+                persentase);
 
-            DatabaseSingleton.GetInstance().SimpanSkorUser(idPenggunaAktif, idLevelAktif, persentaseSkor);
+            TampilkanHasilEvaluasi(
+                score,
+                jumlahBenar,
+                persentase);
 
-            TampilkanHasilEvaluasi(totalBenar, totalSalah, jumlahJawabanBenarSeharusnya, persentaseSkor);
-
-             GameManager.Instance.AlurSaatIni = AlurGame.LEVEL_MEMILIH_KATA;
+            GameManager.Instance.AlurSaatIni =
+                AlurGame.LEVEL_MEMILIH_KATA;
         }
 
-        private (int benar, int salah) KalkulasiSkorJawaban(DataSoal soalAktif)
+        private int HitungScore(DataSoal soal)
         {
-            int hitungBenar = 0;
-            int hitungSalah = 0;
+            int score = 0;
 
-            foreach (Button btnWord in flpWordContainer.Controls.OfType<Button>()){
-                string kata = btnWord.Text;
-                bool statusTerpilih = btnWord.BackColor == Color.DeepSkyBlue;
+            foreach (Button btn in flpWordContainer.Controls.OfType<Button>())
+            {
+                bool dipilih = btn.BackColor == Color.DeepSkyBlue;
 
-                if (soalAktif.OpsiKata.TryGetValue(kata, out bool statusValiditasTabel)){
-                    if (statusTerpilih){
-                        if (statusValiditasTabel) hitungBenar++;
-                        else hitungSalah++;
-                    }
+                if (!dipilih)
+                    continue;
+
+                if (soal.OpsiKata.TryGetValue(btn.Text, out bool benar))
+                {
+                    score = scoreStrategy.HitungScore(score, benar);
                 }
             }
 
-            return (hitungBenar, hitungSalah);
+            return Math.Max(0, score);
         }
 
-        private void TampilkanPesanError(string pesan, string judul)
+        private void TampilkanHasilEvaluasi(
+            int totalBenar,
+            int jumlahTarget,
+            int skorAkhir)
         {
-            MessageBox.Show(pesan, judul, MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
-
-        private void TampilkanHasilEvaluasi(int totalBenar, int totalSalah, int jumlahTarget, int skorAkhir)
-        {
-            string pesanHasil = $"Evaluasi Penyelesaian:\n\n" +
-                                $"- Kata benar yang ditemukan: {totalBenar} dari {jumlahTarget}\n" +
-                                $"- Kesalahan pemilihan: {totalSalah}\n" +
-                                $"- Total Skor: {skorAkhir}";
-
-            MessageBox.Show(pesanHasil, "Hasil Penilaian", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(
+                $"Evaluasi Penyelesaian\n\n" +
+                $"Kata benar : {totalBenar} dari {jumlahTarget}\n" +
+                $"Total Score : {skorAkhir}%",
+                "Hasil Penilaian",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
         }
 
         private void btnBack_Click(object sender, EventArgs e)
         {
-            GameManager.Instance.AlurSaatIni = AlurGame.LEVEL_MEMILIH_KATA;
+            GameManager.Instance.AlurSaatIni =
+                AlurGame.LEVEL_MEMILIH_KATA;
         }
     }
 }
