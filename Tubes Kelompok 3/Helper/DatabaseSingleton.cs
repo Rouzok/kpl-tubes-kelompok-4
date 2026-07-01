@@ -267,5 +267,68 @@ namespace Tubes_Kelompok_3
                 CloseConnection();
             }
         }
+
+        public List<Image> GetSoalModeGambar(int levelId)
+        {
+            List<Image> listSoal = new List<Image>();
+            try
+            {
+                OpenConnection();
+                string query = @"SELECT id_soal_gambar, path_gambar, kunci_jawaban 
+                         FROM soal_mode_gambar 
+                         WHERE level_id = @levelId";
+
+                MySqlCommand cmd = new MySqlCommand(query, _connection);
+                cmd.Parameters.AddWithValue("@levelId", levelId);
+
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        listSoal.Add(new Image
+                        {
+                            IdSoalGambar = reader.GetInt32("id_soal_gambar"),
+                            PathGambar = reader.GetString("path_gambar"),
+                            KunciJawaban = reader.GetString("kunci_jawaban")
+                        });
+                    }
+                }
+                return listSoal;
+            }
+            finally
+            {
+                CloseConnection();
+            }
+        }
+        public MencocokkanKata GetSoalMencocokkanKata(int levelId)
+        {
+            try
+            {
+                OpenConnection();
+                string query = @"SELECT entitas_kiri, entitas_kanan 
+                         FROM soal_mode_mencocokkan_kata 
+                         WHERE level_id = @levelId LIMIT 1";
+
+                MySqlCommand cmd = new MySqlCommand(query, _connection);
+                cmd.Parameters.AddWithValue("@levelId", levelId);
+
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        return new MencocokkanKata
+                        {
+                            EntitasKiri = reader.GetString("entitas_kiri"),
+                            EntitasKanan = reader.GetString("entitas_kanan")
+                        };
+                    }
+                }
+                return null;
+            }
+            finally
+            {
+                CloseConnection();
+            }
+        }
     }
 }
