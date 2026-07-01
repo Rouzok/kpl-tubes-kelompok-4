@@ -15,21 +15,31 @@ namespace Tubes_Kelompok_3
             object sender,
             EventArgs e)
         {
-            GameManager.Instance.AlurSaatIni= AlurGame.MODE_MENCOCOKAN_KATA;
+            GameManager.Instance.AlurSaatIni = AlurGame.LEVEL_MENCOCOKKAN_KATA;
         }
 
         private void btnModeMemilihKata_Click(
             object sender,
             EventArgs e)
         {
-            GameManager.Instance.AlurSaatIni = AlurGame.MODE_MEMILIH_KATA;
+            GameManager.Instance.AlurSaatIni = AlurGame.LEVEL_MEMILIH_KATA;
         }
 
         private void btnModeGambar_Click(
             object sender,
             EventArgs e)
         {
-            GameManager.Instance.AlurSaatIni = AlurGame.MODE_GAMBAR;
+            GameManager.Instance.AlurSaatIni = AlurGame.LEVEL_GAMBAR;
+        }
+
+        private void btnLogout_Click(object sender, EventArgs e)
+        {
+            if (UserSession.Instance != null)
+            {
+                UserSession.Instance.CurrentUser = null;
+            }
+
+            GameManager.Instance.AlurSaatIni = AlurGame.HalamanLogin;
         }
     }
 }

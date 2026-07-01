@@ -32,11 +32,12 @@
             this.tb_username_login = new System.Windows.Forms.TextBox();
             this.tb_password_login = new System.Windows.Forms.TextBox();
             this.btn_login = new System.Windows.Forms.Button();
-            this.btn_buat_akun = new System.Windows.Forms.Button();
+            this.btn_registrasi2 = new System.Windows.Forms.Button();
             this.lbl_buat_akun = new System.Windows.Forms.Label();
             this.lbl_username_login = new System.Windows.Forms.Label();
             this.lbl_password_login = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lbl_aplikasi_login = new System.Windows.Forms.Label();
+            this.btn_show_password = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lbl_login
@@ -81,18 +82,18 @@
             this.btn_login.UseVisualStyleBackColor = false;
             this.btn_login.Click += new System.EventHandler(this.btn_login_Click);
             // 
-            // btn_buat_akun
+            // btn_registrasi2
             // 
-            this.btn_buat_akun.BackColor = System.Drawing.Color.OldLace;
-            this.btn_buat_akun.Font = new System.Drawing.Font("Times New Roman", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_buat_akun.ForeColor = System.Drawing.Color.Goldenrod;
-            this.btn_buat_akun.Location = new System.Drawing.Point(111, 463);
-            this.btn_buat_akun.Name = "btn_buat_akun";
-            this.btn_buat_akun.Size = new System.Drawing.Size(127, 46);
-            this.btn_buat_akun.TabIndex = 4;
-            this.btn_buat_akun.Text = "REGISTRASI";
-            this.btn_buat_akun.UseVisualStyleBackColor = false;
-            this.btn_buat_akun.Click += new System.EventHandler(this.btn_buat_akun_Click);
+            this.btn_registrasi2.BackColor = System.Drawing.Color.OldLace;
+            this.btn_registrasi2.Font = new System.Drawing.Font("Times New Roman", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_registrasi2.ForeColor = System.Drawing.Color.Goldenrod;
+            this.btn_registrasi2.Location = new System.Drawing.Point(101, 462);
+            this.btn_registrasi2.Name = "btn_registrasi2";
+            this.btn_registrasi2.Size = new System.Drawing.Size(154, 46);
+            this.btn_registrasi2.TabIndex = 4;
+            this.btn_registrasi2.Text = "REGISTRASI";
+            this.btn_registrasi2.UseVisualStyleBackColor = false;
+            this.btn_registrasi2.Click += new System.EventHandler(this.btn_buat_akun_Click);
             // 
             // lbl_buat_akun
             // 
@@ -127,34 +128,47 @@
             this.lbl_password_login.TabIndex = 7;
             this.lbl_password_login.Text = "Password";
             // 
-            // label1
+            // lbl_aplikasi_login
             // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.OldLace;
-            this.label1.Font = new System.Drawing.Font("Ravie", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.Goldenrod;
-            this.label1.Location = new System.Drawing.Point(79, 23);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(204, 22);
-            this.label1.TabIndex = 8;
-            this.label1.Text = "EduEnglish Quiz";
+            this.lbl_aplikasi_login.AutoSize = true;
+            this.lbl_aplikasi_login.BackColor = System.Drawing.Color.OldLace;
+            this.lbl_aplikasi_login.Font = new System.Drawing.Font("Ravie", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_aplikasi_login.ForeColor = System.Drawing.Color.Goldenrod;
+            this.lbl_aplikasi_login.Location = new System.Drawing.Point(79, 23);
+            this.lbl_aplikasi_login.Name = "lbl_aplikasi_login";
+            this.lbl_aplikasi_login.Size = new System.Drawing.Size(204, 22);
+            this.lbl_aplikasi_login.TabIndex = 8;
+            this.lbl_aplikasi_login.Text = "EduEnglish Quiz";
+            // 
+            // btn_show_password
+            // 
+            this.btn_show_password.BackColor = System.Drawing.Color.OldLace;
+            this.btn_show_password.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_show_password.Location = new System.Drawing.Point(334, 261);
+            this.btn_show_password.Name = "btn_show_password";
+            this.btn_show_password.Size = new System.Drawing.Size(29, 31);
+            this.btn_show_password.TabIndex = 14;
+            this.btn_show_password.Text = "👁";
+            this.btn_show_password.UseVisualStyleBackColor = false;
+            this.btn_show_password.Click += new System.EventHandler(this.btn_show_password_Click);
             // 
             // HalamanLoginControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.OldLace;
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.btn_show_password);
+            this.Controls.Add(this.lbl_aplikasi_login);
             this.Controls.Add(this.lbl_password_login);
             this.Controls.Add(this.lbl_username_login);
             this.Controls.Add(this.lbl_buat_akun);
-            this.Controls.Add(this.btn_buat_akun);
+            this.Controls.Add(this.btn_registrasi2);
             this.Controls.Add(this.btn_login);
             this.Controls.Add(this.tb_password_login);
             this.Controls.Add(this.tb_username_login);
             this.Controls.Add(this.lbl_login);
             this.Name = "HalamanLoginControl";
-            this.Size = new System.Drawing.Size(374, 533);
+            this.Size = new System.Drawing.Size(374, 600);
             this.Load += new System.EventHandler(this.HalamanLoginControl_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -167,10 +181,11 @@
         private System.Windows.Forms.TextBox tb_username_login;
         private System.Windows.Forms.TextBox tb_password_login;
         private System.Windows.Forms.Button btn_login;
-        private System.Windows.Forms.Button btn_buat_akun;
+        private System.Windows.Forms.Button btn_registrasi2;
         private System.Windows.Forms.Label lbl_buat_akun;
         private System.Windows.Forms.Label lbl_username_login;
         private System.Windows.Forms.Label lbl_password_login;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lbl_aplikasi_login;
+        private System.Windows.Forms.Button btn_show_password;
     }
 }

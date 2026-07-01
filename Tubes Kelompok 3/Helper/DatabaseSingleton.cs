@@ -6,7 +6,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using static Tubes_Kelompok_3.HalamanRegistrasiControl;
+using Tubes_Kelompok_3.Models;
 
 namespace Tubes_Kelompok_3
 {
@@ -93,6 +93,8 @@ namespace Tubes_Kelompok_3
                     if (reader.Read())
                     {
                         // Ekstraksi nilai dengan penanganan null (Defensive Programming)
+                        int idUser= reader.GetInt32("id_user");
+
                         string dbUsername = reader.GetString("username");
 
                         string dbNamaDepan = reader.IsDBNull(reader.GetOrdinal("firstname"))
@@ -103,7 +105,7 @@ namespace Tubes_Kelompok_3
                             ? ""
                             : reader.GetString("lastname");
 
-                        return new HalamanRegistrasiControl.User(dbNamaDepan, dbNamaBelakang, dbUsername);
+                        return new User(idUser, dbNamaDepan, dbNamaBelakang, dbUsername);
                     }
                 }
 
@@ -161,6 +163,167 @@ namespace Tubes_Kelompok_3
                 insertCmd.ExecuteNonQuery();
 
                 return true;
+            }
+            finally
+            {
+                CloseConnection();
+          
+            }
+
+        }
+        public List<Level> GetLevels(string mode)
+        {
+            List<Level> levels = new List<Level>();
+
+            try
+            {
+                OpenConnection();
+
+                string query = @"
+            SELECT
+                id_level,
+                nama_mode,
+                level_number,
+                total_skor,
+                is_active
+            FROM levels
+            WHERE nama_mode = @mode
+            ORDER BY level_number ASC";
+
+                MySqlCommand cmd = new MySqlCommand(query, _connection);
+
+                cmd.Parameters.AddWithValue("@mode", mode);
+
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Level level = new Level();
+
+                        level.IdLevel = reader.GetInt32("id_level");
+                        level.NamaMode = reader.GetString("nama_mode");
+                        level.LevelNumber = reader.GetInt32("level_number");
+                        level.TotalSkor = reader.GetInt32("total_skor");
+                        level.IsActive = reader.GetBoolean("is_active");
+
+                        levels.Add(level);
+                    }
+                }
+
+                return levels;
+            }
+            finally
+            {
+                CloseConnection();
+            }
+        }
+        public SoalMemilihKata GetSoalMemilihKata(int levelId)
+        {
+            try
+            {
+                OpenConnection();
+                string query = @"SELECT judul_soal, opsi_benar, opsi_salah 
+                         FROM soal_mode_memilih_kata 
+                         WHERE level_id = @levelId LIMIT 1";
+
+                MySqlCommand cmd = new MySqlCommand(query, _connection);
+                cmd.Parameters.AddWithValue("@levelId", levelId);
+
+                using (MySqlDataReader reader = cmd.ExecuteReader()){
+                    if (reader.Read()){
+                        return new SoalMemilihKata
+                        {
+                            JudulSoal = reader.GetString("judul_soal"),
+                            OpsiBenar = reader.GetString("opsi_benar"),
+                            OpsiSalah = reader.GetString("opsi_salah")
+                        };
+                    }
+                }
+                return null;
+            }
+            finally
+            {
+                CloseConnection();
+            }
+        }
+        public void SimpanSkorUser(int userId, int levelId, int skorPersentase)
+        {
+            try
+            {
+                OpenConnection();
+
+                string query = @"INSERT INTO user_scores (user_id, level_id, skor_user, played_at) 
+                         VALUES (@userId, @levelId, @skorUser, NOW())";
+
+                MySqlCommand cmd = new MySqlCommand(query, _connection);
+                cmd.Parameters.AddWithValue("@userId", userId);
+                cmd.Parameters.AddWithValue("@levelId", levelId);
+                cmd.Parameters.AddWithValue("@skorUser", skorPersentase);
+
+                cmd.ExecuteNonQuery();
+            }
+            finally
+            {
+                CloseConnection();
+            }
+        }
+
+        public List<Image> GetSoalModeGambar(int levelId)
+        {
+            List<Image> listSoal = new List<Image>();
+            try
+            {
+                OpenConnection();
+                string query = @"SELECT id_soal_gambar, path_gambar, kunci_jawaban 
+                         FROM soal_mode_gambar 
+                         WHERE level_id = @levelId";
+
+                MySqlCommand cmd = new MySqlCommand(query, _connection);
+                cmd.Parameters.AddWithValue("@levelId", levelId);
+
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        listSoal.Add(new Image
+                        {
+                            IdSoalGambar = reader.GetInt32("id_soal_gambar"),
+                            PathGambar = reader.GetString("path_gambar"),
+                            KunciJawaban = reader.GetString("kunci_jawaban")
+                        });
+                    }
+                }
+                return listSoal;
+            }
+            finally
+            {
+                CloseConnection();
+            }
+        }
+        public MencocokkanKata GetSoalMencocokkanKata(int levelId)
+        {
+            try
+            {
+                OpenConnection();
+                string query = @"SELECT entitas_kiri, entitas_kanan 
+                         FROM soal_mode_mencocokkan_kata 
+                         WHERE level_id = @levelId LIMIT 1";
+
+                MySqlCommand cmd = new MySqlCommand(query, _connection);
+                cmd.Parameters.AddWithValue("@levelId", levelId);
+
+                using (MySqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        return new MencocokkanKata
+                        {
+                            EntitasKiri = reader.GetString("entitas_kiri"),
+                            EntitasKanan = reader.GetString("entitas_kanan")
+                        };
+                    }
+                }
+                return null;
             }
             finally
             {

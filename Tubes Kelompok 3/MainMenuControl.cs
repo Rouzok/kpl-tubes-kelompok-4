@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,7 @@ namespace Tubes_Kelompok_3
         public MainMenuControl()
         {
             InitializeComponent();
+            Debug.WriteLine(UserSession.Instance.CurrentUser.IdUser);
         }
        
         private void btnPilihMode_Click(object sender, EventArgs e)
